@@ -133,6 +133,17 @@
         _shoppingView.alpha = 0.0;
         [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
     }
+    [self rotateLayer:_plusImage.layer];
+}
+
+- (void)rotateLayer:(CALayer*)layer{
+    CABasicAnimation *rotation;
+    rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    rotation.fromValue = @0.0f;
+    rotation.toValue = [NSNumber numberWithFloat:(2 * M_PI)];
+    rotation.duration = 0.5f; // Speed
+    rotation.repeatCount = 1; // Repeat forever
+    [layer addAnimation:rotation forKey:@"Spin"];
 }
 
 #pragma mark - Conversation Handling
