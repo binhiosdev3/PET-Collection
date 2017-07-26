@@ -6,6 +6,8 @@
 //  Copyright © 2017 Pham. All rights reserved.
 //
 
+#import "UIImage+Ext.h"
+
 #ifndef Constant_h
 #define Constant_h
 

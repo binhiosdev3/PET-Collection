@@ -21,6 +21,7 @@
 @property (nonatomic,weak) IBOutlet UICollectionView* clIcon;
 @property (nonatomic,weak) IBOutlet ShoppingView* shoppingView;
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
+@property (nonatomic,weak) IBOutlet UIImageView* topLine;
 @property (nonatomic) NSInteger indexSelected;
 @end
 
@@ -78,11 +79,18 @@
 - (UICollectionViewCell*)loadIconCell:(NSIndexPath*)indexPath {
     UICollectionViewCell* cell = [_clIcon dequeueReusableCellWithReuseIdentifier:@"IconCell" forIndexPath:indexPath];
     FLAnimatedImageView* iconImgView;
+
     StickerPack* stickerPackage;
     iconImgView = [cell viewWithTag:1];
     stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:indexPath.row];
     NSURL* iconUrl =  [[FileManager stickerFileURL] URLByAppendingPathComponent:stickerPackage.iconPath];
     [iconImgView sd_setImageWithURL:iconUrl];
+    UIView* selectedView = [[UIView alloc] init];
+    selectedView.backgroundColor = self.topLine.backgroundColor;
+    cell.selectedBackgroundView = selectedView;
+    if(indexPath.row == _indexSelected) {
+        cell.selected = YES;
+    }
     return cell;
 }
 
@@ -135,6 +143,7 @@
     }
     else {
         [self showShoppingView:NO];
+         [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
         [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
     }
 }

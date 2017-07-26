@@ -104,7 +104,6 @@ static NSString *_rootLibraryPath = nil;
 }
 
 
-
 + (UIImage *)imageImmediateLoadWithContentsOfFile:(NSString *)path{
     NSURL* stickerUrl = [[FileManager stickerFileURL] URLByAppendingPathComponent:path];
     path = stickerUrl.path;

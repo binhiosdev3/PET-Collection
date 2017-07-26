@@ -45,6 +45,7 @@
 		5F8454861F27305E00E62DDE /* IAPShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454801F27305E00E62DDE /* IAPShare.m */; };
 		5F8454871F27305E00E62DDE /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454821F27305E00E62DDE /* NSString+Base64.m */; };
 		5F8454881F27305E00E62DDE /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454841F27305E00E62DDE /* SFHFKeychainUtils.m */; };
+		5F84548C1F289F3C00E62DDE /* UIImage+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,8 @@
 		5F8454821F27305E00E62DDE /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		5F8454831F27305E00E62DDE /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		5F8454841F27305E00E62DDE /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		5F84548A1F289F3C00E62DDE /* UIImage+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Ext.h"; sourceTree = "<group>"; };
+		5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Ext.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,8 @@
 				5F8454241F26F44900E62DDE /* StickerManager.m */,
 				5F8454291F27204B00E62DDE /* StickerPack.h */,
 				5F84542A1F27204B00E62DDE /* StickerPack.m */,
+				5F84548A1F289F3C00E62DDE /* UIImage+Ext.h */,
+				5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */,
 			);
 			path = MessagesExtension;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				5F8454671F27304B00E62DDE /* SDWebImageCompat.m in Sources */,
 				5F8454161F25F0E900E62DDE /* CollectionViewCell.m in Sources */,
 				5F8454681F27304B00E62DDE /* SDWebImageDecoder.m in Sources */,
+				5F84548C1F289F3C00E62DDE /* UIImage+Ext.m in Sources */,
 				5F84546F1F27304B00E62DDE /* UIImage+MultiFormat.m in Sources */,
 				5F8454701F27304B00E62DDE /* UIImage+WebP.m in Sources */,
 				5F84546A1F27304B00E62DDE /* SDWebImageDownloaderOperation.m in Sources */,

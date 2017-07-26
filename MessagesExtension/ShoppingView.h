@@ -13,6 +13,6 @@
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 @property (nonatomic, weak) IBOutlet DetailView* detailView;
-
+@property (nonatomic,strong) NSDictionary *jsonDataArray;
 - (void)setUpView;
 @end
