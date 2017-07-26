@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F8453F41F25EA3A00E62DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8453F31F25EA3A00E62DDE /* Assets.xcassets */; };
 		5F8453FB1F25EA3A00E62DDE /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F8454001F25EA3A00E62DDE /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8453FF1F25EA3A00E62DDE /* Messages.framework */; };
 		5F8454041F25EA3A00E62DDE /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454031F25EA3A00E62DDE /* MessagesViewController.m */; };
@@ -46,7 +45,6 @@
 		5F8454861F27305E00E62DDE /* IAPShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454801F27305E00E62DDE /* IAPShare.m */; };
 		5F8454871F27305E00E62DDE /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454821F27305E00E62DDE /* NSString+Base64.m */; };
 		5F8454881F27305E00E62DDE /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454841F27305E00E62DDE /* SFHFKeychainUtils.m */; };
-		5F8454891F274B1000E62DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8453F31F25EA3A00E62DDE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +73,6 @@
 
 /* Begin PBXFileReference section */
 		5F8453F01F25EA3A00E62DDE /* PET Sticker Collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PET Sticker Collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F8453F31F25EA3A00E62DDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5F8453F51F25EA3A00E62DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessagesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FF1F25EA3A00E62DDE /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		5F8454021F25EA3A00E62DDE /* MessagesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
@@ -168,7 +164,6 @@
 		5F8453E91F25EA3A00E62DDE = {
 			isa = PBXGroup;
 			children = (
-				5F8453F21F25EA3A00E62DDE /* PET Sticker Collection */,
 				5F8454011F25EA3A00E62DDE /* MessagesExtension */,
 				5F8453FE1F25EA3A00E62DDE /* Frameworks */,
 				5F8453F11F25EA3A00E62DDE /* Products */,
@@ -182,15 +177,6 @@
 				5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		5F8453F21F25EA3A00E62DDE /* PET Sticker Collection */ = {
-			isa = PBXGroup;
-			children = (
-				5F8453F31F25EA3A00E62DDE /* Assets.xcassets */,
-				5F8453F51F25EA3A00E62DDE /* Info.plist */,
-			);
-			path = "PET Sticker Collection";
 			sourceTree = "<group>";
 		};
 		5F8453FE1F25EA3A00E62DDE /* Frameworks */ = {
@@ -394,7 +380,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F8453F41F25EA3A00E62DDE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +389,6 @@
 			files = (
 				5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */,
 				5F84541E1F26F18900E62DDE /* Stickers in Resources */,
-				5F8454891F274B1000E62DDE /* Assets.xcassets in Resources */,
 				5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +617,7 @@
 				5F84540F1F25EA3A00E62DDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5F8454111F25EA3A00E62DDE /* Build configuration list for PBXNativeTarget "PET Sticker Collection" */ = {
 			isa = XCConfigurationList;
@@ -641,6 +626,7 @@
 				5F8454131F25EA3A00E62DDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

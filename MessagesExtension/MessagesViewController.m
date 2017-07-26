@@ -28,8 +28,11 @@
     [super viewDidLoad];
     [StickerManager getInstance];
     _indexSelected = 0;
-    UIImage* img = [UIImage imageNamed:@"plus_icon"];
+    UIImage* img = [UIImage imageNamed:@"plusicon"];
     [_plusImage setImage:img];
+
+    _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+    _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,7 +136,6 @@
         _shoppingView.alpha = 0.0;
         [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
     }
-    [self rotateLayer:_plusImage.layer];
 }
 
 - (void)rotateLayer:(CALayer*)layer{

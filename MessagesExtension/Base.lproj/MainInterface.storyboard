@@ -140,7 +140,7 @@
                                 </connections>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Gf9-eb-kW9">
-                                <rect key="frame" x="48" y="2" width="272" height="526"/>
+                                <rect key="frame" x="48" y="0.0" width="272" height="528"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="QsA-mq-8CZ">
                                     <size key="itemSize" width="50" height="50"/>
@@ -179,7 +179,7 @@
                                 </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1eL-VH-hnQ">
-                                <rect key="frame" x="0.0" y="2" width="40" height="526"/>
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="528"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="SUc-MK-WnN"/>
@@ -221,29 +221,29 @@
                                 </connections>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tHY-my-7qN" userLabel="Top Line">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                 <color key="backgroundColor" red="0.35022440552711487" green="0.64641326665878296" blue="0.83236777782440186" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="HDk-je-DK7"/>
+                                    <constraint firstAttribute="height" id="HDk-je-DK7"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dl5-Wl-HN2" userLabel="line">
-                                <rect key="frame" x="40" y="2" width="1" height="526"/>
+                                <rect key="frame" x="40" y="0.0" width="1" height="528"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="Kw5-Gl-lGZ"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus_icon" translatesAutoresizingMaskIntoConstraints="NO" id="PY4-T1-h0R">
-                                <rect key="frame" x="272" y="480" width="40" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plusicon" translatesAutoresizingMaskIntoConstraints="NO" id="PY4-T1-h0R">
+                                <rect key="frame" x="252" y="460" width="60" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="M8E-Vc-zEs"/>
+                                    <constraint firstAttribute="width" constant="60" id="M8E-Vc-zEs"/>
                                     <constraint firstAttribute="width" secondItem="PY4-T1-h0R" secondAttribute="height" multiplier="1:1" id="ybP-He-jhc"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-js-cTJ">
-                                <rect key="frame" x="267" y="475" width="50" height="50"/>
+                                <rect key="frame" x="257" y="465" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="aSd-9b-hf4"/>
@@ -295,6 +295,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="plus_icon" width="68" height="68"/>
+        <image name="plusicon" width="106" height="108"/>
     </resources>
 </document>
