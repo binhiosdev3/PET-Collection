@@ -20,7 +20,6 @@
 @property (nonatomic,weak) IBOutlet UICollectionView* clSticker;
 @property (nonatomic,weak) IBOutlet UICollectionView* clIcon;
 @property (nonatomic,weak) IBOutlet ShoppingView* shoppingView;
-@property (nonatomic,weak) IBOutlet UIImageView* plusImage;
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic) NSInteger indexSelected;
 @end
@@ -31,9 +30,6 @@
     [super viewDidLoad];
     [StickerManager getInstance];
     _indexSelected = 0;
-    UIImage* img = [UIImage imageNamed:@"plusicon"];
-    [_plusImage setImage:img];
-
     _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
@@ -134,21 +130,28 @@
 
 
 - (IBAction)handleShoppingButton:(id)sender {
-    if (self.presentationStyle == MSMessagesAppPresentationStyleCompact) {
-        [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
-        _shoppingView.alpha = 1.0;
-        [_shoppingView.tableView reloadData];
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
+    if (self.presentationStyle == MSMessagesAppPresentationStyleCompact || _shoppingView.alpha == 0.0) {
+        [self showShoppingView:YES];
     }
     else {
-        _shoppingView.alpha = 0.0;
-        [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
+        [self showShoppingView:NO];
         [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
     }
 }
 
+- (void)showShoppingView:(BOOL)show {
+    if(show){
+        [_shoppingView.tableView reloadData];
+        [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
+    }
+    _btnShopping.selected = show;
+    _shoppingView.alpha = show ? 1.0 : 0.0;
+    
+}
+
 - (void)rotatePlusImg {
-    [self rotateLayer:self.plusImage.layer];
+    [self rotateLayer:self.btnShopping.layer];
     [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
 }
 
@@ -203,9 +206,9 @@
 }
 
 -(void)willTransitionToPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle {
-    // Called before the extension transitions to a new presentation style.
-    
-    // Use this method to prepare for the change in presentation style.
+    if (presentationStyle == MSMessagesAppPresentationStyleCompact && _shoppingView.alpha == 1.0) {
+        [self showShoppingView:NO];
+    }
 }
 
 -(void)didTransitionToPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle {

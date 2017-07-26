@@ -139,17 +139,15 @@
                                     <outlet property="tableView" destination="i3M-dJ-RNe" id="LCC-SU-Vwc"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plusicon" translatesAutoresizingMaskIntoConstraints="NO" id="PY4-T1-h0R">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-js-cTJ">
                                 <rect key="frame" x="252" y="460" width="60" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="M8E-Vc-zEs"/>
-                                    <constraint firstAttribute="width" secondItem="PY4-T1-h0R" secondAttribute="height" multiplier="1:1" id="ybP-He-jhc"/>
+                                    <constraint firstAttribute="width" constant="60" id="8KP-RQ-Xlm"/>
+                                    <constraint firstAttribute="width" secondItem="PBa-js-cTJ" secondAttribute="height" multiplier="1:1" id="fyj-hy-Pqa"/>
                                 </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-js-cTJ">
-                                <rect key="frame" x="252" y="473" width="60" height="34"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" image="plusicon"/>
                                 <connections>
                                     <action selector="handleShoppingButton:" destination="ObA-dk-sSI" eventType="touchUpInside" id="qdT-X9-rrv"/>
                                 </connections>
@@ -159,24 +157,20 @@
                         <constraints>
                             <constraint firstItem="F5D-mf-dbR" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="5mW-8D-zV6"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="1eL-VH-hnQ" secondAttribute="bottom" id="A7y-w1-z1s"/>
-                            <constraint firstItem="PBa-js-cTJ" firstAttribute="centerX" secondItem="PY4-T1-h0R" secondAttribute="centerX" id="DhK-Mf-zXH"/>
+                            <constraint firstItem="PBa-js-cTJ" firstAttribute="bottom" secondItem="Gf9-eb-kW9" secondAttribute="bottom" constant="-8" id="AN0-Bd-IhF"/>
                             <constraint firstAttribute="trailing" secondItem="F5D-mf-dbR" secondAttribute="trailing" id="H3g-tH-tCj"/>
                             <constraint firstItem="dl5-Wl-HN2" firstAttribute="top" secondItem="1eL-VH-hnQ" secondAttribute="top" id="MnO-eV-azp"/>
                             <constraint firstItem="F5D-mf-dbR" firstAttribute="centerY" secondItem="Gf9-eb-kW9" secondAttribute="centerY" id="QXa-7L-0Kp"/>
                             <constraint firstAttribute="trailing" secondItem="Gf9-eb-kW9" secondAttribute="trailing" id="Qpb-Oa-oV5"/>
                             <constraint firstItem="F5D-mf-dbR" firstAttribute="height" secondItem="Gf9-eb-kW9" secondAttribute="height" id="QqN-RA-HUo"/>
                             <constraint firstItem="1eL-VH-hnQ" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="RZu-fu-hIJ"/>
-                            <constraint firstItem="PY4-T1-h0R" firstAttribute="bottom" secondItem="Gf9-eb-kW9" secondAttribute="bottom" constant="-8" id="WBZ-zw-ptN"/>
-                            <constraint firstItem="PBa-js-cTJ" firstAttribute="centerY" secondItem="PY4-T1-h0R" secondAttribute="centerY" id="Wej-Dy-Knp"/>
                             <constraint firstItem="Gf9-eb-kW9" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="YCn-fb-IS1"/>
-                            <constraint firstItem="PBa-js-cTJ" firstAttribute="width" secondItem="PY4-T1-h0R" secondAttribute="width" id="gPX-V6-7en"/>
+                            <constraint firstAttribute="trailing" secondItem="PBa-js-cTJ" secondAttribute="trailing" constant="8" id="gdr-vg-9sB"/>
                             <constraint firstItem="Gf9-eb-kW9" firstAttribute="leading" secondItem="dl5-Wl-HN2" secondAttribute="trailing" constant="7" id="hmS-Wp-jUM"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="Gf9-eb-kW9" secondAttribute="bottom" id="hwE-no-Lfj"/>
                             <constraint firstItem="dl5-Wl-HN2" firstAttribute="leading" secondItem="1eL-VH-hnQ" secondAttribute="trailing" id="lle-GL-caN"/>
                             <constraint firstItem="dl5-Wl-HN2" firstAttribute="bottom" secondItem="1eL-VH-hnQ" secondAttribute="bottom" id="mED-LP-Tgk"/>
-                            <constraint firstItem="PY4-T1-h0R" firstAttribute="trailing" secondItem="Gf9-eb-kW9" secondAttribute="trailing" constant="-8" id="qF8-Ee-Auz"/>
                             <constraint firstItem="1eL-VH-hnQ" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="vye-RQ-3Yc"/>
-                            <constraint firstItem="PBa-js-cTJ" firstAttribute="width" secondItem="PY4-T1-h0R" secondAttribute="height" multiplier="1:1" id="waI-di-LDA"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -186,7 +180,6 @@
                         <outlet property="btnShopping" destination="PBa-js-cTJ" id="Tee-je-Gev"/>
                         <outlet property="clIcon" destination="1eL-VH-hnQ" id="w93-BR-AR0"/>
                         <outlet property="clSticker" destination="Gf9-eb-kW9" id="vHb-KB-631"/>
-                        <outlet property="plusImage" destination="PY4-T1-h0R" id="Wl9-Eh-7R8"/>
                         <outlet property="shoppingView" destination="F5D-mf-dbR" id="CGO-rc-iaf"/>
                     </connections>
                 </viewController>
