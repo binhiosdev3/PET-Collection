@@ -13,12 +13,15 @@
 #import "StickerManager.h"
 #import "FLAnimatedImageView+WebCache.h"
 
+#define delay_animate rand()%10+2
+
 @interface MessagesViewController () <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,weak) IBOutlet UICollectionView* clSticker;
 @property (nonatomic,weak) IBOutlet UICollectionView* clIcon;
 @property (nonatomic,weak) IBOutlet ShoppingView* shoppingView;
 @property (nonatomic,weak) IBOutlet UIImageView* plusImage;
+@property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic) NSInteger indexSelected;
 @end
 
@@ -33,6 +36,7 @@
 
     _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
+    [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,6 +102,9 @@
     return cell;
 }
 
+-(void)viewDidLayoutSubviews {
+    _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
+}
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == _clIcon) {
@@ -131,11 +138,18 @@
         [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
         _shoppingView.alpha = 1.0;
         [_shoppingView.tableView reloadData];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
     }
     else {
         _shoppingView.alpha = 0.0;
         [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
+        [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
     }
+}
+
+- (void)rotatePlusImg {
+    [self rotateLayer:self.plusImage.layer];
+    [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
 }
 
 - (void)rotateLayer:(CALayer*)layer{
@@ -156,10 +170,9 @@
     [_shoppingView setUpView];
     [_clIcon reloadData];
     [_clSticker reloadData];
-    // Called when the extension is about to move from the inactive to active state.
-    // This will happen when the extension is about to present UI.
-    
-    // Use this method to configure the extension and restore previously stored state.
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
+    [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
+
 }
 
 -(void)willResignActiveWithConversation:(MSConversation *)conversation {
