@@ -7,9 +7,12 @@
 //
 
 #import "UIImage+Ext.h"
+#import "IAPShare.h"
+#import "IAPHelper.h"
 
 #ifndef Constant_h
 #define Constant_h
+#define NUM_STICKER_FREE 5
 
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
@@ -17,6 +20,8 @@
 #define BlockWeakSelf BlockWeakObject(self)
 
 #define JSON_URL @"https://gist.githubusercontent.com/binhiosdev3/2443f758e248b1697bc3289feb97f927/raw/"
+
+#define IS_PURCHASE_KEY @"Willattempttorecover_key"
 
 #define stickerdf_1 @"1"
 #define stickerdf_2 @"2"

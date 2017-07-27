@@ -9,12 +9,13 @@
 #import "ShoppingTableViewCell.h"
 #import "FLAnimatedImageView+WebCache.h"
 #import "FileManager.h"
+#import "StickerManager.h"
 
 @interface ShoppingTableViewCell()
 
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* iconView;
 @property (nonatomic,weak) IBOutlet UILabel* lbTitle;
-@property (nonatomic,weak) IBOutlet UIButton* btnDownload;
+@property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
 @property (nonatomic,assign) NSDictionary* packageDict;
 @end
 
@@ -22,6 +23,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    UIImage* imgDownIcon = [[UIImage imageNamed:@"down_filled"] imageMaskedWithColor:[UIColor whiteColor]];
+    [_btnDownload setImage:imgDownIcon forState:UIControlStateNormal];
     // Initialization code
 }
 
@@ -36,25 +39,36 @@
     NSString* str = [_packageDict objectForKey:@"icon"];
     _lbTitle.text = [_packageDict objectForKey:@"title"];
     [_iconView sd_setImageWithURL:[NSURL URLWithString:str]];
+    for(NSString* strId in [StickerManager getInstance].arrDownloadingPack) {
+        if([[_packageDict objectForKey:@"id"] isEqualToString:strId]) {
+            _btnDownload.enabled = NO;
+            _btnDownload.working = YES;
+        }
+    }
+    
 }
 
+-(void)prepareForReuse {
+    _btnDownload.enabled = YES;
+    _btnDownload.working = NO;
+}
 
 - (IBAction)handleDownload:(id)sender {
     NSString *stringURL = [_packageDict objectForKey:@"url"];
+    _btnDownload.enabled = NO;
+    _btnDownload.working = YES;
+    [[StickerManager getInstance].arrDownloadingPack addObject:[_packageDict objectForKey:@"id"]];
     BlockWeakSelf weakSelf = self;
     dispatch_queue_t queue = dispatch_get_global_queue(0,0);
     dispatch_async(queue, ^{
         NSLog(@"Beginning download");
-        
         NSURL  *url = [NSURL URLWithString:stringURL];
         NSData *urlData = [NSData dataWithContentsOfURL:url];
-        
-        //Find a cache directory. You could consider using documenets dir instead (depends on the data you are fetching)
         NSLog(@"Got the data!");
         //Save the data
         NSLog(@"Saving");
         [FileManager createStickerWithDictionary:weakSelf.packageDict andData:urlData];
-//        [urlData writeToFile:dataPath atomically:YES];
+
 
     });
 }

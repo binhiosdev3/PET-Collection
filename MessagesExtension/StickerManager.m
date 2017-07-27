@@ -9,6 +9,7 @@
 #import "StickerManager.h"
 #import "StickerPack.h"
 
+
 @implementation StickerManager
 
 + (StickerManager *)getInstance {
@@ -54,5 +55,7 @@
     [userDefaults synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
 }
+
+
 
 @end

@@ -53,6 +53,8 @@
 		5F8797081F2997EB0068179A /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797011F2997EB0068179A /* zip.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5F8797091F2997EB0068179A /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797041F2997EB0068179A /* ZipArchive.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5F87970B1F29A6490068179A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F87970A1F29A6490068179A /* StoreKit.framework */; };
+		5F8797141F29EC110068179A /* KBRoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797111F29EC110068179A /* KBRoundedButton.m */; };
+		5F8797151F29EC110068179A /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797131F29EC110068179A /* UIImage+Color.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +173,10 @@
 		5F8797031F2997EB0068179A /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		5F8797041F2997EB0068179A /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchive.m; sourceTree = "<group>"; };
 		5F87970A1F29A6490068179A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		5F8797101F29EC110068179A /* KBRoundedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBRoundedButton.h; sourceTree = "<group>"; };
+		5F8797111F29EC110068179A /* KBRoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBRoundedButton.m; sourceTree = "<group>"; };
+		5F8797121F29EC110068179A /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		5F8797131F29EC110068179A /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +222,7 @@
 		5F8454011F25EA3A00E62DDE /* MessagesExtension */ = {
 			isa = PBXGroup;
 			children = (
+				5F87970F1F29EC110068179A /* KBRoundedButton */,
 				5F8796F81F2997EB0068179A /* ZipArchive */,
 				5F84547C1F27305E00E62DDE /* IAPHelper */,
 				5F8454751F27305800E62DDE /* FLAnimatedImage */,
@@ -355,6 +362,17 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
+		5F87970F1F29EC110068179A /* KBRoundedButton */ = {
+			isa = PBXGroup;
+			children = (
+				5F8797101F29EC110068179A /* KBRoundedButton.h */,
+				5F8797111F29EC110068179A /* KBRoundedButton.m */,
+				5F8797121F29EC110068179A /* UIImage+Color.h */,
+				5F8797131F29EC110068179A /* UIImage+Color.m */,
+			);
+			path = KBRoundedButton;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -471,11 +489,13 @@
 				5F8797051F2997EB0068179A /* ioapi.c in Sources */,
 				5F84546B1F27304B00E62DDE /* SDWebImageManager.m in Sources */,
 				5F84541C1F25FBA900E62DDE /* DetailView.m in Sources */,
+				5F8797151F29EC110068179A /* UIImage+Color.m in Sources */,
 				5F8454641F27304B00E62DDE /* NSImage+WebCache.m in Sources */,
 				5F8454721F27304B00E62DDE /* UIImageView+WebCache.m in Sources */,
 				5F8454861F27305E00E62DDE /* IAPShare.m in Sources */,
 				5F8797071F2997EB0068179A /* unzip.c in Sources */,
 				5F84547A1F27305800E62DDE /* FLAnimatedImage.m in Sources */,
+				5F8797141F29EC110068179A /* KBRoundedButton.m in Sources */,
 				5F8454671F27304B00E62DDE /* SDWebImageCompat.m in Sources */,
 				5F8454161F25F0E900E62DDE /* CollectionViewCell.m in Sources */,
 				5F8454681F27304B00E62DDE /* SDWebImageDecoder.m in Sources */,

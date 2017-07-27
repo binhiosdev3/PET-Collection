@@ -7,7 +7,7 @@
 //
 
 #import "ShoppingView.h"
-#import "FLAnimatedImageView+WebCache.h"
+#import "StickerManager.h"
 #import "ShoppingTableViewCell.h"
 #import "Constant.h"
 
@@ -21,12 +21,22 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     _tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+//    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/rubiks.gif"];
+//    NSURL    *imageURL = [NSURL fileURLWithPath:filePath];
+//    [_headerImg sd_setImageWithURL:imageURL];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
+}
+
+- (void)completedAddPackage {
+    [self reloadData];
 }
 
 - (void)show:(BOOL)show {
     if(show) {
         self.alpha = 1.0;
         [self getJson];
+        [_btnPurchase setTitle:@"Unlock All Stickers" forState:UIControlStateNormal];
     }
     else {
         self.alpha = 0.0;
@@ -39,10 +49,32 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     [self getDataFromSerVer:JSON_URL completeBlock:^(NSString *responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             weakself.jsonDataArray = [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+            [weakself filterDownloadedPackage];
             weakself.tableView.hidden = NO;
             [weakself.tableView reloadData];
         });
     }];
+}
+
+- (void)filterDownloadedPackage {
+    self.arrItemShow = [[NSMutableArray alloc] initWithArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    NSMutableArray* arr = [NSMutableArray new];
+    for(StickerPack* stiPack in [StickerManager getInstance].arrPackages) {
+        for(NSDictionary*dict in self.arrItemShow) {
+            if([stiPack.packageID isEqualToString:[dict objectForKey:@"id"]]) {
+                [arr addObject:dict];
+                break;
+            }
+        }
+    }
+    if(arr.count > 0) {
+        [self.arrItemShow removeObjectsInArray:arr];
+    }
+}
+
+- (void)reloadData {
+    [self filterDownloadedPackage];
+    [self.tableView reloadData];
 }
 
 - (void)getDataFromSerVer:(NSString *)url completeBlock:(ResponseObjectCompleteBlock)completeBlock {
@@ -60,13 +92,12 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return self.arrItemShow.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShoppingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingTableViewCell"];
-    NSArray* arr = [_jsonDataArray objectForKey:@"sticker"];
-    NSDictionary* dict = [arr firstObject];
+    NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
     [cell loadCell:dict];
     return cell;
 }

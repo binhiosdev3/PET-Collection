@@ -12,6 +12,9 @@
 #import "FileManager.h"
 #import "StickerManager.h"
 #import "FLAnimatedImageView+WebCache.h"
+#import "IAPShare.h"
+#import "IAPHelper.h"
+#import "Constant.h"
 
 #define delay_animate rand()%10+2
 
@@ -23,6 +26,7 @@
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic,weak) IBOutlet UIImageView* topLine;
 @property (nonatomic) NSInteger indexSelected;
+@property (nonatomic) BOOL isPurchase;
 @end
 
 @implementation MessagesViewController
@@ -30,11 +34,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [StickerManager getInstance];
+    UIImage* imgPlus = [[UIImage imageNamed:@"icon_p"] imageMaskedWithColor:[UIColor whiteColor]];
+    [_btnShopping setImage:imgPlus forState:UIControlStateNormal];
     _indexSelected = 0;
     _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
+    [self setupIAP];
+    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
+        self.isPurchase = YES;
+    }
+    else {
+        self.isPurchase = NO;
+    }
 }
 
 - (void)completedAddPackage {
@@ -104,6 +118,11 @@
     FLAnimatedImageView* iconImgView;
     StickerPack* stickerPackage;
     iconImgView = [cell viewWithTag:1];
+    UIImageView* lockIconImgView = [cell viewWithTag:2];
+    lockIconImgView.hidden = YES;
+    if(indexPath.row > NUM_STICKER_FREE && !self.isPurchase) {
+        lockIconImgView.hidden = NO;
+    }
     stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
     NSString* stickerPath = [stickerPackage.arrStickerPath objectAtIndex:indexPath.row];
     NSURL* stickerUrl = [[FileManager stickerFileURL] URLByAppendingPathComponent:stickerPath];
@@ -122,6 +141,10 @@
         [_clSticker reloadData];
     }
     else {
+        if (indexPath.row > NUM_STICKER_FREE && !self.isPurchase) {
+            [self handlePurchase:nil];
+            return;
+        }
         StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
         NSString* stickerPath = [stickerPackage.arrStickerPath objectAtIndex:indexPath.row];
         NSURL* stickerUrl = [[FileManager stickerFileURL] URLByAppendingPathComponent:stickerPath];
@@ -159,7 +182,7 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
     }
     [_shoppingView show:show];
-    _btnShopping.selected = show;
+    _btnShopping.hidden = show;
     
 }
 
@@ -228,6 +251,77 @@
     // Called after the extension transitions to a new presentation style.
     
     // Use this method to finalize any behaviors associated with the change in presentation style.
+}
+
+- (void)setupIAP {
+    if(![IAPShare sharedHelper].iap) {
+        
+        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"PetCollectionMonthlyPurchase",nil];
+        
+        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+        
+    }
+    [IAPShare sharedHelper].iap.production = NO;
+    if([self isPurchased]) {
+        [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
+        _isPurchase = YES;
+    }
+    else {
+        _isPurchase = NO;
+        [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
+    }
+    [userDefaults synchronize];
+    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response)
+     {
+         
+     }];
+}
+
+-(IBAction)handlePurchase:(id)sender {
+    [[IAPShare sharedHelper].iap buyProduct:[[IAPShare sharedHelper].iap.products objectAtIndex:0] onCompletion:^(SKPaymentTransaction *trans) {
+        if(trans.error)
+        {
+            NSLog(@"Fail %@",[trans.error localizedDescription]);
+        }
+        else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
+            
+            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"your sharesecret" onCompletion:^(NSString *response, NSError *error) {
+                
+                //Convert JSON String to NSDictionary
+                NSDictionary* rec = [IAPShare toJSON:response];
+                
+                if([rec[@"status"] integerValue]==0)
+                {
+                    
+                    [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
+                    NSLog(@"SUCCESS %@",response);
+                    NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+                }
+                else {
+                    NSLog(@"Fail");
+                }
+            }];
+        }
+        else if(trans.transactionState == SKPaymentTransactionStateFailed) {
+            NSLog(@"Fail");
+        }
+    }];
+}
+
+- (BOOL)isPurchased {
+    return [[IAPShare sharedHelper].iap isPurchasedProductsIdentifier:@"PetCollectionMonthlyPurchase"];
+}
+
+- (IBAction)handleRestore {
+    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
+        
+    }];
+}
+
+- (void)clearALL {
+    [userDefaults removeObjectForKey:StickerPackageArr_key];
+    [userDefaults removeObjectForKey:numberOfPackage_key];
+    [userDefaults synchronize];
 }
 
 @end
