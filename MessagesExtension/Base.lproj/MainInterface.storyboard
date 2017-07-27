@@ -125,11 +125,11 @@
                                         <rect key="frame" x="0.0" y="94" width="320" height="434"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ShoppingTableViewCell" id="XmZ-KH-t5X">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ShoppingTableViewCell" id="XmZ-KH-t5X" customClass="ShoppingTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="320" height="80"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XmZ-KH-t5X" id="U5w-Hz-6St">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zgr-qZ-8NK" customClass="FLAnimatedImageView">
@@ -156,6 +156,9 @@
                                                                 <constraint firstAttribute="width" constant="50" id="EnF-Fo-PFa"/>
                                                             </constraints>
                                                             <state key="normal" image="mg-download"/>
+                                                            <connections>
+                                                                <action selector="handleDownload:" destination="XmZ-KH-t5X" eventType="touchUpInside" id="ck5-a7-zs7"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -168,6 +171,11 @@
                                                         <constraint firstItem="eX4-Zd-86A" firstAttribute="top" secondItem="zgr-qZ-8NK" secondAttribute="top" id="xZa-BO-0Xl"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="btnDownload" destination="3cc-oD-E0Q" id="eFg-th-zfG"/>
+                                                    <outlet property="iconView" destination="zgr-qZ-8NK" id="2SU-uD-fc6"/>
+                                                    <outlet property="lbTitle" destination="eX4-Zd-86A" id="Tho-nz-f0e"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -183,15 +191,20 @@
                                     <outlet property="tableView" destination="i3M-dJ-RNe" id="LCC-SU-Vwc"/>
                                 </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus-filled" translatesAutoresizingMaskIntoConstraints="NO" id="Q1D-5R-jz0">
+                                <rect key="frame" x="270" y="483" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="TX6-E3-QHJ"/>
+                                    <constraint firstAttribute="width" secondItem="Q1D-5R-jz0" secondAttribute="height" multiplier="1:1" id="hnt-08-xyj"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-js-cTJ">
-                                <rect key="frame" x="260" y="468" width="60" height="60"/>
+                                <rect key="frame" x="265" y="478" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="8KP-RQ-Xlm"/>
+                                    <constraint firstAttribute="width" constant="50" id="8KP-RQ-Xlm"/>
                                     <constraint firstAttribute="width" secondItem="PBa-js-cTJ" secondAttribute="height" multiplier="1:1" id="fyj-hy-Pqa"/>
                                 </constraints>
-                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                <state key="normal" image="plus1600"/>
                                 <connections>
                                     <action selector="handleShoppingButton:" destination="ObA-dk-sSI" eventType="touchUpInside" id="qdT-X9-rrv"/>
                                 </connections>
@@ -201,6 +214,7 @@
                         <constraints>
                             <constraint firstItem="st1-50-tFI" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="53p-pr-S8a"/>
                             <constraint firstItem="F5D-mf-dbR" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="5mW-8D-zV6"/>
+                            <constraint firstItem="Q1D-5R-jz0" firstAttribute="centerY" secondItem="PBa-js-cTJ" secondAttribute="centerY" id="6HT-TB-gIW"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="1eL-VH-hnQ" secondAttribute="bottom" id="A7y-w1-z1s"/>
                             <constraint firstItem="PBa-js-cTJ" firstAttribute="bottom" secondItem="Gf9-eb-kW9" secondAttribute="bottom" id="AN0-Bd-IhF"/>
                             <constraint firstAttribute="trailing" secondItem="F5D-mf-dbR" secondAttribute="trailing" id="H3g-tH-tCj"/>
@@ -211,7 +225,8 @@
                             <constraint firstItem="1eL-VH-hnQ" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="RZu-fu-hIJ"/>
                             <constraint firstItem="Gf9-eb-kW9" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="YCn-fb-IS1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="st1-50-tFI" secondAttribute="trailing" id="Yvi-XO-8yV"/>
-                            <constraint firstAttribute="trailing" secondItem="PBa-js-cTJ" secondAttribute="trailing" id="gdr-vg-9sB"/>
+                            <constraint firstItem="Q1D-5R-jz0" firstAttribute="centerX" secondItem="PBa-js-cTJ" secondAttribute="centerX" id="gMu-5w-Mee"/>
+                            <constraint firstAttribute="trailing" secondItem="PBa-js-cTJ" secondAttribute="trailing" constant="5" id="gdr-vg-9sB"/>
                             <constraint firstItem="Gf9-eb-kW9" firstAttribute="leading" secondItem="dl5-Wl-HN2" secondAttribute="trailing" constant="7" id="hmS-Wp-jUM"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="Gf9-eb-kW9" secondAttribute="bottom" id="hwE-no-Lfj"/>
                             <constraint firstItem="st1-50-tFI" firstAttribute="leading" secondItem="1eL-VH-hnQ" secondAttribute="trailing" id="lM3-Xr-FJM"/>
@@ -238,6 +253,6 @@
     </scenes>
     <resources>
         <image name="mg-download" width="512" height="512"/>
-        <image name="plus1600" width="173" height="173"/>
+        <image name="plus-filled" width="1600" height="1600"/>
     </resources>
 </document>

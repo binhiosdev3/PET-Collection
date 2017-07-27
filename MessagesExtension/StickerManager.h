@@ -14,6 +14,7 @@
 
 @property (nonatomic) int numberOfPackages;
 @property (nonatomic, strong) NSMutableArray* arrPackages;
+@property (nonatomic, strong) NSMutableArray* arrDownloadingPack;
 
 + (StickerManager *)getInstance;
 - (void)addNewPackWithId:(NSString*)packId numOfSticker:(int)numOfSticker isAnimated:(BOOL)isGif;

@@ -9,6 +9,8 @@
 #import "FileManager.h"
 #import "StickerManager.h"
 #import "SDWebImageDecoder.h"
+#import "ZipArchive.h"
+
 @implementation FileManager
 
 static NSString *_rootLibraryPath = nil;
@@ -95,6 +97,46 @@ static NSString *_rootLibraryPath = nil;
             int numOfSticker =  [[arrNumOfSticker objectAtIndex:packageId.intValue-1] intValue];
             BOOL isGif = [[arrIsGif objectAtIndex:packageId.intValue-1] intValue] == 1 ? YES : NO;
             [[StickerManager getInstance] addNewPackWithId:packageId numOfSticker:numOfSticker isAnimated:isGif];
+        }
+    }
+}
+
++ (void)createStickerWithDictionary:(NSDictionary*)dict andData:(NSData*)data {
+    NSString* packageId = [dict objectForKey:@"id"];
+    int numOfStickers = [[dict objectForKey:@"numOfStick"] intValue];
+    BOOL isGif = [[dict objectForKey:@"isGif"] intValue] == 1 ? YES : NO;
+    NSURL *stickerURL = [[FileManager stickerFileURL] URLByAppendingPathComponent:packageId];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:stickerURL.path]) {
+        //write and unzip data
+        NSString* pathZipFile = [[FileManager stickerFileURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip",packageId]].path;
+        [data writeToFile:pathZipFile atomically:YES];
+        // unzip file
+        NSString *pathToExtract = [FileManager stickerFileURL].path;
+        BOOL unzipError = NO;
+        ZipArchive *zip	= [[ZipArchive alloc] init];
+        
+        if (![zip UnzipOpenFile:pathZipFile]) {
+            // remove this archive file
+            [fm removeItemAtPath:pathZipFile error:nil];
+            unzipError = YES;
+        }
+        
+        if (![zip UnzipFileTo:pathToExtract overWrite:YES]) {
+            [fm removeItemAtPath:pathZipFile error:nil];
+            unzipError = YES;
+        }
+        
+        if (unzipError) {
+            NSLog(@"Unzip error");
+        }
+
+        // close file
+        [zip UnzipCloseFile];
+        // remove archive file
+        [fm removeItemAtPath:pathZipFile error:nil];
+        if (!unzipError) {
+            [[StickerManager getInstance] addNewPackWithId:packageId numOfSticker:numOfStickers isAnimated:isGif];
         }
     }
 }

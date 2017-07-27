@@ -34,6 +34,11 @@
     _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
+}
+
+- (void)completedAddPackage {
+    [_clIcon reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,12 +155,11 @@
 
 - (void)showShoppingView:(BOOL)show {
     if(show){
-        [_shoppingView.tableView reloadData];
         [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
     }
+    [_shoppingView show:show];
     _btnShopping.selected = show;
-    _shoppingView.alpha = show ? 1.0 : 0.0;
     
 }
 

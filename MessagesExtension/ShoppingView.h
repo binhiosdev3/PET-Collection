@@ -15,4 +15,5 @@
 @property (nonatomic, weak) IBOutlet DetailView* detailView;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
 - (void)setUpView;
+- (void)show:(BOOL)show;
 @end

@@ -25,6 +25,7 @@
 - (instancetype)init {
     self = [super init];
     if(self) {
+        self.arrDownloadingPack = [NSMutableArray new];
         NSArray* arr = [userDefaults objectForKey:StickerPackageArr_key];
         if(arr.count) {
             self.numberOfPackages = (int)arr.count;
@@ -51,6 +52,7 @@
     [userDefaults setObject:@(self.numberOfPackages) forKey:numberOfPackage_key];
     [userDefaults setObject:arr forKey:StickerPackageArr_key];
     [userDefaults synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
 }
 
 @end

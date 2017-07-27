@@ -15,5 +15,6 @@
 + (NSString *)rootPath;
 + (NSURL *)stickerFileURL;
 + (void)copyDefaultStickerToResourceIfNeeded;
++ (void)createStickerWithDictionary:(NSDictionary*)dict andData:(NSData*)data;
 + (UIImage *)imageImmediateLoadWithContentsOfFile:(NSString *)path;
 @end

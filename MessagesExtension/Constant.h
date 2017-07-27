@@ -13,6 +13,10 @@
 
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
+#define BlockWeakObject(o) __typeof__(o) __weak
+#define BlockWeakSelf BlockWeakObject(self)
+
+#define JSON_URL @"https://gist.githubusercontent.com/binhiosdev3/2443f758e248b1697bc3289feb97f927/raw/"
 
 #define stickerdf_1 @"1"
 #define stickerdf_2 @"2"
@@ -40,4 +44,5 @@
 #define icon_path_key @"PET_icon_sticker_path_key"
 #define is_animated_key @"PET_is_sticker_animated"
 
+#define notification_add_package_download_complete @"completed_add_package_download"
 #endif /* Constant_h */
