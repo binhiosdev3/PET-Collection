@@ -117,20 +117,21 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    CGFloat height = 0;
-    
-    if(_indexSelected != indexPath.row) {
-        _indexSelected = indexPath.row;
-        height = 75*(indexPath.row);
-    }
-    else {
-        _indexSelected = -1;
-    }
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    //[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES]; //commenting u are setting it by using setContentOffset so dont use this
-    [tableView setContentOffset:CGPointMake(0, height )animated:YES]; //set the selected cell to top
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        CGFloat height = 0;
+        if(_indexSelected != indexPath.row) {
+            _indexSelected = indexPath.row;
+            height = 75*(indexPath.row);
+        }
+        else {
+            _indexSelected = -1;
+        }
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES]; //commenting u are setting it by using setContentOffset so dont use this
+        [tableView setContentOffset:CGPointMake(0, height )animated:YES]; //set the selected cell to top
+
+    });
 }
 
 @end

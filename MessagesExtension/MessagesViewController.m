@@ -25,6 +25,7 @@
 @property (nonatomic,weak) IBOutlet ShoppingView* shoppingView;
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic,weak) IBOutlet UIImageView* topLine;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* topShoppingViewContraint;
 @property (nonatomic) NSInteger indexSelected;
 @property (nonatomic) BOOL isPurchase;
 @end
@@ -49,6 +50,7 @@
     else {
         self.isPurchase = NO;
     }
+    self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
 }
 
 - (void)completedAddPackage {
@@ -132,7 +134,9 @@
 }
 
 -(void)viewDidLayoutSubviews {
-    _clIcon.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    if(self.presentationStyle == MSMessagesAppPresentationStyleCompact && _shoppingView.alpha == 0.0){
+        [self.view bringSubviewToFront:_clIcon];
+    }
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -174,7 +178,6 @@
     }
     else {
         [self showShoppingView:NO];
-        [self.view bringSubviewToFront:_clIcon];
          [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
         [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
     }
@@ -254,8 +257,29 @@
 
 -(void)didTransitionToPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle {
     // Called after the extension transitions to a new presentation style.
-    
+    if (presentationStyle == MSMessagesAppPresentationStyleExpanded && _shoppingView.alpha == 1.0 ) {
+        [self animateShowShopingView:YES];
+        [self.view bringSubviewToFront:self.shoppingView];
+    }
+    else {
+        [self animateShowShopingView:NO];
+    }
     // Use this method to finalize any behaviors associated with the change in presentation style.
+}
+
+- (void)animateShowShopingView:(BOOL)show {
+    if(show) {
+        self.topShoppingViewContraint.constant = 0;
+    }
+    else {
+        self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
+    }
+    
+    BlockWeakSelf weakSelf = self;
+    [UIView animateWithDuration:0.5 animations:^{
+        [weakSelf.view updateConstraintsIfNeeded];
+        [weakSelf.view layoutIfNeeded];
+    }];
 }
 
 - (void)setupIAP {

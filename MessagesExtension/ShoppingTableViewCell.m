@@ -50,7 +50,6 @@
     }
     else {
         self.heightPreviewImg.constant = 0;
-        [self updateConstraintsIfNeeded];
     }
     self.previewImg.hidden = !expand;
     [self updateConstraintsIfNeeded];
@@ -74,6 +73,7 @@
             _btnDownload.working = YES;
         }
     }
+    self.selectedBackgroundView = nil;
     [self expand:self.selected];
 }
 
@@ -97,8 +97,6 @@
         //Save the data
         NSLog(@"Saving");
         [FileManager createStickerWithDictionary:weakSelf.packageDict andData:urlData];
-
-
     });
 }
 @end
