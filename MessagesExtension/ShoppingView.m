@@ -16,7 +16,7 @@
 typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 - (void)setUpView {
-    _detailView.alpha = 0.0;
+    _indexSelected = -1;
     self.alpha = 0.0;
     _tableView.hidden = YES;
     _tableView.delegate = self;
@@ -73,8 +73,11 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (void)reloadData {
-    [self filterDownloadedPackage];
-    [self.tableView reloadData];
+    BlockWeakSelf weakself = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakself filterDownloadedPackage];
+        [weakself.tableView reloadData];
+    });
 }
 
 - (void)getDataFromSerVer:(NSString *)url completeBlock:(ResponseObjectCompleteBlock)completeBlock {
@@ -98,13 +101,36 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShoppingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingTableViewCell"];
     NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
+    if(indexPath.row == _indexSelected) cell.selected = YES;
     [cell loadCell:dict];
     return cell;
 }
 
+- (CGFloat)heightWhenExpand {
+    CGFloat w = (self.frame.size.width - 70)*488/364;
+    return w;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row == _indexSelected) return 75 + [self heightWhenExpand];
+    return 75;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.detailView.alpha = 1.0;
+    
+    CGFloat height = 0;
+    
+    if(_indexSelected != indexPath.row) {
+        _indexSelected = indexPath.row;
+        height = 75*(indexPath.row);
+    }
+    else {
+        _indexSelected = -1;
+    }
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    //[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES]; //commenting u are setting it by using setContentOffset so dont use this
+    [tableView setContentOffset:CGPointMake(0, height )animated:YES]; //set the selected cell to top
 }
 
 @end

@@ -15,7 +15,11 @@
 
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* iconView;
 @property (nonatomic,weak) IBOutlet UILabel* lbTitle;
+@property (nonatomic,weak) IBOutlet UILabel* lbFreeDownload;
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
+@property (nonatomic,weak) IBOutlet UIImageView* imgViewArrow;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightPreviewImg;
+@property (nonatomic,weak) IBOutlet FLAnimatedImageView* previewImg;
 @property (nonatomic,assign) NSDictionary* packageDict;
 @end
 
@@ -23,15 +27,40 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    UIImage* imgDownIcon = [[UIImage imageNamed:@"down_filled"] imageMaskedWithColor:[UIColor whiteColor]];
+    UIImage* imgDownIcon = [UIImage imageNamed:@"images-2"];
     [_btnDownload setImage:imgDownIcon forState:UIControlStateNormal];
+    [_btnDownload setBackgroundColorForStateNormal:[UIColor clearColor]];
+    [_btnDownload setBackgroundColorForStateDisabled:[UIColor lightGrayColor]];
+    UIImage* imgArrow = [[UIImage imageNamed:@"10897-200"] imageMaskedWithColor:[UIColor lightGrayColor]];
+    [_imgViewArrow setImage:imgArrow];
+    [_lbFreeDownload.layer setMasksToBounds:YES];
+    [_lbFreeDownload.layer setCornerRadius:5.f];
     // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
+}
+
+- (void)expand:(BOOL)expand {
+    if(expand) {
+        self.heightPreviewImg.constant = [self heightWhenExpand];
+        self.previewImg.image = [UIImage imageNamed:@"b"];
+    }
+    else {
+        self.heightPreviewImg.constant = 0;
+        [self updateConstraintsIfNeeded];
+    }
+    self.previewImg.hidden = !expand;
+    [self updateConstraintsIfNeeded];
+    [self layoutIfNeeded];
+}
+
+
+- (CGFloat)heightWhenExpand {
+    CGFloat h= (self.frame.size.width - 70)*488/364;
+    return h;
 }
 
 - (void)loadCell:(NSDictionary*)dict {
@@ -45,7 +74,7 @@
             _btnDownload.working = YES;
         }
     }
-    
+    [self expand:self.selected];
 }
 
 -(void)prepareForReuse {

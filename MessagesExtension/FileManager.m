@@ -97,6 +97,7 @@ static NSString *_rootLibraryPath = nil;
             int numOfSticker =  [[arrNumOfSticker objectAtIndex:packageId.intValue-1] intValue];
             BOOL isGif = [[arrIsGif objectAtIndex:packageId.intValue-1] intValue] == 1 ? YES : NO;
             [[StickerManager getInstance] addNewPackWithId:packageId numOfSticker:numOfSticker isAnimated:isGif];
+            
         }
     }
 }
@@ -137,6 +138,7 @@ static NSString *_rootLibraryPath = nil;
         [fm removeItemAtPath:pathZipFile error:nil];
         if (!unzipError) {
             [[StickerManager getInstance] addNewPackWithId:packageId numOfSticker:numOfStickers isAnimated:isGif];
+            [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
         }
     }
 }

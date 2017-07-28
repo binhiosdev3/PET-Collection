@@ -47,13 +47,12 @@
 - (void)addNewPackWithId:(NSString*)packId numOfSticker:(int)numOfSticker isAnimated:(BOOL)isGif{
     self.numberOfPackages += 1;
     StickerPack* stickerPackage = [[StickerPack alloc] initWithPackageId:packId numberOfStickers:numOfSticker isAnimated:isGif];
-    [self.arrPackages addObject:stickerPackage];
+    [self.arrPackages insertObject:stickerPackage atIndex:0];
     NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:[userDefaults objectForKey:StickerPackageArr_key]];
-    [arr addObject:[stickerPackage toDictionary]];
+    [arr insertObject:[stickerPackage toDictionary] atIndex:0];
     [userDefaults setObject:@(self.numberOfPackages) forKey:numberOfPackage_key];
     [userDefaults setObject:arr forKey:StickerPackageArr_key];
     [userDefaults synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
 }
 
 

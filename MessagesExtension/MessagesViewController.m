@@ -38,7 +38,7 @@
     [_btnShopping setImage:imgPlus forState:UIControlStateNormal];
     _indexSelected = 0;
     _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
-    _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
+    _clIcon.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
@@ -52,7 +52,11 @@
 }
 
 - (void)completedAddPackage {
-    [_clIcon reloadData];
+    BlockWeakSelf weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.clIcon reloadData];
+    });
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,9 +111,6 @@
     UIView* selectedView = [[UIView alloc] init];
     selectedView.backgroundColor = self.topLine.backgroundColor;
     cell.selectedBackgroundView = selectedView;
-    if(indexPath.row == _indexSelected) {
-        cell.selected = YES;
-    }
     return cell;
 }
 
@@ -131,11 +132,13 @@
 }
 
 -(void)viewDidLayoutSubviews {
-    _clIcon.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
+    _clIcon.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == _clIcon) {
+        if(_indexSelected == indexPath.row) return;
+        [_clIcon deselectItemAtIndexPath:[NSIndexPath indexPathForItem:_indexSelected inSection:0] animated:YES];
         _indexSelected = indexPath.row;
         [self scrollCollectionToTop:_clSticker];
         [_clSticker reloadData];
@@ -171,6 +174,7 @@
     }
     else {
         [self showShoppingView:NO];
+        [self.view bringSubviewToFront:_clIcon];
          [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
         [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
     }
@@ -209,6 +213,7 @@
     [_shoppingView setUpView];
     [_clIcon reloadData];
     [_clSticker reloadData];
+    [_clIcon selectItemAtIndexPath:[NSIndexPath indexPathForItem:_indexSelected inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
     [self performSelector:@selector(rotatePlusImg) withObject:nil afterDelay:delay_animate];
 
@@ -254,6 +259,7 @@
 }
 
 - (void)setupIAP {
+    return;
     if(![IAPShare sharedHelper].iap) {
         
         NSSet* dataSet = [[NSSet alloc] initWithObjects:@"PetCollectionMonthlyPurchase",nil];
@@ -275,6 +281,25 @@
      {
          
      }];
+    
+    NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+    [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"fb375a41a19f456f969d82a4028158a5" onCompletion:^(NSString *response, NSError *error) {
+        
+        //Convert JSON String to NSDictionary
+        NSDictionary* rec = [IAPShare toJSON:response];
+        
+        if([rec[@"status"] integerValue]==0)
+        {
+            
+//            [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
+            NSLog(@"SUCCESS %@",response);
+            NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+        }
+        else {
+            NSLog(@"Fail");
+        }
+    }];
+
 }
 
 -(IBAction)handlePurchase:(id)sender {
@@ -285,7 +310,7 @@
         }
         else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
             
-            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"your sharesecret" onCompletion:^(NSString *response, NSError *error) {
+            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"fb375a41a19f456f969d82a4028158a5" onCompletion:^(NSString *response, NSError *error) {
                 
                 //Convert JSON String to NSDictionary
                 NSDictionary* rec = [IAPShare toJSON:response];

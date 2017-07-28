@@ -13,4 +13,6 @@
 @interface ShoppingTableViewCell : UITableViewCell
 
 - (void)loadCell:(NSDictionary*)dict;
+- (CGFloat)heightWhenExpand;
+- (void)expand:(BOOL)expand;
 @end

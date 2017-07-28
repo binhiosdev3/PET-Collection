@@ -13,13 +13,13 @@
 @interface ShoppingView : UIView <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
-@property (nonatomic, weak) IBOutlet DetailView* detailView;
 @property (nonatomic, weak) IBOutlet FLAnimatedImageView* headerImg;
 @property (nonatomic, weak) IBOutlet UIView* viewButton;
 @property (nonatomic, weak) IBOutlet UIButton* btnRestore;
 @property (nonatomic, weak) IBOutlet UIButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
 @property (nonatomic,strong) NSMutableArray *arrItemShow;
+@property (nonatomic) NSInteger indexSelected;
 - (void)setUpView;
 - (void)show:(BOOL)show;
 @end
