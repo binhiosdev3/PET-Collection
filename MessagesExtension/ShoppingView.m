@@ -39,8 +39,14 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [_btnPurchase setTitle:@"Unlock All Stickers" forState:UIControlStateNormal];
     }
     else {
+        if(_indexSelected >=0) {
+            [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:_indexSelected inSection:0] animated:YES];
+            _indexSelected = -1;
+        }
+        
         self.alpha = 0.0;
         self.tableView.hidden = YES;
+        
     }
 }
 
