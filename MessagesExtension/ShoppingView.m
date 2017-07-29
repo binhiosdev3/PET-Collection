@@ -26,6 +26,15 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 //    [_headerImg sd_setImageWithURL:imageURL];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
+    /*
+    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
+        self.heightViewPurchaseButton.constant = 0;
+    }
+    else {
+        self.heightViewPurchaseButton.constant = 60;
+    }
+    [self updateConstraintsIfNeeded];
+    [self layoutIfNeeded];*/
 }
 
 - (void)completedAddPackage {
@@ -123,6 +132,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    /*
     dispatch_async(dispatch_get_main_queue(), ^{
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         CGFloat height = 0;
@@ -137,7 +147,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         //[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES]; //commenting u are setting it by using setContentOffset so dont use this
         [tableView setContentOffset:CGPointMake(0, height )animated:YES]; //set the selected cell to top
 
-    });
+    });*/
 }
 
 @end

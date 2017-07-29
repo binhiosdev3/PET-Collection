@@ -84,14 +84,15 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     int size = 40.f;
     if (collectionView == _clSticker) {
-        size = (collectionView.frame.size.width)/[self numberStickerOfRow];
+        size = (collectionView.frame.size.width)/[self numberStickerOfRow:indexPath];
         return CGSizeMake(size, size);
     }
     return CGSizeMake(size, size);
 }
 
-- (int)numberStickerOfRow {
-    return 4;
+- (int)numberStickerOfRow:(NSIndexPath*)indexPath {
+    StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
+    return stickerPackage.isAnimated ? 3 : 4;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,7 +105,6 @@
 - (UICollectionViewCell*)loadIconCell:(NSIndexPath*)indexPath {
     UICollectionViewCell* cell = [_clIcon dequeueReusableCellWithReuseIdentifier:@"IconCell" forIndexPath:indexPath];
     FLAnimatedImageView* iconImgView;
-
     StickerPack* stickerPackage;
     iconImgView = [cell viewWithTag:1];
     stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:indexPath.row];
@@ -187,6 +187,9 @@
     if(show){
         [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rotatePlusImg) object:nil];
+        if(self.presentationStyle == MSMessagesAppPresentationStyleExpanded){
+            [self animateShowShopingView:YES];
+        }
     }
     [_shoppingView show:show];
     _btnShopping.hidden = show;
@@ -259,7 +262,6 @@
     // Called after the extension transitions to a new presentation style.
     if (presentationStyle == MSMessagesAppPresentationStyleExpanded && _shoppingView.alpha == 1.0 ) {
         [self animateShowShopingView:YES];
-        [self.view bringSubviewToFront:self.shoppingView];
     }
     else {
         [self animateShowShopingView:NO];
@@ -270,6 +272,7 @@
 - (void)animateShowShopingView:(BOOL)show {
     if(show) {
         self.topShoppingViewContraint.constant = 0;
+        [self.view bringSubviewToFront:self.shoppingView];
     }
     else {
         self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
@@ -283,7 +286,6 @@
 }
 
 - (void)setupIAP {
-    return;
     if(![IAPShare sharedHelper].iap) {
         
         NSSet* dataSet = [[NSSet alloc] initWithObjects:@"PetCollectionMonthlyPurchase",nil];
@@ -292,21 +294,15 @@
         
     }
     [IAPShare sharedHelper].iap.production = NO;
-    if([self isPurchased]) {
-        [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
-        _isPurchase = YES;
-    }
-    else {
-        _isPurchase = NO;
-        [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
-    }
-    [userDefaults synchronize];
+    
+    self.isPurchase = [[userDefaults objectForKey:IS_PURCHASE_KEY] boolValue];
+    
     [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response)
      {
          
      }];
     
-    NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+
     [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"fb375a41a19f456f969d82a4028158a5" onCompletion:^(NSString *response, NSError *error) {
         
         //Convert JSON String to NSDictionary
@@ -314,19 +310,32 @@
         
         if([rec[@"status"] integerValue]==0)
         {
-            
-//            [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
             NSLog(@"SUCCESS %@",response);
-            NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+            [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
+            self.isPurchase = YES;
         }
         else {
             NSLog(@"Fail");
+            [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
+            self.isPurchase = NO;
+            [[IAPShare sharedHelper].iap clearSavedPurchasedProducts];
         }
+        [userDefaults synchronize];
     }];
+    
+}
 
+- (void)checkValidReceipt {
+    
+}
+
+- (void)setIsPurchase:(BOOL)isPurchase {
+    _isPurchase = isPurchase;
+    [_clSticker reloadData];
 }
 
 -(IBAction)handlePurchase:(id)sender {
+    BlockWeakSelf weakSelf = self;
     [[IAPShare sharedHelper].iap buyProduct:[[IAPShare sharedHelper].iap.products objectAtIndex:0] onCompletion:^(SKPaymentTransaction *trans) {
         if(trans.error)
         {
@@ -345,16 +354,32 @@
                     [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
                     NSLog(@"SUCCESS %@",response);
                     NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf handlePurchaseSuccess];
+                    });
                 }
                 else {
                     NSLog(@"Fail");
                 }
             }];
         }
+        else if(trans.transactionState == SKPaymentTransactionStateRestored) {
+            
+        }
         else if(trans.transactionState == SKPaymentTransactionStateFailed) {
             NSLog(@"Fail");
         }
     }];
+}
+
+- (void)handlePurchaseSuccess {
+    [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
+    _isPurchase = YES;
+    [userDefaults synchronize];
+    [_clSticker reloadData];
+    self.shoppingView.heightViewPurchaseButton.constant = 0;
+    [self.shoppingView updateConstraintsIfNeeded];
+    [self.shoppingView layoutIfNeeded];
 }
 
 - (BOOL)isPurchased {
@@ -363,7 +388,19 @@
 
 - (IBAction)handleRestore {
     [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
+        //check with SKPaymentQueue
         
+        // number of restore count
+        int numberOfTransactions = payment.transactions.count;
+        
+        for (SKPaymentTransaction *transaction in payment.transactions)
+        {
+            NSString *purchased = transaction.payment.productIdentifier;
+            if([purchased isEqualToString:@"PetCollectionMonthlyPurchase"])
+            {
+                //enable the prodcut here
+            }
+        }
     }];
 }
 

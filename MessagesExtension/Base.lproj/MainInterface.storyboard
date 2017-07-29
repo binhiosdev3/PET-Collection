@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -142,7 +142,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XmZ-KH-t5X" id="U5w-Hz-6St">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="74.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zgr-qZ-8NK" customClass="FLAnimatedImageView">
@@ -159,8 +159,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   Free Download   " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbK-9M-bNg">
-                                                            <rect key="frame" x="76" y="30" width="119.5" height="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Free Download  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbK-9M-bNg">
+                                                            <rect key="frame" x="76" y="30" width="112" height="20"/>
                                                             <color key="backgroundColor" red="0.71682667730000005" green="0.79969316720000005" blue="0.89796686169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="0A3-kE-BxU"/>
@@ -292,6 +292,7 @@
                                     <outlet property="btnPurchase" destination="B9M-kH-zR6" id="Nu0-oF-nUk"/>
                                     <outlet property="btnRestore" destination="Nxh-GX-37Z" id="i2h-ly-UuN"/>
                                     <outlet property="headerImg" destination="YPK-bD-fMp" id="ggt-kA-aME"/>
+                                    <outlet property="heightViewPurchaseButton" destination="GLs-Ea-qGC" id="Y5r-mr-eUB"/>
                                     <outlet property="tableView" destination="i3M-dJ-RNe" id="LCC-SU-Vwc"/>
                                     <outlet property="viewButton" destination="jf9-l5-N0z" id="HPi-9o-Rup"/>
                                 </connections>

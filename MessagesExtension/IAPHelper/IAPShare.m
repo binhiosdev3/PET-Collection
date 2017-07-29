@@ -28,9 +28,13 @@
 +(id)toJSON:(NSString *)json
 {
     NSError* e = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData: [json dataUsingEncoding:NSUTF8StringEncoding]
-                                    options: NSJSONReadingMutableContainers
-                                      error: &e];
+    id jsonObject = nil;
+    if(json) {
+        jsonObject = [NSJSONSerialization JSONObjectWithData: [json dataUsingEncoding:NSUTF8StringEncoding]
+                                                        options: NSJSONReadingMutableContainers
+                                                          error: &e];
+    }
+
     
     if(e==nil) {
         return jsonObject;

@@ -48,7 +48,7 @@
         self.arrStickerPath = [dict objectForKey:arr_sticker_path_key];
         self.iconPath = [dict objectForKey:icon_path_key];;
         self.packageID = [dict objectForKey:packageId_key];
-        self.isAnimated = [dict objectForKey:is_animated_key];
+        self.isAnimated = [[dict objectForKey:is_animated_key] boolValue];
     }
     return self;
 }
