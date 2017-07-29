@@ -308,7 +308,7 @@
         //Convert JSON String to NSDictionary
         NSDictionary* rec = [IAPShare toJSON:response];
         
-        if([rec[@"status"] integerValue]==0)
+        if(rec && [rec[@"status"] integerValue]==0)
         {
             NSLog(@"SUCCESS %@",response);
             [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
@@ -316,9 +316,9 @@
         }
         else {
             NSLog(@"Fail");
-            [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
-            self.isPurchase = NO;
-            [[IAPShare sharedHelper].iap clearSavedPurchasedProducts];
+//            [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
+//            self.isPurchase = NO;
+//            [[IAPShare sharedHelper].iap clearSavedPurchasedProducts];
         }
         [userDefaults synchronize];
     }];
@@ -336,6 +336,10 @@
 
 -(IBAction)handlePurchase:(id)sender {
     BlockWeakSelf weakSelf = self;
+    if([IAPShare sharedHelper].iap.products.count == 0 ) {
+        //handle connect 
+        return;
+    }
     [[IAPShare sharedHelper].iap buyProduct:[[IAPShare sharedHelper].iap.products objectAtIndex:0] onCompletion:^(SKPaymentTransaction *trans) {
         if(trans.error)
         {
