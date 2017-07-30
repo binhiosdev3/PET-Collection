@@ -15,6 +15,7 @@
 #import "IAPShare.h"
 #import "IAPHelper.h"
 #import "Constant.h"
+#import "SRSubscriptionModel.h"
 
 #define delay_animate rand()%10+2
 
@@ -34,6 +35,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchaseComplete)name:kSRProductPurchasedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestoreResult)name:kSRProductRestoredNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productLoaded)name:kSRProductLoadedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadResultOfCurrentProduct)name:kSRSubscriptionResultNotification object:nil];
     [StickerManager getInstance];
     UIImage* imgPlus = [[UIImage imageNamed:@"icon_p"] imageMaskedWithColor:[UIColor whiteColor]];
     [_btnShopping setImage:imgPlus forState:UIControlStateNormal];
@@ -43,14 +48,40 @@
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
-    [self setupIAP];
+//    [self setupIAP];
+    [SRSubscriptionModel shareKit];
     if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
         self.isPurchase = YES;
+        
     }
     else {
         self.isPurchase = NO;
     }
     self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
+    
+}
+
+
+
+- (void)loadResultOfCurrentProduct {
+    if([SRSubscriptionModel shareKit].currentIsActive ) {
+        self.isPurchase = YES;
+        [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
+    }
+    else {
+        [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
+        self.isPurchase = NO;
+    }
+    [userDefaults synchronize];
+    NSMutableDictionary *currentProduct = [SRSubscriptionModel shareKit].currentProduct;
+}
+
+- (void)handleRestoreResult {
+    [self loadResultOfCurrentProduct];
+}
+
+- (void)handlePurchaseComplete {
+    [self loadResultOfCurrentProduct];
 }
 
 - (void)completedAddPackage {
@@ -330,11 +361,22 @@
 }
 
 - (void)setIsPurchase:(BOOL)isPurchase {
+    BlockWeakSelf weakself = self;
     _isPurchase = isPurchase;
-    [_clSticker reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakself.clSticker reloadData];
+        if(isPurchase) {
+//            weakself.shoppingView.heightViewPurchaseButton.constant = 0;
+//            [weakself.shoppingView updateConstraintsIfNeeded];
+//            [weakself.shoppingView layoutIfNeeded];
+        }
+    });
+    
 }
 
 -(IBAction)handlePurchase:(id)sender {
+    [[SRSubscriptionModel shareKit] makePurchase:@"PetCollectionMonthlyPurchase"];
+    return;
     BlockWeakSelf weakSelf = self;
     if([IAPShare sharedHelper].iap.products.count == 0 ) {
         //handle connect 
@@ -391,20 +433,30 @@
 }
 
 - (IBAction)handleRestore {
+    [[SRSubscriptionModel shareKit] restoreSubscriptions];
+    return;
     [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
         //check with SKPaymentQueue
         
-        // number of restore count
-        int numberOfTransactions = payment.transactions.count;
-        
-        for (SKPaymentTransaction *transaction in payment.transactions)
-        {
-            NSString *purchased = transaction.payment.productIdentifier;
-            if([purchased isEqualToString:@"PetCollectionMonthlyPurchase"])
-            {
-                //enable the prodcut here
-            }
+        if(error) {
+            NSLog(@"%@",error.localizedDescription);
         }
+        else {
+            // number of restore count
+//            int numberOfTransactions = payment.transactions.count;
+//            
+            for (SKPaymentTransaction *transaction in payment.transactions)
+            {
+                NSString *purchased = transaction.payment.productIdentifier;
+                if([purchased isEqualToString:@"PetCollectionMonthlyPurchase"])
+                {
+                    //enable the prodcut here
+                }
+            }
+            //not purchase yet
+             NSLog(@"You are not purchase");
+        }
+        
     }];
 }
 

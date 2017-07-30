@@ -55,6 +55,7 @@
 		5F87970B1F29A6490068179A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F87970A1F29A6490068179A /* StoreKit.framework */; };
 		5F8797141F29EC110068179A /* KBRoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797111F29EC110068179A /* KBRoundedButton.m */; };
 		5F8797151F29EC110068179A /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797131F29EC110068179A /* UIImage+Color.m */; };
+		721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,8 @@
 		5F8797111F29EC110068179A /* KBRoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBRoundedButton.m; sourceTree = "<group>"; };
 		5F8797121F29EC110068179A /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		5F8797131F29EC110068179A /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		721E922F1F2DD0E00091A822 /* SRSubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSubscriptionModel.h; sourceTree = "<group>"; };
+		721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSubscriptionModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +327,8 @@
 		5F84547C1F27305E00E62DDE /* IAPHelper */ = {
 			isa = PBXGroup;
 			children = (
+				721E922F1F2DD0E00091A822 /* SRSubscriptionModel.h */,
+				721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */,
 				5F84547D1F27305E00E62DDE /* IAPHelper.h */,
 				5F84547E1F27305E00E62DDE /* IAPHelper.m */,
 				5F84547F1F27305E00E62DDE /* IAPShare.h */,
@@ -497,6 +502,7 @@
 				5F84547A1F27305800E62DDE /* FLAnimatedImage.m in Sources */,
 				5F8797141F29EC110068179A /* KBRoundedButton.m in Sources */,
 				5F8454671F27304B00E62DDE /* SDWebImageCompat.m in Sources */,
+				721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */,
 				5F8454161F25F0E900E62DDE /* CollectionViewCell.m in Sources */,
 				5F8454681F27304B00E62DDE /* SDWebImageDecoder.m in Sources */,
 				5F84548C1F289F3C00E62DDE /* UIImage+Ext.m in Sources */,
