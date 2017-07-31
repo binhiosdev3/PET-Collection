@@ -9,7 +9,7 @@
 #import "ShoppingTableViewCell.h"
 #import "FLAnimatedImageView+WebCache.h"
 #import "FileManager.h"
-#import "StickerManager.h"
+
 
 @interface ShoppingTableViewCell()
 

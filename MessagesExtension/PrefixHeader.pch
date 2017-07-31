@@ -10,5 +10,6 @@
 #define PrefixHeader_pch
 #ifdef __OBJC__
 #import "Constant.h"
+#import "StickerManager.h"
 #endif
 #endif /* PrefixHeader_pch */

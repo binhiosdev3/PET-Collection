@@ -7,8 +7,6 @@
 //
 
 #import "UIImage+Ext.h"
-#import "IAPShare.h"
-#import "IAPHelper.h"
 
 #ifndef Constant_h
 #define Constant_h

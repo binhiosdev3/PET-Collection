@@ -7,7 +7,6 @@
 //
 
 #import "ShoppingView.h"
-#import "StickerManager.h"
 #import "ShoppingTableViewCell.h"
 
 
@@ -21,6 +20,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     _tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    self.bottomAlertView.hidden = YES;
 //    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/rubiks.gif"];
 //    NSURL    *imageURL = [NSURL fileURLWithPath:filePath];
 //    [_headerImg sd_setImageWithURL:imageURL];

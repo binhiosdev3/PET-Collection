@@ -32,7 +32,7 @@ NSString *const kSubscriptionProduct = @"com.SahebRoy92.SM.existing_subscription
 
 
 NSString *const SRFirstSubscription = @"PetCollectionMonthlyPurchase";
-NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODUCT_IDENTIFIER";
+NSString *const SRSecondSubscription = @"DailyPurchase";
 
 
 @interface SRSubscriptionModel()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
@@ -50,7 +50,6 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
     dispatch_once(&onceToken, ^{
 
             manager = [[SRSubscriptionModel alloc]init];
-            manager.subscriptionPlans = [NSSet setWithObjects:@"PetCollectionMonthlyPurchase", nil];
             manager.currentProduct = [[NSMutableDictionary alloc]init];
             manager.subscriptionPlans = [NSSet setWithObjects:SRFirstSubscription,SRSecondSubscription, nil];
         
@@ -116,12 +115,12 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
                 }
                 [_currentProduct setObject:[latestDetails objectForKey:@"product_id"] forKey:@"product"];
                 [_currentProduct setObject:[latestDetails objectForKey:@"expires_date_ms"] forKey:@"expiry_time"];
-                _currentIsActive = [self calculateCurrentSubscriptionActive];
+                _currentIsActive = [SRSubscriptionModel calculateCurrentSubscriptionActive:_currentProduct];
                 [_currentProduct setObject:[NSNumber numberWithBool:_currentIsActive] forKey:@"active"];
                 [userDefault setObject:_currentProduct forKey:kSubscriptionProduct];
                 [userDefault setBool:_currentIsActive forKey:kSubscriptionActive];
                 NSLog(@"Product active -- %hhd",_currentIsActive);
-                
+                [userDefault synchronize];
 
             }
             else {
@@ -140,7 +139,7 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
 #pragma mark - Restore
 
 -(void)restoreSubscriptions{
-    [[SKPaymentQueue defaultQueue]restoreCompletedTransactions];
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
 -(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
@@ -150,7 +149,7 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
 
 -(void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue{
     //restored!
-   NSLog(@"Subscriptions restored");
+   NSLog(@"Subscriptions restored complete");
     
     [[NSNotificationCenter defaultCenter]postNotificationName:kSRProductRestoredNotification object:nil];
     
@@ -198,8 +197,8 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
 
 /************* CHECK IF CURRENT SUBSCRIPTION ACTIVE OR NOT! ****************/
 
--(BOOL)calculateCurrentSubscriptionActive{
-    NSString *str = [_currentProduct objectForKey:@"expiry_time"];
++ (BOOL)calculateCurrentSubscriptionActive:(NSDictionary*)currentProduct{
+    NSString *str = [currentProduct objectForKey:@"expiry_time"];
     long long currentExpTime = [str longLongValue]/1000;
     long currentTimeStamp = [[NSDate date] timeIntervalSince1970];
     NSLog(@"%ld",currentTimeStamp);
@@ -222,6 +221,9 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
     
     NSLog(@"%@",response.products);
     _availableProducts = response.products;
+    if(productIdMakePurchase) {
+        [self makePurchase:productIdMakePurchase];
+    }
     [[NSNotificationCenter defaultCenter]postNotificationName:kSRProductLoadedNotification object:nil];
 }
 
@@ -237,13 +239,16 @@ NSString *const SRSecondSubscription = @"com.YOUR_SECOND_SUBSCRIPTION_PLAN_PRODU
 
 /************ BUY SUBSCRIPTION ****************/
 
+static NSString* productIdMakePurchase;
+
 -(void)makePurchase:(NSString *)productIdentifier{
     
     if(_availableProducts.count == 0){
+        productIdMakePurchase = productIdentifier;
         [self startProductRequest];
         return;
     }
-    
+    productIdMakePurchase = nil;
     [_availableProducts enumerateObjectsUsingBlock:^(SKProduct *thisProduct, NSUInteger idx, BOOL *stop) {
         if ([thisProduct.productIdentifier isEqualToString:productIdentifier]) {
             *stop = YES;

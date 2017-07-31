@@ -10,10 +10,7 @@
 #import "CollectionViewCell.h"
 #import "ShoppingView.h"
 #import "FileManager.h"
-#import "StickerManager.h"
 #import "FLAnimatedImageView+WebCache.h"
-#import "IAPShare.h"
-#import "IAPHelper.h"
 #import "SRSubscriptionModel.h"
 
 #define delay_animate rand()%10+2
@@ -34,36 +31,51 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchaseComplete)name:kSRProductPurchasedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestoreResult)name:kSRProductRestoredNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productLoaded)name:kSRProductLoadedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadResultOfCurrentProduct)name:kSRSubscriptionResultNotification object:nil];
+    [self addObserver];
     [StickerManager getInstance];
+    [self setUpUI];
+    
+    
+    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
+        self.isPurchase = YES;
+        [self checkPaymentExpire];
+    }
+    else {
+        self.isPurchase = NO;
+    }
+}
+
+- (void)checkPaymentExpire {
+    NSDictionary* curentProduct = [userDefault objectForKey:kSubscriptionProduct];
+    BOOL isActive = [SRSubscriptionModel calculateCurrentSubscriptionActive:curentProduct];
+    if(!isActive) {
+        [SRSubscriptionModel shareKit];
+    }
+}
+
+- (void)setUpUI {
     UIImage* imgPlus = [[UIImage imageNamed:@"icon_p"] imageMaskedWithColor:[UIColor whiteColor]];
     [_btnShopping setImage:imgPlus forState:UIControlStateNormal];
     _indexSelected = 0;
     _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     _clIcon.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
+    self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
+}
+
+- (void)addObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchaseComplete)name:kSRProductPurchasedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestoreResult)name:kSRProductRestoredNotification object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productLoaded)name:kSRProductLoadedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadResultOfCurrentProduct)name:kSRSubscriptionResultNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
-//    [self setupIAP];
-    [SRSubscriptionModel shareKit];
-    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
-        self.isPurchase = YES;
-        
-    }
-    else {
-        self.isPurchase = NO;
-    }
-    self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
-    
 }
 
 
-
 - (void)loadResultOfCurrentProduct {
-    if([SRSubscriptionModel shareKit].currentIsActive ) {
+    if(self.isPurchase == [SRSubscriptionModel shareKit].currentIsActive) return;
+    if([SRSubscriptionModel shareKit].currentIsActive) {
         self.isPurchase = YES;
         [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
     }
@@ -72,14 +84,15 @@
         self.isPurchase = NO;
     }
     [userDefaults synchronize];
-    NSMutableDictionary *currentProduct = [SRSubscriptionModel shareKit].currentProduct;
 }
 
 - (void)handleRestoreResult {
+    _shoppingView.bottomAlertView.hidden = YES;
     [self loadResultOfCurrentProduct];
 }
 
 - (void)handlePurchaseComplete {
+    _shoppingView.bottomAlertView.hidden = YES;
     [self loadResultOfCurrentProduct];
 }
 
@@ -315,49 +328,6 @@
     }];
 }
 
-- (void)setupIAP {
-    if(![IAPShare sharedHelper].iap) {
-        
-        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"PetCollectionMonthlyPurchase",nil];
-        
-        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
-        
-    }
-    [IAPShare sharedHelper].iap.production = NO;
-    
-    self.isPurchase = [[userDefaults objectForKey:IS_PURCHASE_KEY] boolValue];
-    
-    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response)
-     {
-         
-     }];
-    
-
-    [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"fb375a41a19f456f969d82a4028158a5" onCompletion:^(NSString *response, NSError *error) {
-        
-        //Convert JSON String to NSDictionary
-        NSDictionary* rec = [IAPShare toJSON:response];
-        
-        if(rec && [rec[@"status"] integerValue]==0)
-        {
-            NSLog(@"SUCCESS %@",response);
-            [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
-            self.isPurchase = YES;
-        }
-        else {
-            NSLog(@"Fail");
-//            [userDefaults setObject:@(0) forKey:IS_PURCHASE_KEY];
-//            self.isPurchase = NO;
-//            [[IAPShare sharedHelper].iap clearSavedPurchasedProducts];
-        }
-        [userDefaults synchronize];
-    }];
-    
-}
-
-- (void)checkValidReceipt {
-    
-}
 
 - (void)setIsPurchase:(BOOL)isPurchase {
     BlockWeakSelf weakself = self;
@@ -374,89 +344,14 @@
 }
 
 -(IBAction)handlePurchase:(id)sender {
-    [[SRSubscriptionModel shareKit] makePurchase:@"PetCollectionMonthlyPurchase"];
-    return;
-    BlockWeakSelf weakSelf = self;
-    if([IAPShare sharedHelper].iap.products.count == 0 ) {
-        //handle connect 
-        return;
-    }
-    [[IAPShare sharedHelper].iap buyProduct:[[IAPShare sharedHelper].iap.products objectAtIndex:0] onCompletion:^(SKPaymentTransaction *trans) {
-        if(trans.error)
-        {
-            NSLog(@"Fail %@",[trans.error localizedDescription]);
-        }
-        else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
-            
-            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"fb375a41a19f456f969d82a4028158a5" onCompletion:^(NSString *response, NSError *error) {
-                
-                //Convert JSON String to NSDictionary
-                NSDictionary* rec = [IAPShare toJSON:response];
-                
-                if([rec[@"status"] integerValue]==0)
-                {
-                    
-                    [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
-                    NSLog(@"SUCCESS %@",response);
-                    NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakSelf handlePurchaseSuccess];
-                    });
-                }
-                else {
-                    NSLog(@"Fail");
-                }
-            }];
-        }
-        else if(trans.transactionState == SKPaymentTransactionStateRestored) {
-            
-        }
-        else if(trans.transactionState == SKPaymentTransactionStateFailed) {
-            NSLog(@"Fail");
-        }
-    }];
+    _shoppingView.bottomAlertView.hidden = NO;
+    [[SRSubscriptionModel shareKit] makePurchase:@"DailyPurchase"];
 }
 
-- (void)handlePurchaseSuccess {
-    [userDefaults setObject:@(1) forKey:IS_PURCHASE_KEY];
-    _isPurchase = YES;
-    [userDefaults synchronize];
-    [_clSticker reloadData];
-    self.shoppingView.heightViewPurchaseButton.constant = 0;
-    [self.shoppingView updateConstraintsIfNeeded];
-    [self.shoppingView layoutIfNeeded];
-}
-
-- (BOOL)isPurchased {
-    return [[IAPShare sharedHelper].iap isPurchasedProductsIdentifier:@"PetCollectionMonthlyPurchase"];
-}
 
 - (IBAction)handleRestore {
+    _shoppingView.bottomAlertView.hidden = NO;
     [[SRSubscriptionModel shareKit] restoreSubscriptions];
-    return;
-    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
-        //check with SKPaymentQueue
-        
-        if(error) {
-            NSLog(@"%@",error.localizedDescription);
-        }
-        else {
-            // number of restore count
-//            int numberOfTransactions = payment.transactions.count;
-//            
-            for (SKPaymentTransaction *transaction in payment.transactions)
-            {
-                NSString *purchased = transaction.payment.productIdentifier;
-                if([purchased isEqualToString:@"PetCollectionMonthlyPurchase"])
-                {
-                    //enable the prodcut here
-                }
-            }
-            //not purchase yet
-             NSLog(@"You are not purchase");
-        }
-        
-    }];
 }
 
 - (void)clearALL {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -259,13 +259,38 @@
                                                     <action selector="handleRestore" destination="ObA-dk-sSI" eventType="touchUpInside" id="n3i-nN-Sm7"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vb4-h8-jvP">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IUG-7D-bWK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </imageView>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="SIY-ns-OCc">
+                                                        <rect key="frame" x="150" y="20" width="20" height="20"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="IUG-7D-bWK" firstAttribute="top" secondItem="Vb4-h8-jvP" secondAttribute="top" id="2nj-99-mQv"/>
+                                                    <constraint firstItem="IUG-7D-bWK" firstAttribute="leading" secondItem="Vb4-h8-jvP" secondAttribute="leading" id="Qyu-Dr-juC"/>
+                                                    <constraint firstItem="SIY-ns-OCc" firstAttribute="centerY" secondItem="Vb4-h8-jvP" secondAttribute="centerY" id="hBd-Z4-Rtg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="IUG-7D-bWK" secondAttribute="bottom" id="nWf-fN-Ob3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="IUG-7D-bWK" secondAttribute="trailing" id="oBs-lC-xDn"/>
+                                                    <constraint firstItem="SIY-ns-OCc" firstAttribute="centerX" secondItem="Vb4-h8-jvP" secondAttribute="centerX" id="zmz-Lk-fA2"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Vb4-h8-jvP" secondAttribute="trailing" id="4j0-mO-Dzh"/>
                                             <constraint firstItem="B9M-kH-zR6" firstAttribute="top" secondItem="jf9-l5-N0z" secondAttribute="top" constant="8" id="4uE-r7-MhG"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vb4-h8-jvP" secondAttribute="bottom" id="9PO-Fj-tX7"/>
                                             <constraint firstAttribute="height" constant="60" id="GLs-Ea-qGC"/>
                                             <constraint firstAttribute="bottom" secondItem="Nxh-GX-37Z" secondAttribute="bottom" constant="8" id="NTR-K5-kOZ"/>
+                                            <constraint firstItem="Vb4-h8-jvP" firstAttribute="leading" secondItem="jf9-l5-N0z" secondAttribute="leading" id="U1f-Ob-WX2"/>
                                             <constraint firstItem="Nxh-GX-37Z" firstAttribute="leading" secondItem="jf9-l5-N0z" secondAttribute="leading" constant="8" id="W7L-nk-3Tn"/>
+                                            <constraint firstItem="Vb4-h8-jvP" firstAttribute="top" secondItem="jf9-l5-N0z" secondAttribute="top" id="icF-ZR-D6s"/>
                                             <constraint firstItem="Nxh-GX-37Z" firstAttribute="top" secondItem="jf9-l5-N0z" secondAttribute="top" constant="8" id="iok-pj-39w"/>
                                             <constraint firstAttribute="bottom" secondItem="B9M-kH-zR6" secondAttribute="bottom" constant="8" id="qtV-Ru-54E"/>
                                             <constraint firstAttribute="trailing" secondItem="B9M-kH-zR6" secondAttribute="trailing" constant="8" id="tyl-Bw-eh3"/>
@@ -289,6 +314,7 @@
                                     <constraint firstItem="YPK-bD-fMp" firstAttribute="top" secondItem="F5D-mf-dbR" secondAttribute="top" id="z9P-Yf-J12"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="bottomAlertView" destination="Vb4-h8-jvP" id="At6-Hv-Hf7"/>
                                     <outlet property="btnPurchase" destination="B9M-kH-zR6" id="Nu0-oF-nUk"/>
                                     <outlet property="btnRestore" destination="Nxh-GX-37Z" id="i2h-ly-UuN"/>
                                     <outlet property="headerImg" destination="YPK-bD-fMp" id="ggt-kA-aME"/>

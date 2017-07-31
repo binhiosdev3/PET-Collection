@@ -7,7 +7,6 @@
 //
 
 #import "FileManager.h"
-#import "StickerManager.h"
 #import "SDWebImageDecoder.h"
 #import "ZipArchive.h"
 

@@ -58,5 +58,5 @@ extern NSString *const SRSecondSubscription;
 -(void)loadProducts;
 -(void)makePurchase:(NSString *)productIdentifier;
 -(void)restoreSubscriptions;
-
++(BOOL)calculateCurrentSubscriptionActive:(NSDictionary*)currentProduct;
 @end
