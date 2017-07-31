@@ -14,7 +14,6 @@
 #import "FLAnimatedImageView+WebCache.h"
 #import "IAPShare.h"
 #import "IAPHelper.h"
-#import "Constant.h"
 #import "SRSubscriptionModel.h"
 
 #define delay_animate rand()%10+2

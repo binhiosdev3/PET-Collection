@@ -14,7 +14,6 @@
 		5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8454081F25EA3A00E62DDE /* Assets.xcassets */; };
 		5F8454161F25F0E900E62DDE /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454151F25F0E900E62DDE /* CollectionViewCell.m */; };
 		5F8454191F25F71D00E62DDE /* ShoppingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454181F25F71D00E62DDE /* ShoppingView.m */; };
-		5F84541C1F25FBA900E62DDE /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84541B1F25FBA900E62DDE /* DetailView.m */; };
 		5F84541E1F26F18900E62DDE /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = 5F84541D1F26F18900E62DDE /* Stickers */; };
 		5F8454211F26F34E00E62DDE /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454201F26F34E00E62DDE /* FileManager.m */; };
 		5F8454251F26F44900E62DDE /* StickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454241F26F44900E62DDE /* StickerManager.m */; };
@@ -83,6 +82,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F01330F1F2F1CA900BCE9FC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5F8453F01F25EA3A00E62DDE /* PET Sticker Collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PET Sticker Collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessagesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FF1F25EA3A00E62DDE /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
@@ -95,8 +95,6 @@
 		5F8454151F25F0E900E62DDE /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		5F8454171F25F71D00E62DDE /* ShoppingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingView.h; sourceTree = "<group>"; };
 		5F8454181F25F71D00E62DDE /* ShoppingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingView.m; sourceTree = "<group>"; };
-		5F84541A1F25FBA900E62DDE /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
-		5F84541B1F25FBA900E62DDE /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
 		5F84541D1F26F18900E62DDE /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stickers; sourceTree = "<group>"; };
 		5F84541F1F26F34E00E62DDE /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 		5F8454201F26F34E00E62DDE /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
@@ -240,8 +238,6 @@
 				5F8454151F25F0E900E62DDE /* CollectionViewCell.m */,
 				5F8454171F25F71D00E62DDE /* ShoppingView.h */,
 				5F8454181F25F71D00E62DDE /* ShoppingView.m */,
-				5F84541A1F25FBA900E62DDE /* DetailView.h */,
-				5F84541B1F25FBA900E62DDE /* DetailView.m */,
 				5F84541F1F26F34E00E62DDE /* FileManager.h */,
 				5F8454201F26F34E00E62DDE /* FileManager.m */,
 				5F8454221F26F3D000E62DDE /* Constant.h */,
@@ -253,6 +249,7 @@
 				5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */,
 				5F8796F51F298B7C0068179A /* ShoppingTableViewCell.h */,
 				5F8796F61F298B7C0068179A /* ShoppingTableViewCell.m */,
+				5F01330F1F2F1CA900BCE9FC /* PrefixHeader.pch */,
 			);
 			path = MessagesExtension;
 			sourceTree = "<group>";
@@ -493,7 +490,6 @@
 				5F84547B1F27305800E62DDE /* FLAnimatedImageView.m in Sources */,
 				5F8797051F2997EB0068179A /* ioapi.c in Sources */,
 				5F84546B1F27304B00E62DDE /* SDWebImageManager.m in Sources */,
-				5F84541C1F25FBA900E62DDE /* DetailView.m in Sources */,
 				5F8797151F29EC110068179A /* UIImage+Color.m in Sources */,
 				5F8454641F27304B00E62DDE /* NSImage+WebCache.m in Sources */,
 				5F8454721F27304B00E62DDE /* UIImageView+WebCache.m in Sources */,
@@ -650,6 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				DEVELOPMENT_TEAM = C97244SW6H;
+				GCC_PREFIX_HEADER = MessagesExtension/PrefixHeader.pch;
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				OTHER_LDFLAGS = "-lz ";
@@ -664,6 +661,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				DEVELOPMENT_TEAM = C97244SW6H;
+				GCC_PREFIX_HEADER = MessagesExtension/PrefixHeader.pch;
 				INFOPLIST_FILE = MessagesExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				OTHER_LDFLAGS = "-lz ";
@@ -678,6 +676,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = C97244SW6H;
+				GCC_PREFIX_HEADER = MessagesExtension/PrefixHeader.pch;
 				INFOPLIST_FILE = "PET Sticker Collection/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.binhpham.petcollection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -689,6 +688,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = C97244SW6H;
+				GCC_PREFIX_HEADER = MessagesExtension/PrefixHeader.pch;
 				INFOPLIST_FILE = "PET Sticker Collection/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.binhpham.petcollection;
 				PRODUCT_NAME = "$(TARGET_NAME)";

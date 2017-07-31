@@ -9,7 +9,7 @@
 #import "ShoppingView.h"
 #import "StickerManager.h"
 #import "ShoppingTableViewCell.h"
-#import "Constant.h"
+
 
 @implementation ShoppingView
 

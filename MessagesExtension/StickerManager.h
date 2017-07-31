@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StickerPack.h"
-#import "Constant.h"
+
 
 @interface StickerManager : NSObject
 

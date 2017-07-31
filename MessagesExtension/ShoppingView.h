@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DetailView.h"
 #import "FLAnimatedImageView+WebCache.h"
 
 @interface ShoppingView : UIView <UITableViewDelegate,UITableViewDataSource>
