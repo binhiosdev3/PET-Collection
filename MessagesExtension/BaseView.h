@@ -1,13 +1,13 @@
 //
-//  CollectionViewCell.m
+//  BaseView.h
 //  PET Sticker Collection
 //
 //  Created by vietthaibinh on 8/1/17.
 //  Copyright © 2017 Pham. All rights reserved.
 //
 
-#import "CollectionViewCell.h"
+#import <UIKit/UIKit.h>
 
-@implementation CollectionViewCell
-
+@interface BaseView : UIView
+@property (nonatomic, weak) IBOutlet UIView *contentView;
 @end

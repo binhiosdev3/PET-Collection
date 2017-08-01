@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0133111F30274400BCE9FC /* ShoppingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F0133101F30274400BCE9FC /* ShoppingView.xib */; };
+		5F0133141F30281100BCE9FC /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133131F30281100BCE9FC /* BaseView.m */; };
+		5F0133161F30295200BCE9FC /* ShoppingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F0133151F30295200BCE9FC /* ShoppingTableViewCell.xib */; };
+		5F01331C1F302E7000BCE9FC /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F01331B1F302E7000BCE9FC /* CollectionViewCell.m */; };
+		5F0133201F30377900BCE9FC /* UIView+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F01331F1F30377900BCE9FC /* UIView+Ext.m */; };
+		5F0133231F3037BE00BCE9FC /* UIView+ExtLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133221F3037BE00BCE9FC /* UIView+ExtLayout.m */; };
+		5F0133261F303B4D00BCE9FC /* StickerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */; };
 		5F8453FB1F25EA3A00E62DDE /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F8454001F25EA3A00E62DDE /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8453FF1F25EA3A00E62DDE /* Messages.framework */; };
 		5F8454041F25EA3A00E62DDE /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454031F25EA3A00E62DDE /* MessagesViewController.m */; };
 		5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8454051F25EA3A00E62DDE /* MainInterface.storyboard */; };
 		5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8454081F25EA3A00E62DDE /* Assets.xcassets */; };
-		5F8454161F25F0E900E62DDE /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454151F25F0E900E62DDE /* CollectionViewCell.m */; };
 		5F8454191F25F71D00E62DDE /* ShoppingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454181F25F71D00E62DDE /* ShoppingView.m */; };
 		5F84541E1F26F18900E62DDE /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = 5F84541D1F26F18900E62DDE /* Stickers */; };
 		5F8454211F26F34E00E62DDE /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454201F26F34E00E62DDE /* FileManager.m */; };
@@ -79,6 +85,18 @@
 
 /* Begin PBXFileReference section */
 		5F01330F1F2F1CA900BCE9FC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5F0133101F30274400BCE9FC /* ShoppingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingView.xib; sourceTree = "<group>"; };
+		5F0133121F30281100BCE9FC /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		5F0133131F30281100BCE9FC /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
+		5F0133151F30295200BCE9FC /* ShoppingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingTableViewCell.xib; sourceTree = "<group>"; };
+		5F01331B1F302E7000BCE9FC /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		5F01331D1F302E8000BCE9FC /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		5F01331E1F30377900BCE9FC /* UIView+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Ext.h"; sourceTree = "<group>"; };
+		5F01331F1F30377900BCE9FC /* UIView+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Ext.m"; sourceTree = "<group>"; };
+		5F0133211F3037BE00BCE9FC /* UIView+ExtLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ExtLayout.h"; sourceTree = "<group>"; };
+		5F0133221F3037BE00BCE9FC /* UIView+ExtLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ExtLayout.m"; sourceTree = "<group>"; };
+		5F0133241F303B4D00BCE9FC /* StickerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StickerBrowserViewController.h; sourceTree = "<group>"; };
+		5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickerBrowserViewController.m; sourceTree = "<group>"; };
 		5F8453F01F25EA3A00E62DDE /* PET Sticker Collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PET Sticker Collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessagesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FF1F25EA3A00E62DDE /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
@@ -87,8 +105,6 @@
 		5F8454061F25EA3A00E62DDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5F8454081F25EA3A00E62DDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F84540A1F25EA3A00E62DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5F8454141F25F0E900E62DDE /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
-		5F8454151F25F0E900E62DDE /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		5F8454171F25F71D00E62DDE /* ShoppingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingView.h; sourceTree = "<group>"; };
 		5F8454181F25F71D00E62DDE /* ShoppingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingView.m; sourceTree = "<group>"; };
 		5F84541D1F26F18900E62DDE /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stickers; sourceTree = "<group>"; };
@@ -181,6 +197,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F0133171F302CD700BCE9FC /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5F84548A1F289F3C00E62DDE /* UIImage+Ext.h */,
+				5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */,
+				5F87970F1F29EC110068179A /* KBRoundedButton */,
+				5F8796F81F2997EB0068179A /* ZipArchive */,
+				5F84547C1F27305E00E62DDE /* IAPHelper */,
+				5F8454751F27305800E62DDE /* FLAnimatedImage */,
+				5F8454361F27304B00E62DDE /* SDWebImage */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		5F0133181F302CE800BCE9FC /* Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				5F8454171F25F71D00E62DDE /* ShoppingView.h */,
+				5F8454181F25F71D00E62DDE /* ShoppingView.m */,
+				5F0133101F30274400BCE9FC /* ShoppingView.xib */,
+				5F8796F51F298B7C0068179A /* ShoppingTableViewCell.h */,
+				5F8796F61F298B7C0068179A /* ShoppingTableViewCell.m */,
+				5F0133151F30295200BCE9FC /* ShoppingTableViewCell.xib */,
+			);
+			name = Shopping;
+			sourceTree = "<group>";
+		};
+		5F0133191F302D0B00BCE9FC /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				5F84541F1F26F34E00E62DDE /* FileManager.h */,
+				5F8454201F26F34E00E62DDE /* FileManager.m */,
+				5F8454231F26F44900E62DDE /* StickerManager.h */,
+				5F8454241F26F44900E62DDE /* StickerManager.m */,
+				5F8454291F27204B00E62DDE /* StickerPack.h */,
+				5F84542A1F27204B00E62DDE /* StickerPack.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		5F01331A1F302D4E00BCE9FC /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				5F0133211F3037BE00BCE9FC /* UIView+ExtLayout.h */,
+				5F0133221F3037BE00BCE9FC /* UIView+ExtLayout.m */,
+				5F01331E1F30377900BCE9FC /* UIView+Ext.h */,
+				5F01331F1F30377900BCE9FC /* UIView+Ext.m */,
+				5F0133121F30281100BCE9FC /* BaseView.h */,
+				5F0133131F30281100BCE9FC /* BaseView.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
 		5F8453E91F25EA3A00E62DDE = {
 			isa = PBXGroup;
 			children = (
@@ -211,33 +280,22 @@
 		5F8454011F25EA3A00E62DDE /* MessagesExtension */ = {
 			isa = PBXGroup;
 			children = (
-				5F87970F1F29EC110068179A /* KBRoundedButton */,
-				5F8796F81F2997EB0068179A /* ZipArchive */,
-				5F84547C1F27305E00E62DDE /* IAPHelper */,
-				5F8454751F27305800E62DDE /* FLAnimatedImage */,
-				5F8454361F27304B00E62DDE /* SDWebImage */,
+				5F01331A1F302D4E00BCE9FC /* Base */,
+				5F0133191F302D0B00BCE9FC /* Manager */,
+				5F0133171F302CD700BCE9FC /* Library */,
+				5F0133181F302CE800BCE9FC /* Shopping */,
 				5F84541D1F26F18900E62DDE /* Stickers */,
 				5F8454021F25EA3A00E62DDE /* MessagesViewController.h */,
 				5F8454031F25EA3A00E62DDE /* MessagesViewController.m */,
+				5F0133241F303B4D00BCE9FC /* StickerBrowserViewController.h */,
+				5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */,
 				5F8454051F25EA3A00E62DDE /* MainInterface.storyboard */,
 				5F8454081F25EA3A00E62DDE /* Assets.xcassets */,
 				5F84540A1F25EA3A00E62DDE /* Info.plist */,
-				5F8454141F25F0E900E62DDE /* CollectionViewCell.h */,
-				5F8454151F25F0E900E62DDE /* CollectionViewCell.m */,
-				5F8454171F25F71D00E62DDE /* ShoppingView.h */,
-				5F8454181F25F71D00E62DDE /* ShoppingView.m */,
-				5F84541F1F26F34E00E62DDE /* FileManager.h */,
-				5F8454201F26F34E00E62DDE /* FileManager.m */,
 				5F8454221F26F3D000E62DDE /* Constant.h */,
-				5F8454231F26F44900E62DDE /* StickerManager.h */,
-				5F8454241F26F44900E62DDE /* StickerManager.m */,
-				5F8454291F27204B00E62DDE /* StickerPack.h */,
-				5F84542A1F27204B00E62DDE /* StickerPack.m */,
-				5F84548A1F289F3C00E62DDE /* UIImage+Ext.h */,
-				5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */,
-				5F8796F51F298B7C0068179A /* ShoppingTableViewCell.h */,
-				5F8796F61F298B7C0068179A /* ShoppingTableViewCell.m */,
 				5F01330F1F2F1CA900BCE9FC /* PrefixHeader.pch */,
+				5F01331D1F302E8000BCE9FC /* CollectionViewCell.h */,
+				5F01331B1F302E7000BCE9FC /* CollectionViewCell.m */,
 			);
 			path = MessagesExtension;
 			sourceTree = "<group>";
@@ -449,8 +507,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F0133111F30274400BCE9FC /* ShoppingView.xib in Resources */,
 				5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */,
 				5F84541E1F26F18900E62DDE /* Stickers in Resources */,
+				5F0133161F30295200BCE9FC /* ShoppingTableViewCell.xib in Resources */,
 				5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,14 +530,15 @@
 				5F8797051F2997EB0068179A /* ioapi.c in Sources */,
 				5F84546B1F27304B00E62DDE /* SDWebImageManager.m in Sources */,
 				5F8797151F29EC110068179A /* UIImage+Color.m in Sources */,
+				5F0133231F3037BE00BCE9FC /* UIView+ExtLayout.m in Sources */,
 				5F8454641F27304B00E62DDE /* NSImage+WebCache.m in Sources */,
 				5F8454721F27304B00E62DDE /* UIImageView+WebCache.m in Sources */,
+				5F0133261F303B4D00BCE9FC /* StickerBrowserViewController.m in Sources */,
 				5F8797071F2997EB0068179A /* unzip.c in Sources */,
 				5F84547A1F27305800E62DDE /* FLAnimatedImage.m in Sources */,
 				5F8797141F29EC110068179A /* KBRoundedButton.m in Sources */,
 				5F8454671F27304B00E62DDE /* SDWebImageCompat.m in Sources */,
 				721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */,
-				5F8454161F25F0E900E62DDE /* CollectionViewCell.m in Sources */,
 				5F8454681F27304B00E62DDE /* SDWebImageDecoder.m in Sources */,
 				5F84548C1F289F3C00E62DDE /* UIImage+Ext.m in Sources */,
 				5F84546F1F27304B00E62DDE /* UIImage+MultiFormat.m in Sources */,
@@ -487,6 +548,7 @@
 				5F84546E1F27304B00E62DDE /* UIImage+GIF.m in Sources */,
 				5F8454741F27304B00E62DDE /* UIView+WebCacheOperation.m in Sources */,
 				5F8454731F27304B00E62DDE /* UIView+WebCache.m in Sources */,
+				5F01331C1F302E7000BCE9FC /* CollectionViewCell.m in Sources */,
 				5F8797061F2997EB0068179A /* mztools.c in Sources */,
 				5F8454251F26F44900E62DDE /* StickerManager.m in Sources */,
 				5F8454651F27304B00E62DDE /* SDImageCache.m in Sources */,
@@ -494,9 +556,11 @@
 				5F8454711F27304B00E62DDE /* UIImageView+HighlightedWebCache.m in Sources */,
 				5F8454211F26F34E00E62DDE /* FileManager.m in Sources */,
 				5F8454041F25EA3A00E62DDE /* MessagesViewController.m in Sources */,
+				5F0133141F30281100BCE9FC /* BaseView.m in Sources */,
 				5F84546D1F27304B00E62DDE /* UIButton+WebCache.m in Sources */,
 				5F8796F71F298B7C0068179A /* ShoppingTableViewCell.m in Sources */,
 				5F8454621F27304B00E62DDE /* MKAnnotationView+WebCache.m in Sources */,
+				5F0133201F30377900BCE9FC /* UIView+Ext.m in Sources */,
 				5F8797091F2997EB0068179A /* ZipArchive.m in Sources */,
 				5F8797081F2997EB0068179A /* zip.c in Sources */,
 				5F8454661F27304B00E62DDE /* SDImageCacheConfig.m in Sources */,

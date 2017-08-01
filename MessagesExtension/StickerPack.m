@@ -24,7 +24,7 @@
         NSString* ext = isGif ? @".gif" : @".png";
         self.iconPath = [NSString stringWithFormat:@"%@/icon.png",packageId];
         for(int i = 1; i <= numOfSticker; i++) {
-            NSString* strStickerPath = [NSString stringWithFormat:@"%@/%d%@",packageId,i,ext];
+            NSString* strStickerPath = [NSString stringWithFormat:@"%@/%@_%d%@",packageId,packageId,i,ext];
             [self.arrStickerPath addObject:strStickerPath];
         }
     }
@@ -38,6 +38,7 @@
     [dict setObject:self.iconPath forKey:icon_path_key];
     [dict setObject:self.packageID forKey:packageId_key];
     [dict setObject:@(self.isAnimated) forKey:is_animated_key];
+//    [dict setObject:self.title forKey:title_key];
     return dict;
 }
 
@@ -49,6 +50,7 @@
         self.iconPath = [dict objectForKey:icon_path_key];;
         self.packageID = [dict objectForKey:packageId_key];
         self.isAnimated = [[dict objectForKey:is_animated_key] boolValue];
+        self.title = [dict objectForKey:title_key];
     }
     return self;
 }

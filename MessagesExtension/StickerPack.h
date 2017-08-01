@@ -10,7 +10,7 @@
 
 
 @interface StickerPack : NSObject
-
+@property (nonatomic,strong) NSString* title;
 @property (nonatomic,strong) NSString* packageID;
 @property (nonatomic)        int numberOfStickers;
 @property (nonatomic,strong) NSMutableArray* arrStickerPath;

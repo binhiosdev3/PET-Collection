@@ -7,11 +7,12 @@
 //
 
 #import "MessagesViewController.h"
-#import "CollectionViewCell.h"
 #import "ShoppingView.h"
-#import "FileManager.h"
 #import "FLAnimatedImageView+WebCache.h"
 #import "SRSubscriptionModel.h"
+#import <Messages/Messages.h>
+#import "UIView+ExtLayout.h"
+#import "StickerBrowserViewController.h"
 
 #define delay_animate rand()%10+2
 
@@ -20,6 +21,8 @@
 @property (nonatomic,weak) IBOutlet UICollectionView* clSticker;
 @property (nonatomic,weak) IBOutlet UICollectionView* clIcon;
 @property (nonatomic,weak) IBOutlet ShoppingView* shoppingView;
+@property (nonatomic,weak) IBOutlet UIView* viewSticker;
+@property (nonatomic,strong) StickerBrowserViewController* browserStickerVC;
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic,weak) IBOutlet UIImageView* topLine;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* topShoppingViewContraint;
@@ -37,13 +40,39 @@
     
     if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
         self.isPurchase = YES;
+        self.viewSticker.hidden = NO;
+        [self loadMSSticker];
+        self.clSticker.hidden = YES;
         [self checkPaymentExpire];
     }
     else {
         self.isPurchase = NO;
+        self.viewSticker.hidden = YES;
+        self.clSticker.hidden = NO;
+        [self.clSticker reloadData];
     }
 }
 
+
+- (void)displayContentController: (UIViewController*) content;
+{
+    _browserStickerVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    _browserStickerVC.view.bounds = self.view.bounds;
+    [self.viewSticker addSubview:_browserStickerVC.view];
+    [self addChildViewController:_browserStickerVC];
+    [_browserStickerVC didMoveToParentViewController:self];
+    [self.browserStickerVC.view addConstraintFullLayoutToView:self.viewSticker];
+    [self.browserStickerVC.stickerBrowserView setContentInset:UIEdgeInsetsMake(0, 0, 40, 0)];
+}
+
+
+- (void) hideContentController: (UIViewController*) content
+{
+    [content willMoveToParentViewController:nil];  // 1
+    [content.view removeFromSuperview];            // 2
+    [content removeFromParentViewController];
+
+}
 - (void)checkPaymentExpire {
     NSDictionary* curentProduct = [userDefault objectForKey:kSubscriptionProduct];
     BOOL isActive = [SRSubscriptionModel calculateCurrentSubscriptionActive:curentProduct];
@@ -60,9 +89,14 @@
     _clIcon.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
     self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
+    _browserStickerVC = [[StickerBrowserViewController alloc] initWithStickerSize:MSStickerSizeSmall withPackInfo:nil];
+    [self displayContentController:_browserStickerVC];
 }
 
 - (void)addObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchase)name:notification_click_purchase object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestore)name:notification_click_restore object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchaseComplete)name:kSRProductPurchasedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestoreResult)name:kSRProductRestoredNotification object:nil];
     //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productLoaded)name:kSRProductLoadedNotification object:nil];
@@ -107,15 +141,19 @@
     [super didReceiveMemoryWarning];
 }
 
+- (NSInteger)getNumberStickers {
+    if([StickerManager getInstance].arrPackages.count == 0){
+        return 0;
+    }
+    else {
+        StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
+        return stickerPackage.arrStickerPath.count;
+    }
+}
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if(collectionView == _clSticker) {
-        if([StickerManager getInstance].arrPackages.count == 0){
-            return 0;
-        }
-        else {
-            StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
-            return stickerPackage.arrStickerPath.count;
-        }
+        return self.isPurchase ? 0 : [self getNumberStickers];
     }
     else {
         return [StickerManager getInstance].arrPackages.count;
@@ -123,18 +161,22 @@
     return 0;
 }
 
+- (CGSize)getSizeOfSticker {
+    CGFloat size = (_clSticker.frame.size.width)/[self numberStickerOfRow];
+    return CGSizeMake(size, size);
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     int size = 40.f;
     if (collectionView == _clSticker) {
-        size = (collectionView.frame.size.width)/[self numberStickerOfRow:indexPath];
+        size = (collectionView.frame.size.width)/[self numberStickerOfRow];
         return CGSizeMake(size, size);
     }
     return CGSizeMake(size, size);
 }
 
-- (int)numberStickerOfRow:(NSIndexPath*)indexPath {
-    StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
-    return stickerPackage.isAnimated ? 3 : 4;
+- (int)numberStickerOfRow {
+    return 3;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,17 +231,25 @@
     }
 }
 
+- (void)loadMSSticker {
+    if(!self.isPurchase) return;
+    [self.browserStickerVC loadStickerPackAtIndex:_indexSelected];
+    [self.browserStickerVC.stickerBrowserView reloadData];
+    [self.browserStickerVC.stickerBrowserView setContentOffset:CGPointZero animated:NO];
+}
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if(collectionView == _clIcon) {
         if(_indexSelected == indexPath.row) return;
         [_clIcon deselectItemAtIndexPath:[NSIndexPath indexPathForItem:_indexSelected inSection:0] animated:YES];
         _indexSelected = indexPath.row;
+        [self loadMSSticker];
         [self scrollCollectionToTop:_clSticker];
         [_clSticker reloadData];
     }
     else {
         if (indexPath.row > [self numOfStickerFree:indexPath] && !self.isPurchase) {
-            [self handlePurchase:nil];
+            [self handlePurchase];
             return;
         }
         StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
@@ -337,20 +387,29 @@
 
 
 - (void)setIsPurchase:(BOOL)isPurchase {
+    if(isPurchase == _isPurchase) return;
     BlockWeakSelf weakself = self;
     _isPurchase = isPurchase;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakself.clSticker reloadData];
+        
         if(isPurchase) {
+            weakself.viewSticker.hidden = NO;
+            [weakself loadMSSticker];
+            weakself.clSticker.hidden = YES;
 //            weakself.shoppingView.heightViewPurchaseButton.constant = 0;
 //            [weakself.shoppingView updateConstraintsIfNeeded];
 //            [weakself.shoppingView layoutIfNeeded];
+        }
+        else {
+            weakself.viewSticker.hidden = YES;
+            weakself.clSticker.hidden = NO;
+            [weakself.clSticker reloadData];
         }
     });
     
 }
 
--(IBAction)handlePurchase:(id)sender {
+-(IBAction)handlePurchase {
     _shoppingView.bottomAlertView.hidden = NO;
     [[SRSubscriptionModel shareKit] makePurchase:@"DailyPurchase"];
 }

@@ -14,7 +14,10 @@
 
 typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
+
 - (void)setUpView {
+//    [self.tableView registerClass:[ShoppingTableViewCell class] forCellReuseIdentifier:@"ShoppingTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ShoppingTableViewCell"];
     _indexSelected = -1;
     self.alpha = 0.0;
     _tableView.hidden = YES;
@@ -149,6 +152,14 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [tableView setContentOffset:CGPointMake(0, height )animated:YES]; //set the selected cell to top
 
     });*/
+}
+
+- (IBAction)handlePurchase:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_purchase object:nil];
+}
+
+- (IBAction)handleRestore:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
 }
 
 @end

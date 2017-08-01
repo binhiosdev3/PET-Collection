@@ -10,7 +10,7 @@
 #import "FLAnimatedImageView+WebCache.h"
 #import "KBRoundedButton.h"
 
-@interface ShoppingView : UIView <UITableViewDelegate,UITableViewDataSource>
+@interface ShoppingView : BaseView <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 @property (nonatomic, weak) IBOutlet FLAnimatedImageView* headerImg;
@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
 @property (nonatomic,strong) NSMutableArray *arrItemShow;
+
 @property (nonatomic) NSInteger indexSelected;
 - (void)setUpView;
 - (void)show:(BOOL)show;

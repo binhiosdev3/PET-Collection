@@ -11,7 +11,7 @@
 #ifndef Constant_h
 #define Constant_h
 
-#define APP_STORE 1
+#define APP_STORE 0
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -54,6 +54,9 @@
 #define arr_sticker_path_key @"PET_array_sticker_path_key"
 #define icon_path_key @"PET_icon_sticker_path_key"
 #define is_animated_key @"PET_is_sticker_animated"
+#define title_key @"title_sticker"
 
 #define notification_add_package_download_complete @"completed_add_package_download"
+#define notification_click_purchase @"notification_click_purchase"
+#define notification_click_restore @"notification_click_restore"
 #endif /* Constant_h */

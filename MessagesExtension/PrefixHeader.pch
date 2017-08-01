@@ -11,5 +11,7 @@
 #ifdef __OBJC__
 #import "Constant.h"
 #import "StickerManager.h"
+#import "BaseView.h"
+#import "FileManager.h"
 #endif
 #endif /* PrefixHeader_pch */
