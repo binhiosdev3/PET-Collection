@@ -14,9 +14,10 @@
 @interface ShoppingView : BaseView <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
+@property (nonatomic, weak) IBOutlet UIView* bottomPurchaseView;
 @property (nonatomic, weak) IBOutlet UIView* viewButton;
 @property (nonatomic, weak) IBOutlet UIView* bottomAlertView;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint* heightViewPurchaseButton;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint* topBottomAlertView;
 @property (nonatomic, weak) IBOutlet UIButton* btnRestore;
 @property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
@@ -29,4 +30,5 @@
 - (void)setUpView;
 - (void)show:(BOOL)show;
 - (void)handleEditMySticker;
+- (void)showBottomAlertView:(BOOL)show;
 @end

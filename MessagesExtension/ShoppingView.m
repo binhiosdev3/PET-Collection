@@ -29,22 +29,12 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     _tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    self.bottomAlertView.hidden = YES;
     self.tableView.tableFooterView = [[UIView alloc] init];
 //    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/rubiks.gif"];
 //    NSURL    *imageURL = [NSURL fileURLWithPath:filePath];
 //    [_headerImg sd_setImageWithURL:imageURL];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
-    /*
-    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
-        self.heightViewPurchaseButton.constant = 0;
-    }
-    else {
-        self.heightViewPurchaseButton.constant = 60;
-    }
-    [self updateConstraintsIfNeeded];
-    [self layoutIfNeeded];*/
 }
 
 - (void)completedAddPackage {
@@ -254,4 +244,12 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     }
 }
 
+- (void)showBottomAlertView:(BOOL)show {
+    BlockWeakSelf weakSelf = self;
+    self.topBottomAlertView.constant = show ? 0 : 80.f;
+    [UIView animateWithDuration:0.3 animations:^{
+        [weakSelf updateConstraintsIfNeeded];
+        [weakSelf layoutIfNeeded];
+    }];
+}
 @end

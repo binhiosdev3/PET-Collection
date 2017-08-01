@@ -39,6 +39,7 @@
     [self setUpUI];
     
     if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
+        self.shoppingView.bottomPurchaseView.hidden = NO;
         self.isPurchase = YES;
         self.viewSticker.hidden = NO;
         [self loadMSSticker];
@@ -47,6 +48,7 @@
     }
     else {
         self.isPurchase = NO;
+        self.shoppingView.bottomPurchaseView.hidden = YES;
         self.viewSticker.hidden = YES;
         self.clSticker.hidden = NO;
         [self.clSticker reloadData];
@@ -121,12 +123,12 @@
 }
 
 - (void)handleRestoreResult {
-    _shoppingView.bottomAlertView.hidden = YES;
+    [_shoppingView showBottomAlertView:NO];
     [self loadResultOfCurrentProduct];
 }
 
 - (void)handlePurchaseComplete {
-    _shoppingView.bottomAlertView.hidden = YES;
+    [_shoppingView showBottomAlertView:NO];
     [self loadResultOfCurrentProduct];
 }
 
@@ -400,27 +402,28 @@
             weakself.viewSticker.hidden = NO;
             [weakself loadMSSticker];
             weakself.clSticker.hidden = YES;
-//            weakself.shoppingView.heightViewPurchaseButton.constant = 0;
-//            [weakself.shoppingView updateConstraintsIfNeeded];
-//            [weakself.shoppingView layoutIfNeeded];
+            weakself.shoppingView.viewButton.hidden = YES;
+            weakself.shoppingView.bottomPurchaseView.hidden = NO;
         }
         else {
             weakself.viewSticker.hidden = YES;
             weakself.clSticker.hidden = NO;
             [weakself.clSticker reloadData];
+            weakself.shoppingView.viewButton.hidden = NO;;
+            weakself.shoppingView.bottomPurchaseView.hidden = YES;
         }
     });
     
 }
 
 -(IBAction)handlePurchase {
-    _shoppingView.bottomAlertView.hidden = NO;
+    [_shoppingView showBottomAlertView:YES];
     [[SRSubscriptionModel shareKit] makePurchase:@"DailyPurchase"];
 }
 
 
 - (IBAction)handleRestore {
-    _shoppingView.bottomAlertView.hidden = NO;
+    [_shoppingView showBottomAlertView:YES];
     [[SRSubscriptionModel shareKit] restoreSubscriptions];
 }
 
