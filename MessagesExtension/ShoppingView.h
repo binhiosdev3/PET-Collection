@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "FLAnimatedImageView+WebCache.h"
 #import "KBRoundedButton.h"
+#import "HeaderSectionView.h"
 
-@interface ShoppingView : BaseView <UITableViewDelegate,UITableViewDataSource>
+@interface ShoppingView : BaseView <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
-@property (nonatomic, weak) IBOutlet FLAnimatedImageView* headerImg;
 @property (nonatomic, weak) IBOutlet UIView* viewButton;
 @property (nonatomic, weak) IBOutlet UIView* bottomAlertView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* heightViewPurchaseButton;
@@ -21,8 +21,12 @@
 @property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
 @property (nonatomic,strong) NSMutableArray *arrItemShow;
-
+@property (nonatomic,strong) NSMutableArray *arrFilterMySticker;
+@property (nonatomic,strong) NSMutableArray *arrMySticker;
+@property (nonatomic, strong) HeaderSectionView* headerView;
+@property (nonatomic) BOOL isEditMode;
 @property (nonatomic) NSInteger indexSelected;
 - (void)setUpView;
 - (void)show:(BOOL)show;
+- (void)handleEditMySticker;
 @end

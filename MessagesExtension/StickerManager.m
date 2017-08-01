@@ -55,6 +55,16 @@
     [userDefaults synchronize];
 }
 
-
+- (void)saveArrPackage {
+    NSMutableArray* arr = [[NSMutableArray alloc] initWithCapacity:self.arrPackages.count];
+    for(int i= 0; i < self.arrPackages.count; i++) {
+        @autoreleasepool {
+            StickerPack* stickerPackage = self.arrPackages[i];
+            [arr addObject:[stickerPackage toDictionary]];
+        }
+    }
+    [userDefaults setObject:arr forKey:StickerPackageArr_key];
+    [userDefaults synchronize];
+}
 
 @end

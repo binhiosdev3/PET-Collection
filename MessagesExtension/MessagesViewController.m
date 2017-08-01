@@ -43,7 +43,7 @@
         self.viewSticker.hidden = NO;
         [self loadMSSticker];
         self.clSticker.hidden = YES;
-        [self checkPaymentExpire];
+        [SRSubscriptionModel shareKit];
     }
     else {
         self.isPurchase = NO;
@@ -94,6 +94,7 @@
 }
 
 - (void)addObserver {
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEndEditMySticker)name:notification_mysticker_did_endEditin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchase)name:notification_click_purchase object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestore)name:notification_click_restore object:nil];
     
@@ -194,9 +195,11 @@
     stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:indexPath.row];
     NSURL* iconUrl =  [[FileManager stickerFileURL] URLByAppendingPathComponent:stickerPackage.iconPath];
     [iconImgView sd_setImageWithURL:iconUrl];
-    UIView* selectedView = [[UIView alloc] init];
-    selectedView.backgroundColor = self.topLine.backgroundColor;
-    cell.selectedBackgroundView = selectedView;
+    cell.selectedBackgroundView = nil;
+    iconImgView.backgroundColor = [UIColor clearColor];
+    if(indexPath.row == _indexSelected) {
+        iconImgView.backgroundColor = self.topLine.backgroundColor;;
+    }
     return cell;
 }
 
@@ -239,10 +242,11 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     if(collectionView == _clIcon) {
         if(_indexSelected == indexPath.row) return;
-        [_clIcon deselectItemAtIndexPath:[NSIndexPath indexPathForItem:_indexSelected inSection:0] animated:YES];
         _indexSelected = indexPath.row;
+        [_clIcon reloadData];
         [self loadMSSticker];
         [self scrollCollectionToTop:_clSticker];
         [_clSticker reloadData];
@@ -424,6 +428,18 @@
     [userDefaults removeObjectForKey:StickerPackageArr_key];
     [userDefaults removeObjectForKey:numberOfPackage_key];
     [userDefaults synchronize];
+}
+
+- (void)handleEndEditMySticker {
+    BlockWeakSelf weakself = self;
+     dispatch_async(dispatch_get_main_queue(), ^{
+         weakself.indexSelected = 0;
+         [weakself.clIcon reloadData];
+         [weakself loadMSSticker];
+         [weakself scrollCollectionToTop:_clSticker];
+         [weakself.clSticker reloadData];
+     });
+   
 }
 
 @end

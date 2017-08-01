@@ -112,14 +112,18 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="wRB-re-8Df" secondAttribute="trailing" id="DTi-YQ-onv"/>
                 <constraint firstAttribute="trailing" secondItem="dSu-k0-w4j" secondAttribute="trailing" id="DgZ-EU-Z9l"/>
+                <constraint firstItem="wRB-re-8Df" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" id="EB5-V0-I6X"/>
                 <constraint firstItem="8lK-ni-qkc" firstAttribute="centerY" secondItem="CFq-is-Yw8" secondAttribute="centerY" id="Gpe-EX-Pg9"/>
                 <constraint firstAttribute="bottom" secondItem="dSu-k0-w4j" secondAttribute="bottom" id="IqY-tM-oy5"/>
                 <constraint firstItem="dSu-k0-w4j" firstAttribute="top" secondItem="wRB-re-8Df" secondAttribute="bottom" id="Oya-2d-J2T"/>
-                <constraint firstItem="wRB-re-8Df" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" id="Vqd-8e-UEG"/>
                 <constraint firstItem="wRB-re-8Df" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" id="cnZ-A8-vme"/>
                 <constraint firstItem="dSu-k0-w4j" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" id="iTw-UE-84a"/>
                 <constraint firstItem="8lK-ni-qkc" firstAttribute="centerX" secondItem="CFq-is-Yw8" secondAttribute="centerX" id="rWt-i3-Yai"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>
 </document>

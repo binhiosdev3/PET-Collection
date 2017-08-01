@@ -9,14 +9,20 @@
 #import "ShoppingView.h"
 #import "ShoppingTableViewCell.h"
 
-
 @implementation ShoppingView
 
 typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 
 - (void)setUpView {
-//    [self.tableView registerClass:[ShoppingTableViewCell class] forCellReuseIdentifier:@"ShoppingTableViewCell"];
+    _isEditMode = NO;
+    _arrMySticker = [NSMutableArray new];
+    _headerView = [[HeaderSectionView alloc] init];
+    [_headerView.btnMySticker addTarget:self action:@selector(handleEditMySticker) forControlEvents:UIControlEventTouchUpInside];
+    _headerView.tfSearch.delegate = self;
+    [_headerView.tfSearch addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    _headerView.tfSearch.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [_headerView showMySticker:NO];
     [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ShoppingTableViewCell"];
     _indexSelected = -1;
     self.alpha = 0.0;
@@ -78,17 +84,39 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 - (void)filterDownloadedPackage {
     self.arrItemShow = [[NSMutableArray alloc] initWithArray:[self.jsonDataArray objectForKey:@"sticker"]];
     NSMutableArray* arr = [NSMutableArray new];
-    for(StickerPack* stiPack in [StickerManager getInstance].arrPackages) {
+    [[StickerManager getInstance].arrPackages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        StickerPack* stiPack = obj;
         for(NSDictionary*dict in self.arrItemShow) {
             if([stiPack.packageID isEqualToString:[dict objectForKey:@"id"]]) {
                 [arr addObject:dict];
                 break;
             }
         }
-    }
+    }];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
     }
+    [_arrFilterMySticker removeAllObjects];
+    _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
+    _headerView.tfSearch.text = @"";
+}
+
+- (void)handleSearch {
+    [self.arrItemShow removeAllObjects];
+    if(self.headerView.tfSearch.text.length == 0) {
+        [self.arrItemShow addObjectsFromArray:_arrFilterMySticker];
+    }
+    else {
+        BlockWeakSelf weakSelf = self;
+        [self.arrFilterMySticker enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary*dict = obj;
+            NSString* strId = (NSString*)[dict objectForKey:@"title"];
+            if ([strId rangeOfString:_headerView.tfSearch.text options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                [weakSelf.arrItemShow addObject:dict];
+            }
+        }];
+    }
+    [self.tableView reloadData];
 }
 
 - (void)reloadData {
@@ -113,15 +141,39 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
             }] resume];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if(section == 0) {
+        return _headerView;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if(section == 0) return 40.f;
+    return 0.f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(section == 0) return 0;
+    if(tableView.editing) return _arrMySticker.count;
     return self.arrItemShow.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShoppingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingTableViewCell"];
+    if(tableView.editing) {
+        StickerPack* pack = [_arrMySticker objectAtIndex:indexPath.row];
+        [cell loadCellWithPackage:pack];
+        return cell;
+    }
+    
     NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
     if(indexPath.row == _indexSelected) cell.selected = YES;
-    [cell loadCell:dict];
+    [cell loadCellWithDict:dict];
     return cell;
 }
 
@@ -136,22 +188,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    /*
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        CGFloat height = 0;
-        if(_indexSelected != indexPath.row) {
-            _indexSelected = indexPath.row;
-            height = 75*(indexPath.row);
-        }
-        else {
-            _indexSelected = -1;
-        }
-        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        //[tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES]; //commenting u are setting it by using setContentOffset so dont use this
-        [tableView setContentOffset:CGPointMake(0, height )animated:YES]; //set the selected cell to top
-
-    });*/
+    
 }
 
 - (IBAction)handlePurchase:(id)sender {
@@ -160,6 +197,61 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 - (IBAction)handleRestore:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
+}
+
+- (void)handleEditMySticker {
+    [_headerView.tfSearch resignFirstResponder];
+    if(!_isEditMode) {
+        _isEditMode = YES;
+        [_arrMySticker addObjectsFromArray:[StickerManager getInstance].arrPackages];
+        [_headerView showMySticker:YES];
+    }
+    else {
+        [[StickerManager getInstance].arrPackages removeAllObjects];
+        [[StickerManager getInstance].arrPackages addObjectsFromArray:_arrMySticker];
+        [[StickerManager getInstance] saveArrPackage];
+        [_arrMySticker removeAllObjects];
+        _isEditMode = NO;
+        [_headerView showMySticker:NO];
+        [[StickerManager getInstance] saveArrPackage];
+        [[NSNotificationCenter defaultCenter] postNotificationName:notification_mysticker_did_endEditin object:nil];
+    }
+    self.tableView.editing = _isEditMode;
+    [self.tableView reloadData];
+}
+
+-(void)textFieldDidChange:(id)sender {
+    [self handleSearch];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+     [_headerView.tfSearch resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    StickerPack* pack = _arrMySticker[sourceIndexPath.row];
+    [_arrMySticker removeObjectAtIndex:sourceIndexPath.row];
+    [_arrMySticker insertObject:pack atIndex:destinationIndexPath.row];
+}
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [_arrMySticker removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+    }
 }
 
 @end

@@ -12,7 +12,8 @@
 
 @interface ShoppingTableViewCell : UITableViewCell
 
-- (void)loadCell:(NSDictionary*)dict;
+- (void)loadCellWithDict:(NSDictionary*)dict;
+- (void)loadCellWithPackage:(StickerPack*)pack;
 - (CGFloat)heightWhenExpand;
 - (void)expand:(BOOL)expand;
 @end

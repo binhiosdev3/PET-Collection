@@ -62,10 +62,12 @@
     return h;
 }
 
-- (void)loadCell:(NSDictionary*)dict {
+- (void)loadCellWithDict:(NSDictionary*)dict{
     _packageDict = dict;
+    _btnDownload.hidden = NO;
+    _lbFreeDownload.hidden = NO;
     NSString* str = [_packageDict objectForKey:@"icon"];
-    _lbTitle.text = [_packageDict objectForKey:@"title"];
+    _lbTitle.text = [[_packageDict objectForKey:@"title"] capitalizedString];
     [_iconView sd_setImageWithURL:[NSURL URLWithString:str]];
     for(NSString* strId in [StickerManager getInstance].arrDownloadingPack) {
         if([[_packageDict objectForKey:@"id"] isEqualToString:strId]) {
@@ -75,6 +77,14 @@
     }
     self.selectedBackgroundView = nil;
     [self expand:self.selected];
+}
+
+- (void)loadCellWithPackage:(StickerPack*)pack {
+    _btnDownload.hidden = YES;
+    _lbFreeDownload.hidden = YES;
+    _lbTitle.text = [pack.title capitalizedString];
+    NSURL* iconUrl =  [[FileManager stickerFileURL] URLByAppendingPathComponent:pack.iconPath];
+    [_iconView sd_setImageWithURL:iconUrl];
 }
 
 -(void)prepareForReuse {

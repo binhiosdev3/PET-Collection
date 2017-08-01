@@ -18,5 +18,5 @@
 
 + (StickerManager *)getInstance;
 - (void)addNewPackWithId:(NSString*)packId numOfSticker:(int)numOfSticker isAnimated:(BOOL)isGif;
-
+- (void)saveArrPackage;
 @end

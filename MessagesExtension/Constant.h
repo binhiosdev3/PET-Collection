@@ -59,4 +59,5 @@
 #define notification_add_package_download_complete @"completed_add_package_download"
 #define notification_click_purchase @"notification_click_purchase"
 #define notification_click_restore @"notification_click_restore"
+#define notification_mysticker_did_endEditin @"notification_mysticker_did_endEditin"
 #endif /* Constant_h */

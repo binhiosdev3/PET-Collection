@@ -14,6 +14,8 @@
 		5F0133201F30377900BCE9FC /* UIView+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F01331F1F30377900BCE9FC /* UIView+Ext.m */; };
 		5F0133231F3037BE00BCE9FC /* UIView+ExtLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133221F3037BE00BCE9FC /* UIView+ExtLayout.m */; };
 		5F0133261F303B4D00BCE9FC /* StickerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */; };
+		5F0133291F306F7700BCE9FC /* HeaderSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133281F306F7700BCE9FC /* HeaderSectionView.m */; };
+		5F01332B1F306F8700BCE9FC /* HeaderSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */; };
 		5F8453FB1F25EA3A00E62DDE /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F8454001F25EA3A00E62DDE /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8453FF1F25EA3A00E62DDE /* Messages.framework */; };
 		5F8454041F25EA3A00E62DDE /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454031F25EA3A00E62DDE /* MessagesViewController.m */; };
@@ -97,6 +99,9 @@
 		5F0133221F3037BE00BCE9FC /* UIView+ExtLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ExtLayout.m"; sourceTree = "<group>"; };
 		5F0133241F303B4D00BCE9FC /* StickerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StickerBrowserViewController.h; sourceTree = "<group>"; };
 		5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StickerBrowserViewController.m; sourceTree = "<group>"; };
+		5F0133271F306F7700BCE9FC /* HeaderSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSectionView.h; sourceTree = "<group>"; };
+		5F0133281F306F7700BCE9FC /* HeaderSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSectionView.m; sourceTree = "<group>"; };
+		5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSectionView.xib; sourceTree = "<group>"; };
 		5F8453F01F25EA3A00E62DDE /* PET Sticker Collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PET Sticker Collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessagesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FF1F25EA3A00E62DDE /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
@@ -220,6 +225,9 @@
 				5F8796F51F298B7C0068179A /* ShoppingTableViewCell.h */,
 				5F8796F61F298B7C0068179A /* ShoppingTableViewCell.m */,
 				5F0133151F30295200BCE9FC /* ShoppingTableViewCell.xib */,
+				5F0133271F306F7700BCE9FC /* HeaderSectionView.h */,
+				5F0133281F306F7700BCE9FC /* HeaderSectionView.m */,
+				5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -510,6 +518,7 @@
 				5F0133111F30274400BCE9FC /* ShoppingView.xib in Resources */,
 				5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */,
 				5F84541E1F26F18900E62DDE /* Stickers in Resources */,
+				5F01332B1F306F8700BCE9FC /* HeaderSectionView.xib in Resources */,
 				5F0133161F30295200BCE9FC /* ShoppingTableViewCell.xib in Resources */,
 				5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */,
 			);
@@ -541,6 +550,7 @@
 				721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */,
 				5F8454681F27304B00E62DDE /* SDWebImageDecoder.m in Sources */,
 				5F84548C1F289F3C00E62DDE /* UIImage+Ext.m in Sources */,
+				5F0133291F306F7700BCE9FC /* HeaderSectionView.m in Sources */,
 				5F84546F1F27304B00E62DDE /* UIImage+MultiFormat.m in Sources */,
 				5F8454701F27304B00E62DDE /* UIImage+WebP.m in Sources */,
 				5F84546A1F27304B00E62DDE /* SDWebImageDownloaderOperation.m in Sources */,
