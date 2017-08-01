@@ -35,7 +35,6 @@
     [StickerManager getInstance];
     [self setUpUI];
     
-    
     if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
         self.isPurchase = YES;
         [self checkPaymentExpire];
@@ -166,7 +165,7 @@
     iconImgView = [cell viewWithTag:1];
     UIImageView* lockIconImgView = [cell viewWithTag:2];
     lockIconImgView.hidden = YES;
-    if(indexPath.row > NUM_STICKER_FREE && !self.isPurchase) {
+    if(indexPath.row > [self numOfStickerFree:indexPath] && !self.isPurchase) {
         lockIconImgView.hidden = NO;
     }
     stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
@@ -174,6 +173,14 @@
     NSURL* stickerUrl = [[FileManager stickerFileURL] URLByAppendingPathComponent:stickerPath];
     [iconImgView sd_setImageWithURL:stickerUrl];
     return cell;
+}
+
+- (NSInteger)numOfStickerFree:(NSIndexPath*)indexPath {
+    StickerPack*stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
+    if(stickerPackage.isAnimated) {
+        return 6;
+    }
+    return 8;
 }
 
 -(void)viewDidLayoutSubviews {
@@ -191,7 +198,7 @@
         [_clSticker reloadData];
     }
     else {
-        if (indexPath.row > NUM_STICKER_FREE && !self.isPurchase) {
+        if (indexPath.row > [self numOfStickerFree:indexPath] && !self.isPurchase) {
             [self handlePurchase:nil];
             return;
         }

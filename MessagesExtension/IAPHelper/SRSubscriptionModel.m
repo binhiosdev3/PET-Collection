@@ -60,6 +60,13 @@ NSString *const SRSecondSubscription = @"DailyPurchase";
     return manager;
 }
 
+- (NSString*)storeUrl {
+    if(APP_STORE) {
+        return kItunesLiveServer;
+    }
+    return kSandboxServer;
+}
+
 -(void)loadProducts{
  NSError *error;
     _currentIsActive = NO;
@@ -93,7 +100,7 @@ NSString *const SRSecondSubscription = @"DailyPurchase";
     
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:payLoad options:0 error:&error];
     
-    NSMutableURLRequest *sandBoxReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSandboxServer]];
+    NSMutableURLRequest *sandBoxReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self storeUrl]]];
     [sandBoxReq setHTTPMethod:@"POST"];
     [sandBoxReq setHTTPBody:requestData];
     
@@ -135,6 +142,9 @@ NSString *const SRSecondSubscription = @"DailyPurchase";
     
 }
 
+//- (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product {
+//    return YES;
+//}
 
 #pragma mark - Restore
 

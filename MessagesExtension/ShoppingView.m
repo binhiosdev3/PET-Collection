@@ -21,6 +21,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     _tableView.delegate = self;
     _tableView.dataSource = self;
     self.bottomAlertView.hidden = YES;
+    self.tableView.tableFooterView = [[UIView alloc] init];
 //    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/rubiks.gif"];
 //    NSURL    *imageURL = [NSURL fileURLWithPath:filePath];
 //    [_headerImg sd_setImageWithURL:imageURL];

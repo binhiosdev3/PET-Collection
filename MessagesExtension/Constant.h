@@ -10,7 +10,15 @@
 
 #ifndef Constant_h
 #define Constant_h
-#define NUM_STICKER_FREE 5
+
+#define APP_STORE 1
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
+#define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0)
+#define IS_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 736.0)
 
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
@@ -34,10 +42,10 @@
 #define numOfSticker_5 @"40"
 
 
-#define DEFAULT_STICKER_PACKAGE @[stickerdf_1, stickerdf_2, stickerdf_3, stickerdf_4,stickerdf_5]
-#define DEFAULT_STICKER_PACKAGE_NumOfSticker @[numOfSticker_1,numOfSticker_2,numOfSticker_3,numOfSticker_4]
-#define DEFAULT_NUM_OF_STICKER_PACKAGE @[@(24),@(24),@(24),@(24),@(40)]
-#define DEFAULT_IS_GIF_STICKER_PACKAGE @[@(1),@(1),@(1),@(1),@(0)]
+#define DEFAULT_STICKER_PACKAGE @[stickerdf_1, stickerdf_2, stickerdf_3]
+#define DEFAULT_STICKER_PACKAGE_NumOfSticker @[numOfSticker_1,numOfSticker_2,numOfSticker_3]
+#define DEFAULT_NUM_OF_STICKER_PACKAGE @[@(24),@(24),@(24)]
+#define DEFAULT_IS_GIF_STICKER_PACKAGE @[@(1),@(1),@(1)]
 
 #define numberOfPackage_key @"PET_NUM_OFF_PACK"
 #define StickerPackageArr_key @"PET_STICKER_PACKAGE_ARR"
