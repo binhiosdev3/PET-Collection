@@ -118,13 +118,6 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [self.arrItemShow removeObjectsInArray:arr];
     }
     [_arrFilterMySticker removeAllObjects];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
     _headerView.tfSearch.text = @"";
 }

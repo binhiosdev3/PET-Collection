@@ -16,6 +16,7 @@
 @property (nonatomic,weak) IBOutlet UIImageView* imgArrowSwipe;
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightOfContentView;
+@property (nonatomic,weak) IBOutlet UIActivityIndicatorView* downloadIndicator;
 @end
 
 @implementation ShoppingDetailView
@@ -82,17 +83,19 @@ static bool islefttoright;
     self.heightOfContentView.constant = height;
     [self updateConstraintsIfNeeded];
     [self layoutIfNeeded];
+    _btnDownload.enabled = YES;
+    _downloadIndicator.hidden = YES;
     for(NSString* strId in [StickerManager getInstance].arrDownloadingPack) {
         if([[_dictSticker objectForKey:@"id"] isEqualToString:strId]) {
             _btnDownload.enabled = NO;
-            _btnDownload.working = YES;
+            _downloadIndicator.hidden = NO;
         }
     }
 }
 
 - (IBAction)handleDownload:(id)sender {
-    self.btnDownload.enabled = NO;
-    self.btnDownload.working = YES;
+    _btnDownload.enabled = NO;
+    _downloadIndicator.hidden = NO;
     if([self.delegate respondsToSelector:@selector(didTouchDownload)]) {
         [self.delegate didTouchDownload];
     }

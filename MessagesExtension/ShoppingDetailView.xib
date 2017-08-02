@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShoppingDetailView">
             <connections>
                 <outlet property="btnDownload" destination="v5Y-tU-fx6" id="x4X-gk-C9L"/>
+                <outlet property="downloadIndicator" destination="Qbv-BL-l9g" id="w2J-bC-PB4"/>
                 <outlet property="heightOfContentView" destination="yRT-Oe-yjf" id="5SZ-fG-6ZB"/>
                 <outlet property="iconImgView" destination="E2c-an-qAj" id="jyH-7h-X0H"/>
                 <outlet property="imgArrowSwipe" destination="jUD-IF-EDz" id="1qX-4k-cl5"/>
@@ -90,11 +91,15 @@
                                         <constraint firstAttribute="width" constant="35" id="qKe-By-Wyw"/>
                                     </constraints>
                                 </imageView>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Qbv-BL-l9g">
+                                    <rect key="frame" x="237" y="155" width="20" height="20"/>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="Gbm-6X-pet" firstAttribute="top" secondItem="Jbc-Wj-gYh" secondAttribute="top" constant="190" id="1vA-gd-ouL"/>
                                 <constraint firstAttribute="bottom" secondItem="Vrp-MK-umX" secondAttribute="bottom" id="3Q0-Q4-8FC"/>
+                                <constraint firstItem="Qbv-BL-l9g" firstAttribute="trailing" secondItem="v5Y-tU-fx6" secondAttribute="trailing" constant="-10" id="7LR-Yk-0Vc"/>
                                 <constraint firstItem="Gbm-6X-pet" firstAttribute="top" secondItem="v5Y-tU-fx6" secondAttribute="bottom" constant="8" id="C3q-BA-QFv"/>
                                 <constraint firstItem="9Vj-G7-liz" firstAttribute="centerX" secondItem="Jbc-Wj-gYh" secondAttribute="centerX" id="Caa-ze-dU2"/>
                                 <constraint firstItem="jUD-IF-EDz" firstAttribute="centerY" secondItem="Vrp-MK-umX" secondAttribute="centerY" id="FyZ-fb-wk0"/>
@@ -107,6 +112,7 @@
                                 <constraint firstItem="9Vj-G7-liz" firstAttribute="width" secondItem="Jbc-Wj-gYh" secondAttribute="width" id="eUS-Gn-Bsv"/>
                                 <constraint firstItem="jUD-IF-EDz" firstAttribute="leading" secondItem="Vrp-MK-umX" secondAttribute="leading" constant="32" id="fF3-SK-XEQ"/>
                                 <constraint firstItem="v5Y-tU-fx6" firstAttribute="width" secondItem="Jbc-Wj-gYh" secondAttribute="width" constant="-60" id="knG-Je-3fQ"/>
+                                <constraint firstItem="Qbv-BL-l9g" firstAttribute="centerY" secondItem="v5Y-tU-fx6" secondAttribute="centerY" id="l73-RY-OL0"/>
                                 <constraint firstItem="Vrp-MK-umX" firstAttribute="leading" secondItem="Jbc-Wj-gYh" secondAttribute="leading" constant="2" id="mxS-UT-xe3"/>
                                 <constraint firstItem="j3i-v5-veS" firstAttribute="top" secondItem="Jbc-Wj-gYh" secondAttribute="top" constant="-128" id="n8q-bU-FTA"/>
                                 <constraint firstAttribute="trailing" secondItem="j3i-v5-veS" secondAttribute="trailing" id="p5c-X4-tY0"/>
