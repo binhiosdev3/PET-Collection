@@ -92,14 +92,14 @@
                                     </constraints>
                                 </imageView>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Qbv-BL-l9g">
-                                    <rect key="frame" x="237" y="155" width="20" height="20"/>
+                                    <rect key="frame" x="227" y="155" width="20" height="20"/>
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="Gbm-6X-pet" firstAttribute="top" secondItem="Jbc-Wj-gYh" secondAttribute="top" constant="190" id="1vA-gd-ouL"/>
                                 <constraint firstAttribute="bottom" secondItem="Vrp-MK-umX" secondAttribute="bottom" id="3Q0-Q4-8FC"/>
-                                <constraint firstItem="Qbv-BL-l9g" firstAttribute="trailing" secondItem="v5Y-tU-fx6" secondAttribute="trailing" constant="-10" id="7LR-Yk-0Vc"/>
+                                <constraint firstItem="Qbv-BL-l9g" firstAttribute="trailing" secondItem="v5Y-tU-fx6" secondAttribute="trailing" constant="-20" id="7LR-Yk-0Vc"/>
                                 <constraint firstItem="Gbm-6X-pet" firstAttribute="top" secondItem="v5Y-tU-fx6" secondAttribute="bottom" constant="8" id="C3q-BA-QFv"/>
                                 <constraint firstItem="9Vj-G7-liz" firstAttribute="centerX" secondItem="Jbc-Wj-gYh" secondAttribute="centerX" id="Caa-ze-dU2"/>
                                 <constraint firstItem="jUD-IF-EDz" firstAttribute="centerY" secondItem="Vrp-MK-umX" secondAttribute="centerY" id="FyZ-fb-wk0"/>
