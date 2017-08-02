@@ -7,7 +7,7 @@
 //
 
 #import "ShoppingView.h"
-#import "ShoppingTableViewCell.h"
+
 
 @implementation ShoppingView
 
@@ -35,6 +35,10 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 //    [_headerImg sd_setImageWithURL:imageURL];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.detailView.delegate = self;
+    self.overlayView.alpha = 0.0;
+    self.leadingDetailViewContraint.constant = self.frame.size.width;
 }
 
 - (void)completedAddPackage {
@@ -60,11 +64,13 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (void)getJson {
+    self.indicatorView.hidden = NO;
     BlockWeakSelf weakself = self;
     [self getDataFromSerVer:JSON_URL completeBlock:^(NSString *responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             weakself.jsonDataArray = [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
             [weakself filterDownloadedPackage];
+            weakself.indicatorView.hidden = YES;
             weakself.tableView.hidden = NO;
             [weakself.tableView reloadData];
         });
@@ -87,6 +93,13 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [self.arrItemShow removeObjectsInArray:arr];
     }
     [_arrFilterMySticker removeAllObjects];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
     _headerView.tfSearch.text = @"";
 }
@@ -143,7 +156,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if(section == 0) return 40.f;
+    if(section == 0) return 120.f;
     return 0.f;
 }
 
@@ -178,8 +191,26 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
+    _cellSelected = [tableView cellForRowAtIndexPath:indexPath];
+    self.detailView.dictSticker = dict;
+    self.detailView.leadingShopingViewContraint = self.leadingDetailViewContraint;
+    [self showDetailView:YES];
+    [self.detailView loadDetail];
 }
+
+- (void)showDetailView:(BOOL)show {
+    if(show) {
+        self.leadingDetailViewContraint.constant = 0;
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        [self updateConstraintsIfNeeded];
+        [self layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        self.overlayView.alpha = 9.0;
+    }];
+}
+
 
 - (IBAction)handlePurchase:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_purchase object:nil];
@@ -251,5 +282,18 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [weakSelf updateConstraintsIfNeeded];
         [weakSelf layoutIfNeeded];
     }];
+}
+
+- (void)didChangeX:(CGFloat)x {
+    CGFloat alpha = (self.frame.size.width - x)/self.frame.size.width;
+    self.overlayView.alpha = MIN(alpha, 0.7);
+}
+
+- (void)didClose {
+    self.overlayView.alpha = 0.0;
+}
+
+- (void)didTouchDownload {
+    [_cellSelected handleDownload:nil];
 }
 @end

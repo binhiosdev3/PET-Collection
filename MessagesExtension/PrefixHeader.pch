@@ -13,5 +13,7 @@
 #import "StickerManager.h"
 #import "BaseView.h"
 #import "FileManager.h"
+#import "FLAnimatedImageView+WebCache.h"
+#import "KBRoundedButton.h"
 #endif
 #endif /* PrefixHeader_pch */

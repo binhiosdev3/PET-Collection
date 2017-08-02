@@ -16,6 +16,8 @@
 		5F0133261F303B4D00BCE9FC /* StickerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */; };
 		5F0133291F306F7700BCE9FC /* HeaderSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133281F306F7700BCE9FC /* HeaderSectionView.m */; };
 		5F01332B1F306F8700BCE9FC /* HeaderSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */; };
+		5F0133311F318A2500BCE9FC /* ShoppingDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0133301F318A2500BCE9FC /* ShoppingDetailView.m */; };
+		5F0133331F318A3000BCE9FC /* ShoppingDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F0133321F318A3000BCE9FC /* ShoppingDetailView.xib */; };
 		5F8453FB1F25EA3A00E62DDE /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F8454001F25EA3A00E62DDE /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8453FF1F25EA3A00E62DDE /* Messages.framework */; };
 		5F8454041F25EA3A00E62DDE /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454031F25EA3A00E62DDE /* MessagesViewController.m */; };
@@ -102,6 +104,9 @@
 		5F0133271F306F7700BCE9FC /* HeaderSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSectionView.h; sourceTree = "<group>"; };
 		5F0133281F306F7700BCE9FC /* HeaderSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSectionView.m; sourceTree = "<group>"; };
 		5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSectionView.xib; sourceTree = "<group>"; };
+		5F01332F1F318A2500BCE9FC /* ShoppingDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingDetailView.h; sourceTree = "<group>"; };
+		5F0133301F318A2500BCE9FC /* ShoppingDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingDetailView.m; sourceTree = "<group>"; };
+		5F0133321F318A3000BCE9FC /* ShoppingDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingDetailView.xib; sourceTree = "<group>"; };
 		5F8453F01F25EA3A00E62DDE /* PET Sticker Collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PET Sticker Collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FA1F25EA3A00E62DDE /* MessagesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessagesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8453FF1F25EA3A00E62DDE /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
@@ -228,6 +233,9 @@
 				5F0133271F306F7700BCE9FC /* HeaderSectionView.h */,
 				5F0133281F306F7700BCE9FC /* HeaderSectionView.m */,
 				5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */,
+				5F01332F1F318A2500BCE9FC /* ShoppingDetailView.h */,
+				5F0133301F318A2500BCE9FC /* ShoppingDetailView.m */,
+				5F0133321F318A3000BCE9FC /* ShoppingDetailView.xib */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -519,6 +527,7 @@
 				5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */,
 				5F84541E1F26F18900E62DDE /* Stickers in Resources */,
 				5F01332B1F306F8700BCE9FC /* HeaderSectionView.xib in Resources */,
+				5F0133331F318A3000BCE9FC /* ShoppingDetailView.xib in Resources */,
 				5F0133161F30295200BCE9FC /* ShoppingTableViewCell.xib in Resources */,
 				5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */,
 			);
@@ -540,6 +549,7 @@
 				5F84546B1F27304B00E62DDE /* SDWebImageManager.m in Sources */,
 				5F8797151F29EC110068179A /* UIImage+Color.m in Sources */,
 				5F0133231F3037BE00BCE9FC /* UIView+ExtLayout.m in Sources */,
+				5F0133311F318A2500BCE9FC /* ShoppingDetailView.m in Sources */,
 				5F8454641F27304B00E62DDE /* NSImage+WebCache.m in Sources */,
 				5F8454721F27304B00E62DDE /* UIImageView+WebCache.m in Sources */,
 				5F0133261F303B4D00BCE9FC /* StickerBrowserViewController.m in Sources */,

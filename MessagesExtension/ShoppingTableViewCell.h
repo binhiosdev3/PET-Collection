@@ -14,6 +14,5 @@
 
 - (void)loadCellWithDict:(NSDictionary*)dict;
 - (void)loadCellWithPackage:(StickerPack*)pack;
-- (CGFloat)heightWhenExpand;
-- (void)expand:(BOOL)expand;
+- (IBAction)handleDownload:(id)sender;
 @end

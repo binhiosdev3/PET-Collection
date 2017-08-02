@@ -7,9 +7,6 @@
 //
 
 #import "ShoppingTableViewCell.h"
-#import "FLAnimatedImageView+WebCache.h"
-#import "FileManager.h"
-
 
 @interface ShoppingTableViewCell()
 
@@ -43,24 +40,6 @@
     // Configure the view for the selected state
 }
 
-- (void)expand:(BOOL)expand {
-    if(expand) {
-        self.heightPreviewImg.constant = [self heightWhenExpand];
-        self.previewImg.image = [UIImage imageNamed:@"b"];
-    }
-    else {
-        self.heightPreviewImg.constant = 0;
-    }
-    self.previewImg.hidden = !expand;
-    [self updateConstraintsIfNeeded];
-    [self layoutIfNeeded];
-}
-
-
-- (CGFloat)heightWhenExpand {
-    CGFloat h= (self.frame.size.width - 70)*488/364;
-    return h;
-}
 
 - (void)loadCellWithDict:(NSDictionary*)dict{
     _packageDict = dict;
@@ -76,7 +55,7 @@
         }
     }
     self.selectedBackgroundView = nil;
-    [self expand:self.selected];
+
 }
 
 - (void)loadCellWithPackage:(StickerPack*)pack {
