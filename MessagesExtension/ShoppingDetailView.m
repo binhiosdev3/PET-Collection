@@ -13,6 +13,7 @@
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* iconImgView;
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* preViewImg;
 @property (nonatomic,weak) IBOutlet UILabel* lbTitle;
+@property (nonatomic,weak) IBOutlet UIImageView* imgArrowSwipe;
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightOfContentView;
 @end
@@ -28,6 +29,7 @@
     [pan setEdges:UIRectEdgeLeft];
     [pan setDelegate:self];
     [self addGestureRecognizer:pan];
+    _imgArrowSwipe.image = [[UIImage imageNamed:@"swipe-right"] imageMaskedWithColor:[UIColor lightGrayColor]];
 }
 
 static CGPoint prelocation;

@@ -8,6 +8,30 @@
 
 #import "ShoppingView.h"
 
+@interface ShoppingView()
+
+<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ShoppingDetailDelegate>
+
+@property (nonatomic, weak) IBOutlet UITableView* tableView;
+@property (nonatomic, weak) IBOutlet UIView* bottomAlertView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint* topBottomAlertView;
+@property (nonatomic, weak) IBOutlet UIButton* btnRestore;
+@property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
+@property (nonatomic,strong) NSDictionary *jsonDataArray;
+@property (nonatomic,strong) NSMutableArray *arrItemShow;
+@property (nonatomic,strong) NSMutableArray *arrFilterMySticker;
+@property (nonatomic,strong) NSMutableArray *arrMySticker;
+@property (nonatomic, strong) HeaderSectionView* headerView;
+@property (nonatomic, weak) IBOutlet ShoppingDetailView* detailView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint* leadingDetailViewContraint;
+@property (nonatomic, weak) IBOutlet UIView* overlayView;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView* indicatorView;
+@property (nonatomic, assign) ShoppingTableViewCell* cellSelected;
+@property (nonatomic, strong) NSMutableArray* arrDeletePack;
+@property (nonatomic) BOOL isEditMode;
+@property (nonatomic) NSInteger indexSelected;
+
+@end
 
 @implementation ShoppingView
 
@@ -17,6 +41,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 - (void)setUpView {
     _isEditMode = NO;
     _arrMySticker = [NSMutableArray new];
+    _arrDeletePack = [NSMutableArray new];
     _headerView = [[HeaderSectionView alloc] init];
     [_headerView.btnMySticker addTarget:self action:@selector(handleEditMySticker) forControlEvents:UIControlEventTouchUpInside];
     _headerView.tfSearch.delegate = self;
@@ -228,6 +253,10 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [_headerView showMySticker:YES];
     }
     else {
+        //delete file
+        for(StickerPack* pack in _arrDeletePack) {
+            [FileManager deleteStickerPackage:pack];
+        }
         [[StickerManager getInstance].arrPackages removeAllObjects];
         [[StickerManager getInstance].arrPackages addObjectsFromArray:_arrMySticker];
         [[StickerManager getInstance] saveArrPackage];
@@ -270,6 +299,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
+        [_arrDeletePack addObject:[_arrMySticker objectAtIndex:indexPath.row]];
         [_arrMySticker removeObjectAtIndex:indexPath.row];
         [self.tableView reloadData];
     }

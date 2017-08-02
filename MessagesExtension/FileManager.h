@@ -17,4 +17,5 @@
 + (void)copyDefaultStickerToResourceIfNeeded;
 + (void)createStickerWithDictionary:(NSDictionary*)dict andData:(NSData*)data;
 + (UIImage *)imageImmediateLoadWithContentsOfFile:(NSString *)path;
++ (void)deleteStickerPackage:(StickerPack*)pack;
 @end

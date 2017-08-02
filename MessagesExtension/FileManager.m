@@ -146,6 +146,15 @@ static NSString *_rootLibraryPath = nil;
     return @"Stickers";
 }
 
++ (void)deleteStickerPackage:(StickerPack*)pack {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString* pathPack = [NSString stringWithFormat:@"%@/%@", [FileManager stickerFileURL].path,pack.packageID];
+    NSError* err;
+    if ([fm fileExistsAtPath:pathPack]) {
+        [fm removeItemAtPath:pathPack error:&err];
+    }
+}
+
 
 + (UIImage *)imageImmediateLoadWithContentsOfFile:(NSString *)path{
     NSURL* stickerUrl = [[FileManager stickerFileURL] URLByAppendingPathComponent:path];

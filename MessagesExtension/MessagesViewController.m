@@ -34,6 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if([StickerManager getInstance].arrPackages.count == 0) {
+        [FileManager copyDefaultStickerToResourceIfNeeded];
+    }
+
     [self addObserver];
     [StickerManager getInstance];
     [self setUpUI];
@@ -320,9 +324,7 @@
 #pragma mark - Conversation Handling
 
 -(void)didBecomeActiveWithConversation:(MSConversation *)conversation {
-    [FileManager copyDefaultStickerToResourceIfNeeded];
-    [StickerManager getInstance];
-    [_shoppingView setUpView];
+     [_shoppingView setUpView];
     [_clIcon reloadData];
     [_clSticker reloadData];
     [_clIcon selectItemAtIndexPath:[NSIndexPath indexPathForItem:_indexSelected inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
