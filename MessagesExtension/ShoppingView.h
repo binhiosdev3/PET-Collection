@@ -12,7 +12,6 @@
 #import "ShoppingTableViewCell.h"
 
 @interface ShoppingView : BaseView
-@property (nonatomic, weak) IBOutlet UIView* bottomPurchaseView;
 @property (nonatomic, weak) IBOutlet UIView* viewButton;
 
 - (void)setUpView;

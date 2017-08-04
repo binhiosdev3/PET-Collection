@@ -15,5 +15,6 @@
 #import "FileManager.h"
 #import "FLAnimatedImageView+WebCache.h"
 #import "KBRoundedButton.h"
+#import "Util.h"
 #endif
 #endif /* PrefixHeader_pch */

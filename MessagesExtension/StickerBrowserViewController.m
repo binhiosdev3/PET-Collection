@@ -43,9 +43,9 @@
 }
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.stickerBrowserView.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view.
 }
 

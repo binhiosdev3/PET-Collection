@@ -17,6 +17,7 @@
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightOfContentView;
 @property (nonatomic,weak) IBOutlet UIActivityIndicatorView* downloadIndicator;
+@property (nonatomic,weak) IBOutlet UIActivityIndicatorView* loadingImageIndicator;
 @end
 
 @implementation ShoppingDetailView
@@ -31,11 +32,25 @@
     [pan setDelegate:self];
     [self addGestureRecognizer:pan];
     _imgArrowSwipe.image = [[UIImage imageNamed:@"swipe-right"] imageMaskedWithColor:[UIColor lightGrayColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage:)name:notification_add_package_download_complete object:nil];
 }
 
 static CGPoint prelocation;
 
 static bool islefttoright;
+
+- (void)completedAddPackage:(NSNotification*)notification {
+    BlockWeakSelf weakSelf = self;
+    da_main(^{
+        NSDictionary* dict = notification.userInfo;
+        NSString* strID =  [dict objectForKey:@"id"];
+        if([strID isEqualToString:[weakSelf.dictSticker objectForKey:@"id"]]) {
+            weakSelf.downloadIndicator.hidden = YES;
+            [weakSelf.btnDownload setTitle:@"Downloaded" forState:UIControlStateDisabled];
+        }
+    });
+    
+}
 
 - (void)handlePan:(UIPanGestureRecognizer *)sender{
     
@@ -76,26 +91,46 @@ static bool islefttoright;
     NSString* str = [self.dictSticker objectForKey:@"icon"];
     _lbTitle.text = [[self.dictSticker objectForKey:@"title"] capitalizedString];
     [_iconImgView sd_setImageWithURL:[NSURL URLWithString:str]];
-    [_preViewImg sd_setImageWithURL:[NSURL URLWithString:[self.dictSticker objectForKey:@"img_pre"]]];
-    CGFloat w = [[self.dictSticker objectForKey:@"w_preview"] floatValue];
-    CGFloat h = [[self.dictSticker objectForKey:@"h_preview"] floatValue];
-    CGFloat height = h*self.frame.size.width/w + 250;
-    self.heightOfContentView.constant = height;
-    [self updateConstraintsIfNeeded];
-    [self layoutIfNeeded];
-    _btnDownload.enabled = YES;
-    _downloadIndicator.hidden = YES;
+    BlockWeakSelf weakSelf = self;
+    weakSelf.loadingImageIndicator.hidden = NO;
+    [_preViewImg sd_setImageWithURL:[NSURL URLWithString:[self.dictSticker objectForKey:@"img_pre"]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if(image) {
+            da_main(^{
+                weakSelf.loadingImageIndicator.hidden = YES;
+                CGFloat w = image.size.width;
+                CGFloat h = image.size.height;
+                CGFloat height = h*self.frame.size.width/w + 250;
+                weakSelf.heightOfContentView.constant = height;
+                [weakSelf updateConstraintsIfNeeded];
+                [weakSelf layoutIfNeeded];
+            });
+        }
+    }];
+    [self setDownloadingButtonStatus:NO];
     for(NSString* strId in [StickerManager getInstance].arrDownloadingPack) {
         if([[_dictSticker objectForKey:@"id"] isEqualToString:strId]) {
-            _btnDownload.enabled = NO;
-            _downloadIndicator.hidden = NO;
+            [self setDownloadingButtonStatus:YES];
         }
     }
 }
 
+- (void)setDownloadingButtonStatus:(BOOL)isDownloading {
+    if(isDownloading) {
+        _btnDownload.enabled = NO;
+        _btnDownload.alpha = 0.8;
+        [_btnDownload setTitle:@"Downloading..." forState:UIControlStateDisabled];
+        _downloadIndicator.hidden = NO;
+    }
+    else {
+        [_btnDownload setTitle:@"Free Download" forState:UIControlStateDisabled];
+        _btnDownload.enabled = YES;
+        _downloadIndicator.hidden = YES;
+        _btnDownload.alpha = 1.0;
+    }
+}
+
 - (IBAction)handleDownload:(id)sender {
-    _btnDownload.enabled = NO;
-    _downloadIndicator.hidden = NO;
+    [self setDownloadingButtonStatus:YES];
     if([self.delegate respondsToSelector:@selector(didTouchDownload)]) {
         [self.delegate didTouchDownload];
     }

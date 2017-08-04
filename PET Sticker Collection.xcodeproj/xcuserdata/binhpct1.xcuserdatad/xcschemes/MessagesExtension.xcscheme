@@ -67,16 +67,33 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "1"
+         BundleIdentifier = "com.apple.MobileSMS">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5F8453EF1F25EA3A00E62DDE"
-            BuildableName = "PET Sticker Collection.app"
-            BlueprintName = "PET Sticker Collection"
+            BlueprintIdentifier = "5F8453F91F25EA3A00E62DDE"
+            BuildableName = "MessagesExtension.appex"
+            BlueprintName = "MessagesExtension"
             ReferencedContainer = "container:PET Sticker Collection.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5F8453F91F25EA3A00E62DDE"
+            BuildableName = "MessagesExtension.appex"
+            BlueprintName = "MessagesExtension"
+            ReferencedContainer = "container:PET Sticker Collection.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OS_ACTIVITY_MODE"
+            value = "disable"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

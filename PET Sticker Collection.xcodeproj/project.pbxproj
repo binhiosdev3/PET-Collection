@@ -60,6 +60,9 @@
 		5F87970B1F29A6490068179A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F87970A1F29A6490068179A /* StoreKit.framework */; };
 		5F8797141F29EC110068179A /* KBRoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797111F29EC110068179A /* KBRoundedButton.m */; };
 		5F8797151F29EC110068179A /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8797131F29EC110068179A /* UIImage+Color.m */; };
+		5FDAB9EB1F344F3600F371FB /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9EA1F344F3600F371FB /* Util.m */; };
+		5FDAB9EF1F34717900F371FB /* ZPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9EE1F34717900F371FB /* ZPReachability.m */; };
+		5FDAB9F21F34718800F371FB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9F11F34718800F371FB /* Reachability.m */; };
 		721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */; };
 /* End PBXBuildFile section */
 
@@ -190,6 +193,12 @@
 		5F8797111F29EC110068179A /* KBRoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBRoundedButton.m; sourceTree = "<group>"; };
 		5F8797121F29EC110068179A /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		5F8797131F29EC110068179A /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		5FDAB9E91F344F3600F371FB /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		5FDAB9EA1F344F3600F371FB /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		5FDAB9ED1F34717900F371FB /* ZPReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPReachability.h; sourceTree = "<group>"; };
+		5FDAB9EE1F34717900F371FB /* ZPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPReachability.m; sourceTree = "<group>"; };
+		5FDAB9F01F34718800F371FB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		5FDAB9F11F34718800F371FB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		721E922F1F2DD0E00091A822 /* SRSubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSubscriptionModel.h; sourceTree = "<group>"; };
 		721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSubscriptionModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -210,6 +219,7 @@
 		5F0133171F302CD700BCE9FC /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5FDAB9EC1F34715A00F371FB /* Reachability */,
 				5F84548A1F289F3C00E62DDE /* UIImage+Ext.h */,
 				5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */,
 				5F87970F1F29EC110068179A /* KBRoundedButton */,
@@ -262,6 +272,8 @@
 				5F01331F1F30377900BCE9FC /* UIView+Ext.m */,
 				5F0133121F30281100BCE9FC /* BaseView.h */,
 				5F0133131F30281100BCE9FC /* BaseView.m */,
+				5FDAB9E91F344F3600F371FB /* Util.h */,
+				5FDAB9EA1F344F3600F371FB /* Util.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -429,6 +441,17 @@
 			path = KBRoundedButton;
 			sourceTree = "<group>";
 		};
+		5FDAB9EC1F34715A00F371FB /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				5FDAB9ED1F34717900F371FB /* ZPReachability.h */,
+				5FDAB9EE1F34717900F371FB /* ZPReachability.m */,
+				5FDAB9F01F34718800F371FB /* Reachability.h */,
+				5FDAB9F11F34718800F371FB /* Reachability.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -549,6 +572,7 @@
 				5F84546B1F27304B00E62DDE /* SDWebImageManager.m in Sources */,
 				5F8797151F29EC110068179A /* UIImage+Color.m in Sources */,
 				5F0133231F3037BE00BCE9FC /* UIView+ExtLayout.m in Sources */,
+				5FDAB9F21F34718800F371FB /* Reachability.m in Sources */,
 				5F0133311F318A2500BCE9FC /* ShoppingDetailView.m in Sources */,
 				5F8454641F27304B00E62DDE /* NSImage+WebCache.m in Sources */,
 				5F8454721F27304B00E62DDE /* UIImageView+WebCache.m in Sources */,
@@ -566,6 +590,7 @@
 				5F84546A1F27304B00E62DDE /* SDWebImageDownloaderOperation.m in Sources */,
 				5F8454691F27304B00E62DDE /* SDWebImageDownloader.m in Sources */,
 				5F84546E1F27304B00E62DDE /* UIImage+GIF.m in Sources */,
+				5FDAB9EF1F34717900F371FB /* ZPReachability.m in Sources */,
 				5F8454741F27304B00E62DDE /* UIView+WebCacheOperation.m in Sources */,
 				5F8454731F27304B00E62DDE /* UIView+WebCache.m in Sources */,
 				5F01331C1F302E7000BCE9FC /* CollectionViewCell.m in Sources */,
@@ -575,6 +600,7 @@
 				5F84542B1F27204B00E62DDE /* StickerPack.m in Sources */,
 				5F8454711F27304B00E62DDE /* UIImageView+HighlightedWebCache.m in Sources */,
 				5F8454211F26F34E00E62DDE /* FileManager.m in Sources */,
+				5FDAB9EB1F344F3600F371FB /* Util.m in Sources */,
 				5F8454041F25EA3A00E62DDE /* MessagesViewController.m in Sources */,
 				5F0133141F30281100BCE9FC /* BaseView.m in Sources */,
 				5F84546D1F27304B00E62DDE /* UIButton+WebCache.m in Sources */,

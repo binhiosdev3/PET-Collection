@@ -23,9 +23,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="165621" translatesAutoresizingMaskIntoConstraints="NO" id="4AG-dV-ysR">
+                                <rect key="frame" x="22" y="-78" width="368" height="171"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4AG-dV-ysR" secondAttribute="height" multiplier="368:171" id="OSk-1K-rxR"/>
+                                    <constraint firstAttribute="width" constant="368" id="ux5-xl-e0V"/>
+                                </constraints>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="st1-50-tFI">
                                 <rect key="frame" x="40" y="0.0" width="264" height="0.0"/>
-                                <color key="backgroundColor" red="0.7168266773223877" green="0.79969316720962524" blue="0.89796686172485352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.20519340038299561" green="0.71281975507736206" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="SSu-WT-sS9"/>
                                 </constraints>
@@ -122,7 +129,7 @@
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1c-gf-x2l">
                                 <rect key="frame" x="48" y="0.0" width="272" height="528"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dl5-Wl-HN2" userLabel="line">
                                 <rect key="frame" x="40" y="0.0" width="1" height="528"/>
@@ -153,7 +160,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColorForStateNormal">
-                                        <color key="value" red="0.4261767566204071" green="0.67755067348480225" blue="0.92298787832260132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="0.20519340038299561" green="0.71281975507736206" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColorForStateDisabled">
                                         <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -190,7 +197,9 @@
                             <constraint firstItem="st1-50-tFI" firstAttribute="leading" secondItem="1eL-VH-hnQ" secondAttribute="trailing" id="lM3-Xr-FJM"/>
                             <constraint firstItem="dl5-Wl-HN2" firstAttribute="leading" secondItem="1eL-VH-hnQ" secondAttribute="trailing" id="lle-GL-caN"/>
                             <constraint firstItem="dl5-Wl-HN2" firstAttribute="bottom" secondItem="1eL-VH-hnQ" secondAttribute="bottom" id="mED-LP-Tgk"/>
+                            <constraint firstItem="4AG-dV-ysR" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" constant="22" id="rT8-v6-0aL"/>
                             <constraint firstItem="p1c-gf-x2l" firstAttribute="bottom" secondItem="Gf9-eb-kW9" secondAttribute="bottom" id="rm0-FB-ttW"/>
+                            <constraint firstItem="4AG-dV-ysR" firstAttribute="bottom" secondItem="Gf9-eb-kW9" secondAttribute="top" constant="93" id="toq-N1-lx8"/>
                             <constraint firstItem="1eL-VH-hnQ" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="vye-RQ-3Yc"/>
                             <constraint firstItem="p1c-gf-x2l" firstAttribute="trailing" secondItem="Gf9-eb-kW9" secondAttribute="trailing" id="wFF-f1-hVB"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="Gf9-eb-kW9" secondAttribute="bottom" id="wFL-nM-g5M"/>
@@ -216,6 +225,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="165621" width="1920" height="986"/>
         <image name="lock-flat" width="256" height="256"/>
     </resources>
 </document>

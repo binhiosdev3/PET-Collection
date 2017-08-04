@@ -14,6 +14,8 @@
 - (instancetype)initWithPackageId:(NSString*)packageId
                   numberOfStickers:(int)numOfSticker
                         isAnimated:(BOOL)isGif
+                            title:(NSString*)title
+                            group:(NSString*)group
 {
     self = [super init];
     if(self) {
@@ -27,6 +29,8 @@
             NSString* strStickerPath = [NSString stringWithFormat:@"%@/%@_%d%@",packageId,packageId,i,ext];
             [self.arrStickerPath addObject:strStickerPath];
         }
+        self.title = title;
+        self.group = group;
     }
     return self;
 }
@@ -38,7 +42,13 @@
     [dict setObject:self.iconPath forKey:icon_path_key];
     [dict setObject:self.packageID forKey:packageId_key];
     [dict setObject:@(self.isAnimated) forKey:is_animated_key];
-//    [dict setObject:self.title forKey:title_key];
+    if(_title) {
+        [dict setObject:self.title forKey:title_key];
+    }
+    if(_group) {
+        [dict setObject:self.group forKey:group_key];
+    }
+    
     return dict;
 }
 
@@ -51,6 +61,7 @@
         self.packageID = [dict objectForKey:packageId_key];
         self.isAnimated = [[dict objectForKey:is_animated_key] boolValue];
         self.title = [dict objectForKey:title_key];
+        self.group = [dict objectForKey:group_key];
     }
     return self;
 }

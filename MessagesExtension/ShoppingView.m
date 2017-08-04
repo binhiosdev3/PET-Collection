@@ -14,7 +14,8 @@
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
 @property (nonatomic, weak) IBOutlet UIView* bottomAlertView;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint* topBottomAlertView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint* bottomBottomAlertView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint* bottomBottomViewButton;
 @property (nonatomic, weak) IBOutlet UIButton* btnRestore;
 @property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
@@ -29,17 +30,16 @@
 @property (nonatomic, assign) ShoppingTableViewCell* cellSelected;
 @property (nonatomic, strong) NSMutableArray* arrDeletePack;
 @property (nonatomic) BOOL isEditMode;
+@property (nonatomic) BOOL isGetingJson;
 @property (nonatomic) NSInteger indexSelected;
 
 @end
 
 @implementation ShoppingView
 
-typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
-
-
 - (void)setUpView {
     _isEditMode = NO;
+    _isGetingJson = NO;
     _arrMySticker = [NSMutableArray new];
     _arrDeletePack = [NSMutableArray new];
     _headerView = [[HeaderSectionView alloc] init];
@@ -51,7 +51,6 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ShoppingTableViewCell"];
     _indexSelected = -1;
     self.alpha = 0.0;
-    _tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -64,6 +63,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     self.detailView.delegate = self;
     self.overlayView.alpha = 0.0;
     self.leadingDetailViewContraint.constant = self.frame.size.width;
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 50, 0)];
 }
 
 - (void)completedAddPackage {
@@ -81,22 +81,23 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
             [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:_indexSelected inSection:0] animated:YES];
             _indexSelected = -1;
         }
-        
         self.alpha = 0.0;
-        self.tableView.hidden = YES;
-        
     }
 }
 
 - (void)getJson {
+    if(![Util isInternetActived]) return;
+    
     self.indicatorView.hidden = NO;
     BlockWeakSelf weakself = self;
-    [self getDataFromSerVer:JSON_URL completeBlock:^(NSString *responseObject) {
+    _isGetingJson = YES;
+    NSString* strUrl = [userDefaults objectForKey:JSON_URL_KEY];
+    [Util getDataFromSerVer:strUrl completeBlock:^(NSString *responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            weakself.isGetingJson = NO;
             weakself.jsonDataArray = [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
             [weakself filterDownloadedPackage];
             weakself.indicatorView.hidden = YES;
-            weakself.tableView.hidden = NO;
             [weakself.tableView reloadData];
         });
     }];
@@ -104,6 +105,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 - (void)filterDownloadedPackage {
     self.arrItemShow = [[NSMutableArray alloc] initWithArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    
     NSMutableArray* arr = [NSMutableArray new];
     [[StickerManager getInstance].arrPackages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StickerPack* stiPack = obj;
@@ -114,6 +116,13 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
             }
         }
     }];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
     }
@@ -142,24 +151,10 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 - (void)reloadData {
     BlockWeakSelf weakself = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
+    da_main(^{
         [weakself filterDownloadedPackage];
         [weakself.tableView reloadData];
     });
-}
-
-- (void)getDataFromSerVer:(NSString *)url completeBlock:(ResponseObjectCompleteBlock)completeBlock {
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:url]
-            completionHandler:^(NSData *data,
-                                NSURLResponse *response,
-                                NSError *error) {
-                // handle response
-                if(data) {
-                    NSString* responeStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    if(completeBlock) completeBlock(responeStr);
-                }
-            }] resume];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -168,6 +163,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if(section == 0) {
+        [_headerView checkExpireDate];
         return _headerView;
     }
     return nil;
@@ -221,7 +217,7 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     if(show) {
         self.leadingDetailViewContraint.constant = 0;
     }
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         [self updateConstraintsIfNeeded];
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
@@ -242,10 +238,14 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
     [_headerView.tfSearch resignFirstResponder];
     if(!_isEditMode) {
         _isEditMode = YES;
+        _indicatorView.hidden = YES;
         [_arrMySticker addObjectsFromArray:[StickerManager getInstance].arrPackages];
         [_headerView showMySticker:YES];
     }
     else {
+        if(self.isGetingJson) {
+            _indicatorView.hidden = NO;
+        }
         //delete file
         for(StickerPack* pack in _arrDeletePack) {
             [FileManager deleteStickerPackage:pack];
@@ -254,9 +254,9 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
         [[StickerManager getInstance].arrPackages addObjectsFromArray:_arrMySticker];
         [[StickerManager getInstance] saveArrPackage];
         [_arrMySticker removeAllObjects];
+        [_arrDeletePack removeAllObjects];
         _isEditMode = NO;
         [_headerView showMySticker:NO];
-        [[StickerManager getInstance] saveArrPackage];
         [[NSNotificationCenter defaultCenter] postNotificationName:notification_mysticker_did_endEditin object:nil];
     }
     self.tableView.editing = _isEditMode;
@@ -300,7 +300,8 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 
 - (void)showBottomAlertView:(BOOL)show {
     BlockWeakSelf weakSelf = self;
-    self.topBottomAlertView.constant = show ? 0 : 80.f;
+    self.bottomBottomAlertView.constant = show ? 0 : -25.f;
+    self.bottomBottomViewButton.constant = show ? -45 : 0.f;
     [UIView animateWithDuration:0.3 animations:^{
         [weakSelf updateConstraintsIfNeeded];
         [weakSelf layoutIfNeeded];

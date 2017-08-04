@@ -72,7 +72,10 @@ static NSString *_rootLibraryPath = nil;
 }
 
 + (void)copyDefaultStickerToResourceIfNeeded {
-    for(NSString* packageId in DEFAULT_STICKER_PACKAGE) {
+    BOOL isProduct = [[userDefaults objectForKey:IS_PRODUCTION] boolValue];
+    int num = isProduct ? NUM_DEFAULT_PACK_PRO : NUM_DEFAULT_PACK_DEMO;
+    for(int i = 0; i < num; i++) {
+        NSString* packageId = [DEFAULT_STICKER_PACKAGE objectAtIndex:i];
         [FileManager copyDefaultStickerIfNeedWithPackageId:packageId];
     }
 }
@@ -91,17 +94,22 @@ static NSString *_rootLibraryPath = nil;
             NSLog(@"cannot copy default sticker %@ to cache...",packageId);
         }
         else {
-            NSArray* arrNumOfSticker = DEFAULT_NUM_OF_STICKER_PACKAGE;
-            NSArray* arrIsGif = DEFAULT_IS_GIF_STICKER_PACKAGE;
-            int numOfSticker =  [[arrNumOfSticker objectAtIndex:packageId.intValue-1] intValue];
-            BOOL isGif = [[arrIsGif objectAtIndex:packageId.intValue-1] intValue] == 1 ? YES : NO;
-            [[StickerManager getInstance] addNewPackWithId:packageId numOfSticker:numOfSticker isAnimated:isGif];
+            int numOfSticker =  [[DEFAULT_NUM_OF_STICKER_PACKAGE objectAtIndex:packageId.intValue-1] intValue];
+            BOOL isGif = [[DEFAULT_IS_GIF_STICKER_PACKAGE objectAtIndex:packageId.intValue-1] intValue] == 1 ? YES : NO;
+            NSString* title = [DEFAULT_STICKER_PACKAGE_NAME objectAtIndex:packageId.integerValue-1];
+            
+            [[StickerManager getInstance] addNewPackWithId:packageId
+                                              numOfSticker:numOfSticker
+                                                isAnimated:isGif
+             title:title group:@""];
             
         }
     }
 }
 
 + (void)createStickerWithDictionary:(NSDictionary*)dict andData:(NSData*)data {
+    NSString* group = [dict objectForKey:@"group"];
+    NSString* title = [dict objectForKey:@"title"];
     NSString* packageId = [dict objectForKey:@"id"];
     int numOfStickers = [[dict objectForKey:@"numOfStick"] intValue];
     BOOL isGif = [[dict objectForKey:@"isGif"] intValue] == 1 ? YES : NO;
@@ -136,8 +144,12 @@ static NSString *_rootLibraryPath = nil;
         // remove archive file
         [fm removeItemAtPath:pathZipFile error:nil];
         if (!unzipError) {
-            [[StickerManager getInstance] addNewPackWithId:packageId numOfSticker:numOfStickers isAnimated:isGif];
-            [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
+            [[StickerManager getInstance] addNewPackWithId:packageId
+                                              numOfSticker:numOfStickers
+                                                isAnimated:isGif
+                                                     title:title
+                                                     group:group];
+            [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:dict];
         }
     }
 }

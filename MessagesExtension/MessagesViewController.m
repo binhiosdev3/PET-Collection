@@ -34,8 +34,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if([StickerManager getInstance].arrPackages.count == 0) {
+    [self getConfigIfNeeded];
+    if(![[userDefaults objectForKey:PASS_FIRST_LOAD_KEY] boolValue]) {
         [FileManager copyDefaultStickerToResourceIfNeeded];
+        [userDefaults setObject:@(1) forKey:PASS_FIRST_LOAD_KEY];
+        [userDefaults synchronize];
     }
 
     [self addObserver];
@@ -43,7 +46,6 @@
     [self setUpUI];
     
     if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
-        self.shoppingView.bottomPurchaseView.hidden = NO;
         self.isPurchase = YES;
         self.viewSticker.hidden = NO;
         [self loadMSSticker];
@@ -52,11 +54,29 @@
     }
     else {
         self.isPurchase = NO;
-        self.shoppingView.bottomPurchaseView.hidden = YES;
         self.viewSticker.hidden = YES;
         self.clSticker.hidden = NO;
         [self.clSticker reloadData];
     }
+}
+
+- (void)getConfigIfNeeded {
+    BOOL isProduction = [[userDefault objectForKey:IS_PRODUCTION] boolValue];
+    if(!isProduction) {
+        [Util getDataFromSerVer:CONFIG_URL completeBlock:^(NSString *responseObject) {
+            NSDictionary* dictJson  =  [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+            BOOL pro = [[dictJson objectForKey:@"product"] boolValue];
+            NSString* jsonUrl = [dictJson objectForKey:@"json_url"];
+            [userDefault setObject:@(pro) forKey:IS_PRODUCTION];
+            [userDefault setObject:jsonUrl forKey:JSON_URL_KEY];
+            [userDefaults synchronize];
+            if(pro) {
+                [FileManager copyDefaultStickerToResourceIfNeeded];
+            }
+        }];
+
+    }
+    
 }
 
 
@@ -100,6 +120,7 @@
 }
 
 - (void)addObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAlertView:)name:notification_show_alert object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEndEditMySticker)name:notification_mysticker_did_endEditin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePurchase)name:notification_click_purchase object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRestore)name:notification_click_restore object:nil];
@@ -204,7 +225,8 @@
     cell.selectedBackgroundView = nil;
     iconImgView.backgroundColor = [UIColor clearColor];
     if(indexPath.row == _indexSelected) {
-        iconImgView.backgroundColor = self.topLine.backgroundColor;;
+        iconImgView.backgroundColor = self.topLine.backgroundColor;
+        iconImgView.alpha = 0.8;
     }
     return cell;
 }
@@ -374,7 +396,6 @@
     else {
         [self animateShowShopingView:NO];
     }
-    // Use this method to finalize any behaviors associated with the change in presentation style.
 }
 
 - (void)animateShowShopingView:(BOOL)show {
@@ -405,14 +426,12 @@
             [weakself loadMSSticker];
             weakself.clSticker.hidden = YES;
             weakself.shoppingView.viewButton.hidden = YES;
-            weakself.shoppingView.bottomPurchaseView.hidden = NO;
         }
         else {
             weakself.viewSticker.hidden = YES;
             weakself.clSticker.hidden = NO;
             [weakself.clSticker reloadData];
             weakself.shoppingView.viewButton.hidden = NO;;
-            weakself.shoppingView.bottomPurchaseView.hidden = YES;
         }
     });
     
@@ -444,7 +463,10 @@
          [weakself scrollCollectionToTop:_clSticker];
          [weakself.clSticker reloadData];
      });
-   
+}
+
+- (void)showAlertView:(NSNotification*)notification {
+
 }
 
 @end

@@ -12,6 +12,10 @@
 @property (nonatomic,weak) IBOutlet UITextField* tfSearch;
 @property (nonatomic,weak) IBOutlet UIButton* btnMySticker;
 @property (nonatomic,weak) IBOutlet UILabel* lbMySticker;
-@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMySticker;
+@property (nonatomic,weak) IBOutlet UILabel* lbExpireDate;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerToTraillingTF;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* heigtForExpireDatalb;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerToLeadingTF;
 - (void)showMySticker:(BOOL)show;
+- (void)checkExpireDate;
 @end

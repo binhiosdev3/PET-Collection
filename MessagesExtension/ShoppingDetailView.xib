@@ -18,6 +18,7 @@
                 <outlet property="iconImgView" destination="E2c-an-qAj" id="jyH-7h-X0H"/>
                 <outlet property="imgArrowSwipe" destination="jUD-IF-EDz" id="1qX-4k-cl5"/>
                 <outlet property="lbTitle" destination="wD1-FK-3Ud" id="RHt-sF-0hP"/>
+                <outlet property="loadingImageIndicator" destination="ZAg-fh-mFs" id="xn2-gX-vM1"/>
                 <outlet property="preViewImg" destination="Gbm-6X-pet" id="4WV-rp-tTj"/>
                 <outlet property="scrllView" destination="xac-PN-tUo" id="1s1-LD-RKd"/>
             </connections>
@@ -53,15 +54,15 @@
                                     <rect key="frame" x="30" y="148" width="237" height="34"/>
                                     <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="Download Free">
+                                    <state key="normal" title="Free  Download">
                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColorForStateNormal">
-                                            <color key="value" red="0.13648489117622375" green="0.60852479934692383" blue="0.068986155092716217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="value" red="0.28138551115989685" green="0.6866723895072937" blue="0.36418288946151733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColorForStateDisabled">
-                                            <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="value" red="0.28138551115989685" green="0.6866723895072937" blue="0.36418288946151733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="titleColorForStateNormal">
                                             <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -69,7 +70,7 @@
                                         <userDefinedRuntimeAttribute type="color" keyPath="titleColorForStateDisable">
                                             <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="shadowEnabled" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="shadowEnabled" value="NO"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="handleDownload:" destination="-1" eventType="touchUpInside" id="p97-oY-Q2f"/>

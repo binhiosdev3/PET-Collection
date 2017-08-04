@@ -161,7 +161,7 @@ NSString *const SRSecondSubscription = @"DailyPurchase";
     //restored!
    NSLog(@"Subscriptions restored complete");
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:kSRProductRestoredNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSRProductRestoredNotification object:nil];
     
 }
 

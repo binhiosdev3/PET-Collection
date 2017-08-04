@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface BaseView : UIView
 @property (nonatomic, weak) IBOutlet UIView *contentView;
+
 @end
