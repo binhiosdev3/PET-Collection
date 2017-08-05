@@ -18,6 +18,7 @@
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightOfContentView;
 @property (nonatomic,weak) IBOutlet UIActivityIndicatorView* downloadIndicator;
 @property (nonatomic,weak) IBOutlet UIActivityIndicatorView* loadingImageIndicator;
+@property (nonatomic,weak) IBOutlet UILabel* lbFreeDownload;
 @end
 
 @implementation ShoppingDetailView
@@ -33,6 +34,8 @@
     [self addGestureRecognizer:pan];
     _imgArrowSwipe.image = [[UIImage imageNamed:@"swipe-right"] imageMaskedWithColor:[UIColor lightGrayColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage:)name:notification_add_package_download_complete object:nil];
+    [_lbFreeDownload.layer setMasksToBounds:YES];
+    [_lbFreeDownload.layer setCornerRadius:5.f];
 }
 
 static CGPoint prelocation;
@@ -40,11 +43,12 @@ static CGPoint prelocation;
 static bool islefttoright;
 
 - (void)completedAddPackage:(NSNotification*)notification {
+    if(self.leadingShopingViewContraint.constant == self.frame.size.width) return;
     BlockWeakSelf weakSelf = self;
     da_main(^{
         NSDictionary* dict = notification.userInfo;
         NSString* strID =  [dict objectForKey:@"id"];
-        if([strID isEqualToString:[weakSelf.dictSticker objectForKey:@"id"]]) {
+        if([strID isEqualToString:[[weakSelf.dictSticker objectForKey:@"id"] stringValue]]) {
             weakSelf.downloadIndicator.hidden = YES;
             [weakSelf.btnDownload setTitle:@"Downloaded" forState:UIControlStateDisabled];
         }

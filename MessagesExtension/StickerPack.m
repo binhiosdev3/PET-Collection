@@ -16,9 +16,11 @@
                         isAnimated:(BOOL)isGif
                             title:(NSString*)title
                             group:(NSString*)group
+                        productID:(NSString*)productID
 {
     self = [super init];
     if(self) {
+        self.productID = productID;
         self.isAnimated = isGif;
         self.packageID = packageId;
         self.numberOfStickers = numOfSticker;
@@ -48,7 +50,7 @@
     if(_group) {
         [dict setObject:self.group forKey:group_key];
     }
-    
+    [dict setObject:self.productID forKey:productID_key];
     return dict;
 }
 
@@ -62,6 +64,7 @@
         self.isAnimated = [[dict objectForKey:is_animated_key] boolValue];
         self.title = [dict objectForKey:title_key];
         self.group = [dict objectForKey:group_key];
+        self.productID = [dict objectForKey:productID_key];
     }
     return self;
 }

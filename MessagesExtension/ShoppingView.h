@@ -13,7 +13,8 @@
 
 @interface ShoppingView : BaseView
 @property (nonatomic, weak) IBOutlet UIView* viewButton;
-
+@property (nonatomic,strong) NSMutableArray *arrItemShow;
+@property (nonatomic, weak) IBOutlet KBRoundedButton* btnRestore;
 - (void)setUpView;
 - (void)show:(BOOL)show;
 - (void)handleEditMySticker;

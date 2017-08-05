@@ -16,10 +16,10 @@
 @property (nonatomic, weak) IBOutlet UIView* bottomAlertView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* bottomBottomAlertView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* bottomBottomViewButton;
-@property (nonatomic, weak) IBOutlet UIButton* btnRestore;
+
 @property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
-@property (nonatomic,strong) NSMutableArray *arrItemShow;
+
 @property (nonatomic,strong) NSMutableArray *arrFilterMySticker;
 @property (nonatomic,strong) NSMutableArray *arrMySticker;
 @property (nonatomic, strong) HeaderSectionView* headerView;
@@ -38,6 +38,7 @@
 @implementation ShoppingView
 
 - (void)setUpView {
+    
     _isEditMode = NO;
     _isGetingJson = NO;
     _arrMySticker = [NSMutableArray new];
@@ -67,6 +68,7 @@
 }
 
 - (void)completedAddPackage {
+    _btnRestore.working = NO;
     [self reloadData];
 }
 
@@ -116,13 +118,13 @@
             }
         }
     }];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
+//    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
     }
@@ -205,12 +207,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    /*
     NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
     _cellSelected = [tableView cellForRowAtIndexPath:indexPath];
     self.detailView.dictSticker = dict;
     self.detailView.leadingShopingViewContraint = self.leadingDetailViewContraint;
     [self showDetailView:YES];
-    [self.detailView loadDetail];
+    [self.detailView loadDetail];*/
 }
 
 - (void)showDetailView:(BOOL)show {
@@ -231,6 +235,8 @@
 }
 
 - (IBAction)handleRestore:(id)sender {
+    self.btnRestore.enabled = NO;
+    self.btnRestore.working = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
 }
 

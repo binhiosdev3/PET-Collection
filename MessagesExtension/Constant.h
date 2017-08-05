@@ -31,7 +31,7 @@
 #define IS_PRODUCTION  @"IS_PRODUCTION"
 #define IS_PURCHASE_KEY @"Willattempttorecover_key"
 
-#define NUM_DEFAULT_PACK_DEMO 3
+#define NUM_DEFAULT_PACK_DEMO 1
 #define NUM_DEFAULT_PACK_PRO 5
 
 #define stickerdf_1 @"1"
@@ -46,6 +46,7 @@
 #define numOfSticker_4 @"24"
 #define numOfSticker_5 @"40"
 
+#define productId_1 @"iS1"
 
 #define nameOfSticker_1 @"Sweet Couple Rabbit Animated"
 #define nameOfSticker_2 @"Cool Little Pig Animated"
@@ -53,6 +54,7 @@
 #define nameOfSticker_4 @"Mimi Summer Animated"
 #define nameOfSticker_5 @"Cool Rabbit Emotion"
 
+#define DEFAULT_STICKER_PACKAGE_PRODUCTID @[productId_1]
 #define DEFAULT_STICKER_PACKAGE @[stickerdf_1, stickerdf_2, stickerdf_3,stickerdf_4,stickerdf_5]
 #define DEFAULT_STICKER_PACKAGE_NAME @[nameOfSticker_1,nameOfSticker_2,nameOfSticker_3,nameOfSticker_4,nameOfSticker_5]
 #define DEFAULT_STICKER_PACKAGE_NumOfSticker @[numOfSticker_1,numOfSticker_2,numOfSticker_3,numOfSticker_4,numOfSticker_5]
@@ -68,6 +70,7 @@
 #define is_animated_key @"PET_is_sticker_animated"
 #define title_key @"title_sticker"
 #define group_key @"group_sticker"
+#define productID_key @"productID_sticker"
 
 #define notification_add_package_download_complete @"completed_add_package_download"
 #define notification_click_purchase @"notification_click_purchase"

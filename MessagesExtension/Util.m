@@ -141,4 +141,17 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
         [[NSNotificationCenter defaultCenter] postNotificationName:notification_show_alert object:nil userInfo:usrInfo];
 }
 
++ (void)downloadPackage:(NSString*)stringURL andDict:(NSDictionary*)dict {
+    dispatch_queue_t queue = dispatch_get_global_queue(0,0);
+    dispatch_async(queue, ^{
+        NSLog(@"Beginning download");
+        NSURL  *url = [NSURL URLWithString:stringURL];
+        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        NSLog(@"Got the data!");
+        //Save the data
+        NSLog(@"Saving");
+        [FileManager createStickerWithDictionary:dict andData:urlData];
+    });
+}
+
 @end

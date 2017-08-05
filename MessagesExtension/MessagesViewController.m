@@ -13,6 +13,8 @@
 #import <Messages/Messages.h>
 #import "UIView+ExtLayout.h"
 #import "StickerBrowserViewController.h"
+#import "FooterCollectionReusableView.h"
+#import "IAPShare.h"
 
 #define delay_animate rand()%10+2
 
@@ -35,6 +37,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getConfigIfNeeded];
+    
+    if(![IAPShare sharedHelper].iap) {
+        
+        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"iS1",@"iS2", nil];
+        
+        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+        
+    }
+    [[IAPShare sharedHelper].iap clearSavedPurchasedProducts];
+    [IAPShare sharedHelper].iap.production = NO;
     if(![[userDefaults objectForKey:PASS_FIRST_LOAD_KEY] boolValue]) {
         [FileManager copyDefaultStickerToResourceIfNeeded];
         [userDefaults setObject:@(1) forKey:PASS_FIRST_LOAD_KEY];
@@ -44,13 +56,16 @@
     [self addObserver];
     [StickerManager getInstance];
     [self setUpUI];
+}
+
+- (void)checkPackagePurchase:(NSString*)productID {
     
-    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
+    if([[IAPShare sharedHelper].iap.purchasedProducts containsObject:productID]) {
         self.isPurchase = YES;
         self.viewSticker.hidden = NO;
         [self loadMSSticker];
         self.clSticker.hidden = YES;
-        [SRSubscriptionModel shareKit];
+
     }
     else {
         self.isPurchase = NO;
@@ -108,10 +123,13 @@
 }
 
 - (void)setUpUI {
+    
+    [_clSticker registerNib:[UINib nibWithNibName:@"FooterCollectionReusableView" bundle:[NSBundle mainBundle]]  forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"CollecttionFooterView"];
+    
     UIImage* imgPlus = [[UIImage imageNamed:@"icon_p"] imageMaskedWithColor:[UIColor whiteColor]];
     [_btnShopping setImage:imgPlus forState:UIControlStateNormal];
-    _indexSelected = 0;
-    _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+    self.indexSelected = 0;
+    _clSticker.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _clIcon.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:8.0].active = YES;
     self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
@@ -160,6 +178,7 @@
 - (void)completedAddPackage {
     BlockWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.indexSelected = 0;
         [weakSelf.clIcon reloadData];
     });
     
@@ -177,6 +196,29 @@
         StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
         return stickerPackage.arrStickerPath.count;
     }
+}
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+//{
+//    return CGSizeMake(_clSticker.frame.size.width, 68);
+//}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    if(collectionView == _clIcon) return CGSizeZero;
+    return CGSizeMake(_clSticker.frame.size.width, 75);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)theIndexPath
+{
+    if(collectionView == _clSticker) {
+        
+        if(kind == UICollectionElementKindSectionFooter)
+        {
+            FooterCollectionReusableView* footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"CollecttionFooterView" forIndexPath:theIndexPath];
+            return  footerView;
+        }
+    }
+    return nil;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -273,7 +315,7 @@
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     if(collectionView == _clIcon) {
         if(_indexSelected == indexPath.row) return;
-        _indexSelected = indexPath.row;
+        self.indexSelected = indexPath.row;
         [_clIcon reloadData];
         [self loadMSSticker];
         [self scrollCollectionToTop:_clSticker];
@@ -414,9 +456,20 @@
     }];
 }
 
+- (void)setIndexSelected:(NSInteger)indexSelected {
+    _indexSelected = indexSelected;
+    StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
+    if([[IAPShare sharedHelper].iap.purchasedProducts containsObject:stickerPackage.productID]
+       || [stickerPackage.productID isEqualToString:@"FREE"]){
+        self.isPurchase = YES;
+    }
+    else {
+        self.isPurchase = NO;
+    }
+}
+
 
 - (void)setIsPurchase:(BOOL)isPurchase {
-    if(isPurchase == _isPurchase) return;
     BlockWeakSelf weakself = self;
     _isPurchase = isPurchase;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -439,13 +492,94 @@
 
 -(IBAction)handlePurchase {
     [_shoppingView showBottomAlertView:YES];
-    [[SRSubscriptionModel shareKit] makePurchase:@"DailyPurchase"];
+//    [[SRSubscriptionModel shareKit] makePurchase:@"DailyPurchase"];
+    StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
+    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response)
+     {
+         if(response > 0 ) {
+             SKProduct* product;
+             for(product in [IAPShare sharedHelper].iap.products) {
+                 if([product.productIdentifier isEqualToString:stickerPackage.productID]) {
+                     break;
+                 }
+             }
+             
+             
+             NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]);
+             NSLog(@"Title: %@",product.localizedTitle);
+             
+             [[IAPShare sharedHelper].iap buyProduct:product
+                                        onCompletion:^(SKPaymentTransaction* trans){
+                                            
+                                            if(trans.error)
+                                            {
+                                                NSLog(@"Fail %@",[trans.error localizedDescription]);
+                                            }
+                                            else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
+                                                
+                                                [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:@"fb375a41a19f456f969d82a4028158a5" onCompletion:^(NSString *response, NSError *error) {
+                                                    
+                                                    //Convert JSON String to NSDictionary
+                                                    NSDictionary* rec = [IAPShare toJSON:response];
+                                                    
+                                                    if([rec[@"status"] integerValue]==0)
+                                                    {
+                                                        
+                                                        [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
+                                                        NSLog(@"SUCCESS %@",response);
+                                                        NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+                                                        self.indexSelected = _indexSelected;
+                                                    }
+                                                    else {
+                                                        NSLog(@"Fail");
+                                                    }
+                                                }];
+                                            }
+                                            else if(trans.transactionState == SKPaymentTransactionStateFailed) {
+                                                NSLog(@"Fail");
+                                            }
+                                        }];//end of buy product
+         }
+     }];
 }
 
 
 - (IBAction)handleRestore {
     [_shoppingView showBottomAlertView:YES];
-    [[SRSubscriptionModel shareKit] restoreSubscriptions];
+//    [[SRSubscriptionModel shareKit] restoreSubscriptions];
+    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *queue, NSError *error) {
+        [self checkDownloadRestoreProductIfNeeded:queue];
+    }];
+}
+
+- (void)checkDownloadRestoreProductIfNeeded:(SKPaymentQueue *)queue {
+    for (SKPaymentTransaction *transaction in queue.transactions)
+    {
+        switch (transaction.transactionState)
+        {
+            case SKPaymentTransactionStateRestored:
+            {
+                BOOL isDownloaded = NO;
+                for(StickerPack* pack in [StickerManager getInstance].arrPackages) {
+                    if([transaction.payment.productIdentifier isEqualToString:pack.productID]) {
+                        isDownloaded = YES;
+                        break;
+                    }
+                }
+                if(isDownloaded) break;
+                for(NSDictionary* dict in _shoppingView.arrItemShow) {
+                    NSString* proId = [dict objectForKey:@"product_id"];
+                    if([proId isEqualToString:transaction.payment.productIdentifier]) {
+                        NSString *stringURL = [dict objectForKey:@"url"];
+                        [Util downloadPackage:stringURL andDict:dict];
+                        break;
+                    }
+                }
+            }
+            default:
+                break;
+        }
+    }
 }
 
 - (void)clearALL {

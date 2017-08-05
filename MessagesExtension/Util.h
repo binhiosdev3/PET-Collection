@@ -34,4 +34,5 @@ typedef void(^ResponseObjectCompleteBlock)(NSString *responseObject);
 + (BOOL)isInternetActived;
 + (void)getDataFromSerVer:(NSString *)url completeBlock:(ResponseObjectCompleteBlock)completeBlock;
 + (void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)mesages;
++ (void)downloadPackage:(NSString*)stringURL andDict:(NSDictionary*)dict;
 @end

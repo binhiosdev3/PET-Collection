@@ -12,6 +12,7 @@
 @interface StickerPack : NSObject
 @property (nonatomic,strong) NSString* title;
 @property (nonatomic,strong) NSString* group;
+@property (nonatomic,strong) NSString* productID;
 @property (nonatomic,strong) NSString* packageID;
 @property (nonatomic)        int numberOfStickers;
 @property (nonatomic,strong) NSMutableArray* arrStickerPath;
@@ -22,7 +23,8 @@
                  numberOfStickers:(int)numOfSticker
                        isAnimated:(BOOL)isGif
                             title:(NSString*)title
-                            group:(NSString*)groupf;
+                            group:(NSString*)group
+                        productID:(NSString*)productID;
 - (instancetype)initWithDictionary:(NSDictionary*)dict;
 - (NSDictionary*)toDictionary;
 @end

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,8 +34,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Free Download  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jx4-Hh-IEg">
-                        <rect key="frame" x="76" y="30" width="112" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  0.99$  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jx4-Hh-IEg">
+                        <rect key="frame" x="76" y="30" width="53.5" height="20"/>
                         <color key="backgroundColor" red="0.71682667730000005" green="0.79969316720000005" blue="0.89796686169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="jb2-sL-uUf"/>
@@ -56,6 +56,16 @@
                             <action selector="handleDownload:" destination="T0E-Ko-sET" eventType="touchUpInside" id="RgT-Ly-kJt"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Trial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTd-9s-zkE">
+                        <rect key="frame" x="301" y="55" width="58" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="58" id="Tgt-w7-QqM"/>
+                            <constraint firstAttribute="height" constant="21" id="s9r-1u-EeC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -66,7 +76,9 @@
                     <constraint firstItem="mWc-p4-9X0" firstAttribute="leading" secondItem="2dX-4C-KIk" secondAttribute="leading" constant="8" id="E9P-Wj-Va7"/>
                     <constraint firstItem="aen-Dq-g5g" firstAttribute="top" secondItem="mWc-p4-9X0" secondAttribute="top" id="Jb3-UJ-fmH"/>
                     <constraint firstItem="mWc-p4-9X0" firstAttribute="top" secondItem="2dX-4C-KIk" secondAttribute="topMargin" id="Rkx-JH-77h"/>
+                    <constraint firstItem="VTd-9s-zkE" firstAttribute="top" secondItem="fuc-wd-cnD" secondAttribute="bottom" id="aKb-5j-ddj"/>
                     <constraint firstItem="fuc-wd-cnD" firstAttribute="leading" secondItem="aen-Dq-g5g" secondAttribute="trailing" id="jdh-fX-VMY"/>
+                    <constraint firstItem="VTd-9s-zkE" firstAttribute="centerX" secondItem="fuc-wd-cnD" secondAttribute="centerX" id="pEl-oy-Kbs"/>
                     <constraint firstItem="fuc-wd-cnD" firstAttribute="centerY" secondItem="mWc-p4-9X0" secondAttribute="centerY" id="qUT-Re-bBX"/>
                 </constraints>
             </tableViewCellContentView>
@@ -75,8 +87,10 @@
                 <outlet property="btnDownload" destination="fuc-wd-cnD" id="5Be-du-zJK"/>
                 <outlet property="iconView" destination="mWc-p4-9X0" id="nci-fY-VYA"/>
                 <outlet property="lbFreeDownload" destination="jx4-Hh-IEg" id="im6-lO-7Oa"/>
+                <outlet property="lbFreeTrial" destination="VTd-9s-zkE" id="9eW-VZ-N0K"/>
                 <outlet property="lbTitle" destination="aen-Dq-g5g" id="TlU-DW-Ske"/>
             </connections>
+            <point key="canvasLocation" x="34.5" y="121.5"/>
         </tableViewCell>
     </objects>
 </document>

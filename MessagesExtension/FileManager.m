@@ -97,17 +97,20 @@ static NSString *_rootLibraryPath = nil;
             int numOfSticker =  [[DEFAULT_NUM_OF_STICKER_PACKAGE objectAtIndex:packageId.intValue-1] intValue];
             BOOL isGif = [[DEFAULT_IS_GIF_STICKER_PACKAGE objectAtIndex:packageId.intValue-1] intValue] == 1 ? YES : NO;
             NSString* title = [DEFAULT_STICKER_PACKAGE_NAME objectAtIndex:packageId.integerValue-1];
-            
+            NSString* productID = [DEFAULT_STICKER_PACKAGE_PRODUCTID objectAtIndex:packageId.integerValue-1];
             [[StickerManager getInstance] addNewPackWithId:packageId
                                               numOfSticker:numOfSticker
                                                 isAnimated:isGif
-             title:title group:@""];
+                                                     title:title
+                                                     group:@""
+                                                 productID:productID];
             
         }
     }
 }
 
 + (void)createStickerWithDictionary:(NSDictionary*)dict andData:(NSData*)data {
+    NSString* productID = [dict objectForKey:@"product_id"];
     NSString* group = [dict objectForKey:@"group"];
     NSString* title = [dict objectForKey:@"title"];
     NSString* packageId = [dict objectForKey:@"id"];
@@ -148,7 +151,8 @@ static NSString *_rootLibraryPath = nil;
                                               numOfSticker:numOfStickers
                                                 isAnimated:isGif
                                                      title:title
-                                                     group:group];
+                                                     group:group
+                                                 productID:productID];
             [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:dict];
         }
     }

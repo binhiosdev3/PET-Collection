@@ -12,6 +12,7 @@
 
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* iconView;
 @property (nonatomic,weak) IBOutlet UILabel* lbTitle;
+@property (nonatomic,weak) IBOutlet UILabel* lbFreeTrial;
 @property (nonatomic,weak) IBOutlet UILabel* lbFreeDownload;
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
 @property (nonatomic,weak) IBOutlet UIImageView* imgViewArrow;
@@ -54,6 +55,14 @@
             _btnDownload.working = YES;
         }
     }
+    if([[_packageDict objectForKey:@"product_id"] isEqualToString:@"FREE"]) {
+        _lbFreeDownload.text = @"  FREE  ";
+        _lbFreeTrial.hidden = YES;
+    }
+    else {
+        _lbFreeDownload.text = @"  0.99$  ";
+        _lbFreeTrial.hidden = NO;
+    }
     self.selectedBackgroundView = nil;
 
 }
@@ -76,16 +85,10 @@
     _btnDownload.enabled = NO;
     _btnDownload.working = YES;
     [[StickerManager getInstance].arrDownloadingPack addObject:[_packageDict objectForKey:@"id"]];
-    BlockWeakSelf weakSelf = self;
-    dispatch_queue_t queue = dispatch_get_global_queue(0,0);
-    dispatch_async(queue, ^{
-        NSLog(@"Beginning download");
-        NSURL  *url = [NSURL URLWithString:stringURL];
-        NSData *urlData = [NSData dataWithContentsOfURL:url];
-        NSLog(@"Got the data!");
-        //Save the data
-        NSLog(@"Saving");
-        [FileManager createStickerWithDictionary:weakSelf.packageDict andData:urlData];
-    });
+    [Util downloadPackage:stringURL andDict:self.packageDict];
 }
+
+
+
+
 @end

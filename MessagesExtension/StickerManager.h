@@ -21,6 +21,7 @@
             numOfSticker:(int)numOfSticker
               isAnimated:(BOOL)isGif
                    title:(NSString*)title
-                   group:(NSString*)group;
+                   group:(NSString*)group
+               productID:(NSString*)productID;
 - (void)saveArrPackage;
 @end
