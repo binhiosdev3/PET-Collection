@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" id="U6b-Vx-4bR">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" reuseIdentifier="CollecttionFooterView" id="U6b-Vx-4bR" customClass="FooterCollectionReusableView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -38,6 +38,10 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="shadowEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="handlePurchase:" destination="-1" eventType="touchUpInside" id="6Zl-9C-gOK"/>
+                        <action selector="handlePurchase:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="ldM-Nt-pmJ"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>

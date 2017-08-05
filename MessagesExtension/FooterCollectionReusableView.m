@@ -15,4 +15,7 @@
     // Initialization code
 }
 
+- (IBAction)handlePurchase:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_purchase object:nil];
+}
 @end
