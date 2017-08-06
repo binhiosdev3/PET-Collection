@@ -73,6 +73,7 @@
     _lbTitle.text = [pack.title capitalizedString];
     NSURL* iconUrl =  [[FileManager stickerFileURL] URLByAppendingPathComponent:pack.iconPath];
     [_iconView sd_setImageWithURL:iconUrl];
+    _lbFreeTrial.hidden = YES;
 }
 
 -(void)prepareForReuse {

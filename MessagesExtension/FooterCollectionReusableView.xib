@@ -39,7 +39,6 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="shadowEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="handlePurchase:" destination="-1" eventType="touchUpInside" id="6Zl-9C-gOK"/>
                         <action selector="handlePurchase:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="ldM-Nt-pmJ"/>
                     </connections>
                 </button>
