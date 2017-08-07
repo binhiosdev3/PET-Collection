@@ -39,13 +39,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getConfigIfNeeded];
-    
+    [self setupIAPHelper];
     if(![[userDefaults objectForKey:PASS_FIRST_LOAD_KEY] boolValue]) {
         [FileManager copyDefaultStickerToResourceIfNeeded];
         [userDefaults setObject:@(1) forKey:PASS_FIRST_LOAD_KEY];
         [userDefaults synchronize];
     }
-
     [self addObserver];
     [StickerManager getInstance];
     [self setUpUI];
