@@ -11,24 +11,22 @@
 
 @implementation StickerPack
 
-- (instancetype)initWithPackageId:(NSString*)packageId
+- (instancetype)initWithproductID:(NSString*)productID
                   numberOfStickers:(int)numOfSticker
                         isAnimated:(BOOL)isGif
                             title:(NSString*)title
                             group:(NSString*)group
-                        productID:(NSString*)productID
 {
     self = [super init];
     if(self) {
         self.productID = productID;
         self.isAnimated = isGif;
-        self.packageID = packageId;
         self.numberOfStickers = numOfSticker;
         self.arrStickerPath = [[NSMutableArray alloc] init];
         NSString* ext = isGif ? @".gif" : @".png";
-        self.iconPath = [NSString stringWithFormat:@"%@/icon.png",packageId];
+        self.iconPath = [NSString stringWithFormat:@"%@/icon.png",productID];
         for(int i = 1; i <= numOfSticker; i++) {
-            NSString* strStickerPath = [NSString stringWithFormat:@"%@/%@_%d%@",packageId,packageId,i,ext];
+            NSString* strStickerPath = [NSString stringWithFormat:@"%@/%@_%d%@",productID,productID,i,ext];
             [self.arrStickerPath addObject:strStickerPath];
         }
         self.title = title;
@@ -42,7 +40,6 @@
     [dict setObject:@(self.numberOfStickers) forKey:numOfSticker_key];
     [dict setObject:self.arrStickerPath forKey:arr_sticker_path_key];
     [dict setObject:self.iconPath forKey:icon_path_key];
-    [dict setObject:self.packageID forKey:packageId_key];
     [dict setObject:@(self.isAnimated) forKey:is_animated_key];
     if(_title) {
         [dict setObject:self.title forKey:title_key];
@@ -60,7 +57,6 @@
         self.numberOfStickers = (int)[dict objectForKey:numOfSticker_key];
         self.arrStickerPath = [dict objectForKey:arr_sticker_path_key];
         self.iconPath = [dict objectForKey:icon_path_key];;
-        self.packageID = [dict objectForKey:packageId_key];
         self.isAnimated = [[dict objectForKey:is_animated_key] boolValue];
         self.title = [dict objectForKey:title_key];
         self.group = [dict objectForKey:group_key];

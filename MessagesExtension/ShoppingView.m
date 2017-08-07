@@ -110,7 +110,7 @@
     [[StickerManager getInstance].arrPackages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StickerPack* stiPack = obj;
         for(NSDictionary*dict in self.arrItemShow) {
-            if([stiPack.packageID isEqualToString:[dict objectForKey:@"id"]]) {
+            if([stiPack.productID isEqualToString:[dict objectForKey:@"product_id"]]) {
                 [arr addObject:dict];
                 break;
             }

@@ -44,26 +44,25 @@
     return self;
 }
 
-- (void)addNewPackWithId:(NSString*)packId
+- (void)addNewProductID:(NSString*)productID
             numOfSticker:(int)numOfSticker
               isAnimated:(BOOL)isGif
                    title:(NSString*)title
                    group:(NSString*)group
-               productID:(NSString*)productID
 {
     self.numberOfPackages += 1;
-    StickerPack* stickerPackage = [[StickerPack alloc] initWithPackageId:packId
+    StickerPack* stickerPackage = [[StickerPack alloc] initWithproductID:productID
                                                         numberOfStickers:numOfSticker
                                                               isAnimated:isGif
                                                                    title:title
-                                                                   group:group
-                                                               productID:productID];
+                                                                   group:group];
     [self.arrPackages insertObject:stickerPackage atIndex:0];
     NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:[userDefaults objectForKey:StickerPackageArr_key]];
     [arr insertObject:[stickerPackage toDictionary] atIndex:0];
     [userDefaults setObject:@(self.numberOfPackages) forKey:numberOfPackage_key];
     [userDefaults setObject:arr forKey:StickerPackageArr_key];
     [userDefaults synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
 }
 
 - (void)saveArrPackage {

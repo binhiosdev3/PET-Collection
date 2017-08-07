@@ -13,18 +13,16 @@
 @property (nonatomic,strong) NSString* title;
 @property (nonatomic,strong) NSString* group;
 @property (nonatomic,strong) NSString* productID;
-@property (nonatomic,strong) NSString* packageID;
 @property (nonatomic)        int numberOfStickers;
 @property (nonatomic,strong) NSMutableArray* arrStickerPath;
 @property (nonatomic,strong) NSString* iconPath;
 @property (nonatomic) BOOL isAnimated;
 
-- (instancetype)initWithPackageId:(NSString*)packageId
+- (instancetype)initWithproductID:(NSString*)productID
                  numberOfStickers:(int)numOfSticker
                        isAnimated:(BOOL)isGif
                             title:(NSString*)title
-                            group:(NSString*)group
-                        productID:(NSString*)productID;
+                            group:(NSString*)group;
 - (instancetype)initWithDictionary:(NSDictionary*)dict;
 - (NSDictionary*)toDictionary;
 @end

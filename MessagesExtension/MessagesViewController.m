@@ -267,7 +267,7 @@
     iconImgView = [cell viewWithTag:1];
     UIImageView* lockIconImgView = [cell viewWithTag:2];
     lockIconImgView.hidden = YES;
-    if(indexPath.row > [self numOfStickerFree:indexPath] && !self.isPurchase) {
+    if(indexPath.row > [self numOfStickerFree] && !self.isPurchase) {
         lockIconImgView.hidden = NO;
     }
     stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
@@ -277,12 +277,12 @@
     return cell;
 }
 
-- (NSInteger)numOfStickerFree:(NSIndexPath*)indexPath {
+- (NSInteger)numOfStickerFree {
     StickerPack*stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
     if(stickerPackage.isAnimated) {
-        return 6;
+        return NUM_STICKER_FREE_GIF - 1;
     }
-    return 8;
+    return NUM_STICKER_FREE_NOT_GIF - 1;
 }
 
 -(void)viewDidLayoutSubviews {
@@ -310,7 +310,7 @@
         [_clSticker reloadData];
     }
     else {
-        if (indexPath.row > [self numOfStickerFree:indexPath] && !self.isPurchase) {
+        if (indexPath.row > [self numOfStickerFree] && !self.isPurchase) {
             [self handlePurchase];
             return;
         }

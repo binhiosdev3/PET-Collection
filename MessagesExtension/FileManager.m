@@ -75,13 +75,13 @@ static NSString *_rootLibraryPath = nil;
     BOOL isProduct = [[userDefaults objectForKey:IS_PRODUCTION] boolValue];
     int num = isProduct ? NUM_DEFAULT_PACK_PRO : NUM_DEFAULT_PACK_DEMO;
     for(int i = 0; i < num; i++) {
-        NSString* packageId = [DEFAULT_STICKER_PACKAGE objectAtIndex:i];
-        [FileManager copyDefaultStickerIfNeedWithPackageId:packageId];
+        [FileManager copyDefaultStickerIfNeedAtIndex:i];
     }
 }
 
 
-+ (void)copyDefaultStickerIfNeedWithPackageId:(NSString*)packageId {
++ (void)copyDefaultStickerIfNeedAtIndex:(int)index {
+    NSString* packageId = [DEFAULT_STICKER_PACKAGE objectAtIndex:index];
     NSURL *stickerURL = [[FileManager stickerFileURL] URLByAppendingPathComponent:packageId];
     NSFileManager *fm = [NSFileManager defaultManager];
     // copy file if need
@@ -94,16 +94,15 @@ static NSString *_rootLibraryPath = nil;
             NSLog(@"cannot copy default sticker %@ to cache...",packageId);
         }
         else {
-            int numOfSticker =  [[DEFAULT_NUM_OF_STICKER_PACKAGE objectAtIndex:packageId.intValue-1] intValue];
-            BOOL isGif = [[DEFAULT_IS_GIF_STICKER_PACKAGE objectAtIndex:packageId.intValue-1] intValue] == 1 ? YES : NO;
-            NSString* title = [DEFAULT_STICKER_PACKAGE_NAME objectAtIndex:packageId.integerValue-1];
-            NSString* productID = [DEFAULT_STICKER_PACKAGE_PRODUCTID objectAtIndex:packageId.integerValue-1];
-            [[StickerManager getInstance] addNewPackWithId:packageId
+            int numOfSticker =  [[DEFAULT_NUM_OF_STICKER_PACKAGE objectAtIndex:index] intValue];
+            BOOL isGif = [[DEFAULT_IS_GIF_STICKER_PACKAGE objectAtIndex:index] intValue] == 1 ? YES : NO;
+            NSString* title = [DEFAULT_STICKER_PACKAGE_NAME objectAtIndex:index];
+            NSString* productID = [DEFAULT_STICKER_PACKAGE_PRODUCTID objectAtIndex:index];
+            [[StickerManager getInstance] addNewProductID:(NSString*)productID
                                               numOfSticker:numOfSticker
                                                 isAnimated:isGif
                                                      title:title
-                                                     group:@""
-                                                 productID:productID];
+                                                     group:@""];
             
         }
     }
@@ -113,14 +112,13 @@ static NSString *_rootLibraryPath = nil;
     NSString* productID = [dict objectForKey:@"product_id"];
     NSString* group = [dict objectForKey:@"group"];
     NSString* title = [dict objectForKey:@"title"];
-    NSString* packageId = [dict objectForKey:@"id"];
     int numOfStickers = [[dict objectForKey:@"numOfStick"] intValue];
     BOOL isGif = [[dict objectForKey:@"isGif"] intValue] == 1 ? YES : NO;
-    NSURL *stickerURL = [[FileManager stickerFileURL] URLByAppendingPathComponent:packageId];
+    NSURL *stickerURL = [[FileManager stickerFileURL] URLByAppendingPathComponent:productID];
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:stickerURL.path]) {
         //write and unzip data
-        NSString* pathZipFile = [[FileManager stickerFileURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip",packageId]].path;
+        NSString* pathZipFile = [[FileManager stickerFileURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip",productID]].path;
         [data writeToFile:pathZipFile atomically:YES];
         // unzip file
         NSString *pathToExtract = [FileManager stickerFileURL].path;
@@ -147,13 +145,12 @@ static NSString *_rootLibraryPath = nil;
         // remove archive file
         [fm removeItemAtPath:pathZipFile error:nil];
         if (!unzipError) {
-            [[StickerManager getInstance] addNewPackWithId:packageId
+            [[StickerManager getInstance] addNewProductID:(NSString*)productID
                                               numOfSticker:numOfStickers
                                                 isAnimated:isGif
                                                      title:title
-                                                     group:group
-                                                 productID:productID];
-            [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:dict];
+                                                     group:group];
+            
         }
     }
 }
@@ -164,7 +161,7 @@ static NSString *_rootLibraryPath = nil;
 
 + (void)deleteStickerPackage:(StickerPack*)pack {
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSString* pathPack = [NSString stringWithFormat:@"%@/%@", [FileManager stickerFileURL].path,pack.packageID];
+    NSString* pathPack = [NSString stringWithFormat:@"%@/%@", [FileManager stickerFileURL].path,pack.productID];
     NSError* err;
     if ([fm fileExistsAtPath:pathPack]) {
         [fm removeItemAtPath:pathPack error:&err];

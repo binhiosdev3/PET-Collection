@@ -17,11 +17,10 @@
 @property (nonatomic, strong) NSMutableArray* arrDownloadingPack;
 
 + (StickerManager *)getInstance;
-- (void)addNewPackWithId:(NSString*)packId
-            numOfSticker:(int)numOfSticker
-              isAnimated:(BOOL)isGif
-                   title:(NSString*)title
-                   group:(NSString*)group
-               productID:(NSString*)productID;
+- (void)addNewProductID:(NSString*)productID
+           numOfSticker:(int)numOfSticker
+             isAnimated:(BOOL)isGif
+                  title:(NSString*)title
+                  group:(NSString*)group;
 - (void)saveArrPackage;
 @end
