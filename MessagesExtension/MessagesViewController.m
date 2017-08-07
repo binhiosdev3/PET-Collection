@@ -40,14 +40,6 @@
     [super viewDidLoad];
     [self getConfigIfNeeded];
     
-    if(![IAPShare sharedHelper].iap) {
-        
-        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"iS1",@"iS2", nil];
-        
-        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
-        
-    }
-    [IAPShare sharedHelper].iap.production = NO;
     if(![[userDefaults objectForKey:PASS_FIRST_LOAD_KEY] boolValue]) {
         [FileManager copyDefaultStickerToResourceIfNeeded];
         [userDefaults setObject:@(1) forKey:PASS_FIRST_LOAD_KEY];
@@ -57,6 +49,30 @@
     [self addObserver];
     [StickerManager getInstance];
     [self setUpUI];
+}
+
+- (void)setupIAPHelper {
+    if(![IAPShare sharedHelper].iap) {
+        NSSet* dataSet;
+        NSDictionary* dict = [userDefaults objectForKey:JSON_DATA_ARR];
+        if(dict) {
+            NSArray* jsonSticker = [[NSMutableArray alloc] initWithArray:[dict objectForKey:@"sticker"]];
+            NSMutableArray* arrProductId = [NSMutableArray new];
+            for(NSDictionary*dict in jsonSticker) {
+                [arrProductId addObject:[dict objectForKey:@"product_id"]];
+            }
+            [arrProductId addObjectsFromArray:DEFAULT_STICKER_PACKAGE_PRODUCTID];
+            dataSet = [[NSSet alloc] initWithArray:arrProductId];
+            [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+            
+        }
+        else {
+            dataSet = [[NSSet alloc] initWithArray:DEFAULT_STICKER_PACKAGE_PRODUCTID];
+        }
+        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+        
+    }
+    [IAPShare sharedHelper].iap.production = APP_STORE ? YES : NO;
 }
 
 - (void)checkPackagePurchase:(NSString*)productID {
