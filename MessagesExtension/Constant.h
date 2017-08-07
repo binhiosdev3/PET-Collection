@@ -26,6 +26,9 @@
 #define BlockWeakObject(o) __typeof__(o) __weak
 #define BlockWeakSelf BlockWeakObject(self)
 
+#define RESTORE_COMPLETE_KEY @"restore_complete_key"
+
+#define KEYSERECT @"fb375a41a19f456f969d82a4028158a5"
 #define CONFIG_URL  @"https://gist.githubusercontent.com/binhiosdev3/2f539579c4b5722855fcf5b1ce11e763/raw/"
 #define JSON_URL_KEY @"JSON_URL_KEY"
 #define IS_PRODUCTION  @"IS_PRODUCTION"

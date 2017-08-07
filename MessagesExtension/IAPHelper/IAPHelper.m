@@ -84,7 +84,6 @@
     self.request = [[SKProductsRequest alloc] initWithProductIdentifiers:_productIdentifiers];
     _request.delegate = self;
     self.requestProductsBlock = completion;
-    
     [_request start];
     
 }
@@ -330,6 +329,7 @@
     [req setHTTPBody:jsonData];
 
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    
     if(conn) {
         self.receiptRequestData = [[NSMutableData alloc] init];
     } else {

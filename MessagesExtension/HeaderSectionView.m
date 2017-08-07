@@ -10,15 +10,6 @@
 
 @implementation HeaderSectionView
 
-- (void)checkExpireDate {
-    /*
-    if([[userDefaults objectForKey:IS_PURCHASE_KEY] intValue] == 1) {
-        _heigtForExpireDatalb.constant = 15.f;
-    }
-    else {
-        _heigtForExpireDatalb.constant = 0.f;
-    }*/
-}
 
 - (void)showMySticker:(BOOL)show{
     float alpha1;
@@ -27,23 +18,30 @@
         alpha1 = 1.0;
         alpha2 = 0;
         [self.btnMySticker setTitle:@"Done" forState:UIControlStateNormal];
-        [_leadingLbMyStickerToTraillingTF setPriority:UILayoutPriorityDefaultLow];
-        [_leadingLbMyStickerToLeadingTF setPriority:UILayoutPriorityDefaultHigh];
+        [_leadingLbMyStickerBtnMySticker setPriority:UILayoutPriorityDefaultLow];
+        [_leadingLbMyStickerToSupperView setPriority:UILayoutPriorityDefaultHigh];
     }
     else {
         alpha1 = 0.0;
         alpha2 = 1.0;
         [self.btnMySticker setTitle:@"My Sticker" forState:UIControlStateNormal];
-        [_leadingLbMyStickerToTraillingTF setPriority:UILayoutPriorityDefaultHigh];
-        [_leadingLbMyStickerToLeadingTF setPriority:UILayoutPriorityDefaultLow];
+        [_leadingLbMyStickerBtnMySticker setPriority:UILayoutPriorityDefaultHigh];
+        [_leadingLbMyStickerToSupperView setPriority:UILayoutPriorityDefaultLow];
     }
     BlockWeakSelf weakSelf = self;
     [UIView animateWithDuration:0.2 animations:^{
         weakSelf.lbMySticker.alpha = alpha1;
         weakSelf.tfSearch.alpha = alpha2;
+        weakSelf.imgLine1.alpha = alpha2;
+        weakSelf.imgLine2.alpha = alpha2;
+        weakSelf.btnRestore.alpha = alpha2;
         [weakSelf updateConstraintsIfNeeded];
         [weakSelf layoutIfNeeded];
     }];
+}
+
+- (void)showRestore:(BOOL)show {
+    
 }
 
 @end

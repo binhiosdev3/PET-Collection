@@ -47,8 +47,9 @@ static bool islefttoright;
     BlockWeakSelf weakSelf = self;
     da_main(^{
         NSDictionary* dict = notification.userInfo;
-        NSString* strID =  [dict objectForKey:@"id"];
-        if([strID isEqualToString:[[weakSelf.dictSticker objectForKey:@"id"] stringValue]]) {
+        NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"id"]];
+        NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"id"]];
+        if([strID isEqualToString:strID2]) {
             weakSelf.downloadIndicator.hidden = YES;
             [weakSelf.btnDownload setTitle:@"Downloaded" forState:UIControlStateDisabled];
         }
@@ -92,6 +93,13 @@ static bool islefttoright;
 }
 
 - (void)loadDetail{
+    if([[self.dictSticker objectForKey:@"product_id"] isEqualToString:@"FREE"]) {
+        _lbFreeDownload.text = @"  FREE  ";
+    }
+    else {
+        _lbFreeDownload.text = @"  0.99$  ";
+    }
+
     NSString* str = [self.dictSticker objectForKey:@"icon"];
     _lbTitle.text = [[self.dictSticker objectForKey:@"title"] capitalizedString];
     [_iconImgView sd_setImageWithURL:[NSURL URLWithString:str]];

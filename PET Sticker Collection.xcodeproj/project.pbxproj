@@ -63,6 +63,8 @@
 		5FDAB9EB1F344F3600F371FB /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9EA1F344F3600F371FB /* Util.m */; };
 		5FDAB9EF1F34717900F371FB /* ZPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9EE1F34717900F371FB /* ZPReachability.m */; };
 		5FDAB9F21F34718800F371FB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9F11F34718800F371FB /* Reachability.m */; };
+		5FFAA1E11F381E6400228D4A /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E01F381E6400228D4A /* OverlayView.m */; };
+		5FFAA1E31F381E7500228D4A /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E21F381E7500228D4A /* OverlayView.xib */; };
 		721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */; };
 		728DE8751F3577E400957253 /* FooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 728DE8731F3577E400957253 /* FooterCollectionReusableView.m */; };
 		728DE8761F3577E400957253 /* FooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 728DE8741F3577E400957253 /* FooterCollectionReusableView.xib */; };
@@ -205,6 +207,9 @@
 		5FDAB9EE1F34717900F371FB /* ZPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPReachability.m; sourceTree = "<group>"; };
 		5FDAB9F01F34718800F371FB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5FDAB9F11F34718800F371FB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		5FFAA1DF1F381E6400228D4A /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		5FFAA1E01F381E6400228D4A /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
+		5FFAA1E21F381E7500228D4A /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		721E922F1F2DD0E00091A822 /* SRSubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSubscriptionModel.h; sourceTree = "<group>"; };
 		721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSubscriptionModel.m; sourceTree = "<group>"; };
 		728DE8721F3577E400957253 /* FooterCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterCollectionReusableView.h; sourceTree = "<group>"; };
@@ -263,6 +268,9 @@
 				5F01332F1F318A2500BCE9FC /* ShoppingDetailView.h */,
 				5F0133301F318A2500BCE9FC /* ShoppingDetailView.m */,
 				5F0133321F318A3000BCE9FC /* ShoppingDetailView.xib */,
+				5FFAA1DF1F381E6400228D4A /* OverlayView.h */,
+				5FFAA1E01F381E6400228D4A /* OverlayView.m */,
+				5FFAA1E21F381E7500228D4A /* OverlayView.xib */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -575,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F0133111F30274400BCE9FC /* ShoppingView.xib in Resources */,
+				5FFAA1E31F381E7500228D4A /* OverlayView.xib in Resources */,
 				5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */,
 				5F84541E1F26F18900E62DDE /* Stickers in Resources */,
 				5F01332B1F306F8700BCE9FC /* HeaderSectionView.xib in Resources */,
@@ -592,6 +601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FFAA1E11F381E6400228D4A /* OverlayView.m in Sources */,
 				5F8454631F27304B00E62DDE /* NSData+ImageContentType.m in Sources */,
 				5F8454191F25F71D00E62DDE /* ShoppingView.m in Sources */,
 				728DE8821F35A21E00957253 /* SFHFKeychainUtils.m in Sources */,

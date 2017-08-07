@@ -10,13 +10,12 @@
 #import "HeaderSectionView.h"
 #import "ShoppingDetailView.h"
 #import "ShoppingTableViewCell.h"
+#import "OverlayView.h"
 
 @interface ShoppingView : BaseView
-@property (nonatomic, weak) IBOutlet UIView* viewButton;
 @property (nonatomic,strong) NSMutableArray *arrItemShow;
-@property (nonatomic, weak) IBOutlet KBRoundedButton* btnRestore;
+
 - (void)setUpView;
 - (void)show:(BOOL)show;
 - (void)handleEditMySticker;
-- (void)showBottomAlertView:(BOOL)show;
 @end

@@ -11,11 +11,11 @@
 @interface HeaderSectionView : BaseView
 @property (nonatomic,weak) IBOutlet UITextField* tfSearch;
 @property (nonatomic,weak) IBOutlet UIButton* btnMySticker;
+@property (nonatomic,weak) IBOutlet UIButton* btnRestore;
+@property (nonatomic,weak) IBOutlet UIImageView* imgLine1;
+@property (nonatomic,weak) IBOutlet UIImageView* imgLine2;
 @property (nonatomic,weak) IBOutlet UILabel* lbMySticker;
-@property (nonatomic,weak) IBOutlet UILabel* lbExpireDate;
-@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerToTraillingTF;
-@property (nonatomic,weak) IBOutlet NSLayoutConstraint* heigtForExpireDatalb;
-@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerToLeadingTF;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerToSupperView;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerBtnMySticker;
 - (void)showMySticker:(BOOL)show;
-- (void)checkExpireDate;
 @end

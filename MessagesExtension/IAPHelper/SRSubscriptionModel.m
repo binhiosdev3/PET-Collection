@@ -126,7 +126,6 @@ NSString *const SRSecondSubscription = @"DailyPurchase";
                 [_currentProduct setObject:[NSNumber numberWithBool:_currentIsActive] forKey:@"active"];
                 [userDefault setObject:_currentProduct forKey:kSubscriptionProduct];
                 [userDefault setBool:_currentIsActive forKey:kSubscriptionActive];
-                NSLog(@"Product active -- %hhd",_currentIsActive);
                 [userDefault synchronize];
 
             }

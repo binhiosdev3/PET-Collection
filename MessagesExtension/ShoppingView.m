@@ -8,24 +8,21 @@
 
 #import "ShoppingView.h"
 
+
 @interface ShoppingView()
 
 <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ShoppingDetailDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView* tableView;
-@property (nonatomic, weak) IBOutlet UIView* bottomAlertView;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint* bottomBottomAlertView;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint* bottomBottomViewButton;
 
-@property (nonatomic, weak) IBOutlet KBRoundedButton* btnPurchase;
 @property (nonatomic,strong) NSDictionary *jsonDataArray;
-
+@property (nonatomic, weak) IBOutlet OverlayView* overlayView;
 @property (nonatomic,strong) NSMutableArray *arrFilterMySticker;
 @property (nonatomic,strong) NSMutableArray *arrMySticker;
 @property (nonatomic, strong) HeaderSectionView* headerView;
 @property (nonatomic, weak) IBOutlet ShoppingDetailView* detailView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* leadingDetailViewContraint;
-@property (nonatomic, weak) IBOutlet UIView* overlayView;
+@property (nonatomic, weak) IBOutlet UILabel* lbNoInternet;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView* indicatorView;
 @property (nonatomic, assign) ShoppingTableViewCell* cellSelected;
 @property (nonatomic, strong) NSMutableArray* arrDeletePack;
@@ -45,6 +42,7 @@
     _arrDeletePack = [NSMutableArray new];
     _headerView = [[HeaderSectionView alloc] init];
     [_headerView.btnMySticker addTarget:self action:@selector(handleEditMySticker) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView.btnRestore addTarget:self action:@selector(handleRestoreClick) forControlEvents:UIControlEventTouchUpInside];
     _headerView.tfSearch.delegate = self;
     [_headerView.tfSearch addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _headerView.tfSearch.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -55,9 +53,6 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
-//    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/rubiks.gif"];
-//    NSURL    *imageURL = [NSURL fileURLWithPath:filePath];
-//    [_headerImg sd_setImageWithURL:imageURL];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -65,10 +60,10 @@
     self.overlayView.alpha = 0.0;
     self.leadingDetailViewContraint.constant = self.frame.size.width;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 50, 0)];
+    _lbNoInternet.hidden = YES;
 }
 
 - (void)completedAddPackage {
-    _btnRestore.working = NO;
     [self reloadData];
 }
 
@@ -76,7 +71,6 @@
     if(show) {
         self.alpha = 1.0;
         [self getJson];
-        [_btnPurchase setTitle:@"Unlock All Stickers" forState:UIControlStateNormal];
     }
     else {
         if(_indexSelected >=0) {
@@ -88,8 +82,11 @@
 }
 
 - (void)getJson {
-    if(![Util isInternetActived]) return;
-    
+    if(![Util isInternetActived]) {
+        _lbNoInternet.hidden = NO;
+        return;
+    }
+    _lbNoInternet.hidden = YES;
     self.indicatorView.hidden = NO;
     BlockWeakSelf weakself = self;
     _isGetingJson = YES;
@@ -165,7 +162,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if(section == 0) {
-        [_headerView checkExpireDate];
         return _headerView;
     }
     return nil;
@@ -207,14 +203,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    /*
     NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
     _cellSelected = [tableView cellForRowAtIndexPath:indexPath];
     self.detailView.dictSticker = dict;
     self.detailView.leadingShopingViewContraint = self.leadingDetailViewContraint;
     [self showDetailView:YES];
-    [self.detailView loadDetail];*/
+    [self.detailView loadDetail];
 }
 
 - (void)showDetailView:(BOOL)show {
@@ -230,15 +224,6 @@
 }
 
 
-- (IBAction)handlePurchase:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_purchase object:nil];
-}
-
-- (IBAction)handleRestore:(id)sender {
-    self.btnRestore.enabled = NO;
-    self.btnRestore.working = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
-}
 
 - (void)handleEditMySticker {
     [_headerView.tfSearch resignFirstResponder];
@@ -267,6 +252,10 @@
     }
     self.tableView.editing = _isEditMode;
     [self.tableView reloadData];
+}
+
+- (void)handleRestoreClick {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
 }
 
 -(void)textFieldDidChange:(id)sender {
@@ -304,15 +293,6 @@
     }
 }
 
-- (void)showBottomAlertView:(BOOL)show {
-    BlockWeakSelf weakSelf = self;
-    self.bottomBottomAlertView.constant = show ? 0 : -25.f;
-    self.bottomBottomViewButton.constant = show ? -45 : 0.f;
-    [UIView animateWithDuration:0.3 animations:^{
-        [weakSelf updateConstraintsIfNeeded];
-        [weakSelf layoutIfNeeded];
-    }];
-}
 
 - (void)didChangeX:(CGFloat)x {
     CGFloat alpha = (self.frame.size.width - x)/self.frame.size.width;

@@ -85,7 +85,7 @@
     NSString *stringURL = [_packageDict objectForKey:@"url"];
     _btnDownload.enabled = NO;
     _btnDownload.working = YES;
-    [[StickerManager getInstance].arrDownloadingPack addObject:[_packageDict objectForKey:@"id"]];
+    
     [Util downloadPackage:stringURL andDict:self.packageDict];
 }
 

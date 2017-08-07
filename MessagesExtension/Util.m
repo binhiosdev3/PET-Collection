@@ -128,9 +128,6 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
 
 + (BOOL)isInternetActived {
     BOOL isInternetActive = [ZPReachability getInstance].isInternetActived;
-    if(!isInternetActive) {
-        [Util showAlertWithTitle:@"Error" andMessage:@"Please check your internet connection and try again."];
-    }
     return isInternetActive;
 }
 
@@ -142,6 +139,7 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
 }
 
 + (void)downloadPackage:(NSString*)stringURL andDict:(NSDictionary*)dict {
+    [[StickerManager getInstance].arrDownloadingPack addObject:[dict objectForKey:@"id"]];
     dispatch_queue_t queue = dispatch_get_global_queue(0,0);
     dispatch_async(queue, ^{
         NSLog(@"Beginning download");
@@ -150,6 +148,7 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
         NSLog(@"Got the data!");
         //Save the data
         NSLog(@"Saving");
+        [[StickerManager getInstance].arrDownloadingPack removeObject:[dict objectForKey:@"id"]];
         [FileManager createStickerWithDictionary:dict andData:urlData];
     });
 }
