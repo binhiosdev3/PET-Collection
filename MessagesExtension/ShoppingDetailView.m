@@ -93,6 +93,7 @@ static bool islefttoright;
 }
 
 - (void)loadDetail{
+    [self.scrllView setContentOffset:CGPointZero];
     if([[self.dictSticker objectForKey:@"product_id"] isEqualToString:@"FREE"]) {
         _lbFreeDownload.text = @"  FREE  ";
     }
