@@ -105,6 +105,7 @@
 }
 
 - (void)filterDownloadedPackage {
+    self.arrItemShow = [[NSMutableArray alloc] initWithArray:[self.jsonDataArray objectForKey:@"sticker"]];
     NSMutableArray* arr = [NSMutableArray new];
     [[StickerManager getInstance].arrPackages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StickerPack* stiPack = obj;
@@ -224,7 +225,6 @@
 }
 
 
-
 - (void)handleEditMySticker {
     [_headerView.tfSearch resignFirstResponder];
     if(!_isEditMode) {
@@ -281,6 +281,14 @@
     StickerPack* pack = _arrMySticker[sourceIndexPath.row];
     [_arrMySticker removeObjectAtIndex:sourceIndexPath.row];
     [_arrMySticker insertObject:pack atIndex:destinationIndexPath.row];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Detemine if it's in editing mode
+    if (self.tableView.editing) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
