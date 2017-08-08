@@ -48,8 +48,8 @@
 #define numOfSticker_1 @"24"
 #define numOfSticker_2 @"24"
 #define numOfSticker_3 @"40"
-#define numOfSticker_4 @"24"
-#define numOfSticker_5 @"40"
+#define numOfSticker_4 @"19"
+#define numOfSticker_5 @"21"
 
 #define productId_1 @"Sticker1"
 #define productId_2 @"Sticker2"
@@ -60,14 +60,14 @@
 #define nameOfSticker_1 @"Cool Meow Animated"
 #define nameOfSticker_2 @"Mimi Summer Animated"
 #define nameOfSticker_3 @"Cool Rabbit Emotion"
-#define nameOfSticker_4 @"Panda Emoji Animated"
-#define nameOfSticker_5 @"Puffy Bear and Rabbit"
+#define nameOfSticker_4 @"Puffy Love Bear Aniamted"
+#define nameOfSticker_5 @"Brown Dog"
 
 #define DEFAULT_STICKER_PACKAGE_PRODUCTID @[productId_1,productId_2,productId_3,productId_4,productId_5]
 #define DEFAULT_STICKER_PACKAGE @[stickerdf_1, stickerdf_2, stickerdf_3,stickerdf_4,stickerdf_5]
 #define DEFAULT_STICKER_PACKAGE_NAME @[nameOfSticker_1,nameOfSticker_2,nameOfSticker_3,nameOfSticker_4,nameOfSticker_5]
 #define DEFAULT_STICKER_PACKAGE_NumOfSticker @[numOfSticker_1,numOfSticker_2,numOfSticker_3,numOfSticker_4,numOfSticker_5]
-#define DEFAULT_NUM_OF_STICKER_PACKAGE @[@(24),@(24),@(40),@(24),@(40)]
+#define DEFAULT_NUM_OF_STICKER_PACKAGE @[@(24),@(24),@(40),@(19),@(21)]
 #define DEFAULT_IS_GIF_STICKER_PACKAGE @[@(1),@(1),@(0),@(1),@(0)]
 
 #define numberOfPackage_key @"PET_NUM_OFF_PACK"
