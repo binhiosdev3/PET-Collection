@@ -176,11 +176,6 @@
             }
         }
     }];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
     }

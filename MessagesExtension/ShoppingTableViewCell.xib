@@ -20,7 +20,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mWc-p4-9X0" customClass="FLAnimatedImageView">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mWc-p4-9X0" customClass="FLAnimatedImageView">
                         <rect key="frame" x="8" y="7.5" width="60" height="60"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
