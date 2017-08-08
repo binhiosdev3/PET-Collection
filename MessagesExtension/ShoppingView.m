@@ -413,7 +413,6 @@
     _segmentSelected = indexSegmentAll;
     _tagSectionSelected = -1;
     [_headerView.segmentView.segmentedControl setSelectedSegmentIndex:indexSegmentAll];
-    [self.tableView reloadData];
 }
 
 -(void)textFieldDidChange:(id)sender {
