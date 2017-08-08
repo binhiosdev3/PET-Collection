@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SegmentView.h"
 
 @interface HeaderSectionView : BaseView
 @property (nonatomic,weak) IBOutlet UITextField* tfSearch;
@@ -17,5 +18,8 @@
 @property (nonatomic,weak) IBOutlet UILabel* lbMySticker;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerToSupperView;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerBtnMySticker;
+@property (nonatomic,weak) IBOutlet NSLayoutConstraint* traillingFullTfSearch;
+@property (nonatomic, weak) IBOutlet SegmentView* segmentView;
 - (void)showMySticker:(BOOL)show;
+- (void)showfullTextFieldSearch:(BOOL)show;
 @end

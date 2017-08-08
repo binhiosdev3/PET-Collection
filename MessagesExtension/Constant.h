@@ -86,4 +86,8 @@
 #define notification_click_restore @"notification_click_restore"
 #define notification_mysticker_did_endEditin @"notification_mysticker_did_endEditin"
 #define notification_show_alert @"notification_show_alert"
+
+#define UIColorFromHexa(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
 #endif /* Constant_h */

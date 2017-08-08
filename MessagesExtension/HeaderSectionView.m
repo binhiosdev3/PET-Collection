@@ -35,6 +35,21 @@
         weakSelf.imgLine1.alpha = alpha2;
         weakSelf.imgLine2.alpha = alpha2;
         weakSelf.btnRestore.alpha = alpha2;
+        weakSelf.segmentView.alpha = alpha2;
+        [weakSelf updateConstraintsIfNeeded];
+        [weakSelf layoutIfNeeded];
+    }];
+}
+
+- (void)showfullTextFieldSearch:(BOOL)show {
+    if(show) {
+        [_traillingFullTfSearch setPriority:900];
+    }
+    else {
+         [_traillingFullTfSearch setPriority:250];
+    }
+    BlockWeakSelf weakSelf = self;
+    [UIView animateWithDuration:0.2 animations:^{
         [weakSelf updateConstraintsIfNeeded];
         [weakSelf layoutIfNeeded];
     }];

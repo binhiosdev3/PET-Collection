@@ -7,8 +7,13 @@
 //
 
 #import "ShoppingView.h"
+#import "UIColor+Ext.h"
 
-
+#define HeightRow 75.f
+#define HeightHeader 140.f
+#define HeightHeaderTitle 40.f
+#define indexSegmentAll 0
+#define indexSegmentTag 1
 @interface ShoppingView()
 
 <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ShoppingDetailDelegate>
@@ -26,16 +31,19 @@
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView* indicatorView;
 @property (nonatomic, assign) ShoppingTableViewCell* cellSelected;
 @property (nonatomic, strong) NSMutableArray* arrDeletePack;
+@property (nonatomic, strong) NSMutableArray* arrTags;
+@property (nonatomic, strong) NSMutableArray* arrItemsSelectedTag;
 @property (nonatomic) BOOL isEditMode;
 @property (nonatomic) BOOL isGetingJson;
-@property (nonatomic) NSInteger indexSelected;
-
+@property (nonatomic) NSInteger segmentSelected;
+@property (nonatomic) NSInteger tagSectionSelected;
 @end
 
 @implementation ShoppingView
 
 - (void)setUpView {
-    
+    _arrTags = [NSMutableArray new];
+    _arrItemsSelectedTag = [NSMutableArray new];
     _isEditMode = NO;
     _isGetingJson = NO;
     _arrMySticker = [NSMutableArray new];
@@ -47,8 +55,12 @@
     [_headerView.tfSearch addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _headerView.tfSearch.clearButtonMode = UITextFieldViewModeWhileEditing;
     [_headerView showMySticker:NO];
+    _headerView.segmentView.font = _headerView.btnRestore.titleLabel.font;
+    [_headerView.segmentView addSegment];
+    [_headerView.segmentView.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+   
     [self.tableView registerNib:[UINib nibWithNibName:@"ShoppingTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ShoppingTableViewCell"];
-    _indexSelected = -1;
+    _tagSectionSelected = -1;
     self.alpha = 0.0;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -63,6 +75,14 @@
     _lbNoInternet.hidden = YES;
 }
 
+- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
+    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+    _segmentSelected = segmentedControl.selectedSegmentIndex;
+    _headerView.tfSearch.text = @"";
+    [_headerView.tfSearch resignFirstResponder];
+    [_tableView reloadData];
+}
+
 - (void)completedAddPackage {
     [self reloadData];
 }
@@ -73,11 +93,10 @@
         [self getJson];
     }
     else {
-        if(_indexSelected >=0) {
-            [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:_indexSelected inSection:0] animated:YES];
-            _indexSelected = -1;
-        }
         self.alpha = 0.0;
+        [self resetSegmentIndex];
+        _headerView.tfSearch.text = @"";
+        [_headerView.tfSearch resignFirstResponder];
     }
 }
 
@@ -100,8 +119,49 @@
             [weakself filterDownloadedPackage];
             weakself.indicatorView.hidden = YES;
             [weakself.tableView reloadData];
+            [weakself generateTagsArray];
         });
     }];
+}
+
+- (void)generateTagsArray {
+    [_arrTags removeAllObjects];
+    [self.arrItemShow enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        @autoreleasepool {
+            NSMutableDictionary* dictTag;
+            NSDictionary*dict = obj;
+            NSString*  str = [dict objectForKey:@"tag"];
+            NSArray* arrTag = [str componentsSeparatedByString:@","];
+            for(str in arrTag) {
+                BOOL isCotain = NO;
+                for(dictTag in _arrTags) {
+                    NSString* tag = [dictTag objectForKey:@"tag"];
+                    if([tag isEqualToString:str]) {
+                        NSNumber* num = (NSNumber*)[dictTag objectForKey:@"num"];
+                        NSInteger i = num.integerValue + 1;
+                        [dictTag setObject:[NSNumber numberWithInteger:i] forKey:@"num"];
+                        isCotain = YES;
+                        break;
+                    }
+                }
+                if(!isCotain) {
+                    dictTag = [NSMutableDictionary new];
+                    [dictTag setObject:str forKey:@"tag"];
+                    [dictTag setObject:[NSNumber numberWithInteger:1]  forKey:@"num"];
+                    if([str isEqualToString:@"hot"]) {
+                        [_arrTags insertObject:dictTag atIndex:0];
+                    }
+                    else if([str isEqualToString:@"free"]) {
+                        [_arrTags insertObject:dictTag atIndex:1];
+                    }
+                    else {
+                        [_arrTags addObject:dictTag];
+                    }
+                }
+            }
+        }
+    }];
+    
 }
 
 - (void)filterDownloadedPackage {
@@ -121,14 +181,12 @@
     [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    [self.arrItemShow addObjectsFromArray:[self.jsonDataArray objectForKey:@"sticker"]];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
     }
     [_arrFilterMySticker removeAllObjects];
     _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
-    _headerView.tfSearch.text = @"";
+
 }
 
 - (void)handleSearch {
@@ -147,6 +205,7 @@
         }];
     }
     [self.tableView reloadData];
+    
 }
 
 - (void)reloadData {
@@ -157,7 +216,67 @@
     });
 }
 
+- (UIView*)createHeaderTitle {
+    float fontSize = 18;
+    UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 0.0f, _tableView.bounds.size.width, HeightHeaderTitle)];
+    labelHeader.font = [UIFont systemFontOfSize:fontSize];
+    [labelHeader setTextColor:[UIColor colorFromHexString:@"#666666"]];
+    labelHeader.tag = 999;
+    UIView *headerView = [[UIView alloc] init];
+    headerView.clipsToBounds = YES;
+    [headerView addSubview:labelHeader];
+    headerView.backgroundColor =  UIColorFromHexa(0xefeff4);;
+    headerView.alpha = 0.9f;
+    // Line bottom
+    UIView *lineBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, HeightHeaderTitle - 0.5f, _tableView.bounds.size.width, 1.0f)];
+    lineBottomView.backgroundColor = [UIColor colorWithRed:224.0f/255 green:224.0f/255 blue:224.0f/255 alpha:1.0];
+    [headerView addSubview:lineBottomView];
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHeaderTitleSection:)];
+    [headerView addGestureRecognizer:tap];
+    UIImageView* imageArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zpoint_arrow_down"]];
+    imageArrow.tag = 888;
+    imageArrow.frame = CGRectMake(_tableView.frame.size.width - 12 - 15, (HeightHeaderTitle-8)/2, 12, 8);
+    [headerView addSubview:imageArrow];
+    return headerView;
+}
+
+- (IBAction)tapHeaderTitleSection:(id)sender{
+    UITapGestureRecognizer* tap = sender;
+    [_arrItemsSelectedTag removeAllObjects];
+    if(_tagSectionSelected == tap.view.tag) {
+        _tagSectionSelected = -1;
+    }
+    else {
+        _tagSectionSelected = tap.view.tag;
+        NSDictionary* dict = [_arrTags objectAtIndex:_tagSectionSelected-1];
+        NSString* tagSelected = [dict objectForKey:@"tag"];
+        [self.arrFilterMySticker enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            @autoreleasepool {
+                NSDictionary*dict = obj;
+                NSString*  str = [dict objectForKey:@"tag"];
+                NSArray* arrTag = [str componentsSeparatedByString:@","];
+                for(str in arrTag) {
+                    if( [str caseInsensitiveCompare:tagSelected] == NSOrderedSame ) {
+                        [_arrItemsSelectedTag addObject:dict];
+                        break;
+                    }
+                }
+            }
+        }];
+    }
+    [_tableView reloadData];
+    if(_tagSectionSelected >= 0) {
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:_tagSectionSelected];
+        [self.tableView scrollToRowAtIndexPath:ip
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(_segmentSelected == indexSegmentTag) {
+        return _arrTags.count + 1;
+    }
     return 2;
 }
 
@@ -165,42 +284,68 @@
     if(section == 0) {
         return _headerView;
     }
+    if(_segmentSelected == indexSegmentTag) {
+        UIView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headertitle"];
+        if (!headerView) {
+            headerView = [self createHeaderTitle];
+        }
+        UILabel* titleLabel = (UILabel *)[headerView viewWithTag:999];
+        NSDictionary* dict = [_arrTags objectAtIndex:section-1];
+        titleLabel.text = [NSString stringWithFormat:@"#%@ (%@)",[[dict objectForKey:@"tag" ] capitalizedString],[dict objectForKey:@"num"]];
+        headerView.tag = section;
+        UIImageView* imgArrow = (UIImageView *)[headerView viewWithTag:888];
+        if(section == _tagSectionSelected) {
+            imgArrow.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
+        }
+        else {
+            imgArrow.transform = CGAffineTransformIdentity;
+        }
+        return headerView;
+    }
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if(section == 0) return 120.f;
+    if(section == 0) return HeightHeader;
+    if(_segmentSelected == indexSegmentTag) return HeightHeaderTitle;
     return 0.f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 0) return 0;
     if(tableView.editing) return _arrMySticker.count;
+    if(_segmentSelected == indexSegmentTag) {
+        if(_tagSectionSelected == section) {
+            return _arrItemsSelectedTag.count;
+        }
+        return 0;
+    }
     return self.arrItemShow.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary* dict;
     ShoppingTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingTableViewCell"];
     if(tableView.editing) {
         StickerPack* pack = [_arrMySticker objectAtIndex:indexPath.row];
         [cell loadCellWithPackage:pack];
         return cell;
     }
+    if(_segmentSelected == indexSegmentTag) {
+        dict = [_arrItemsSelectedTag objectAtIndex:indexPath.row];
+
+    }
+    else {
+        dict = [self.arrItemShow objectAtIndex:indexPath.row];
+    }
     
-    NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
-    if(indexPath.row == _indexSelected) cell.selected = YES;
     [cell loadCellWithDict:dict];
     return cell;
 }
 
-- (CGFloat)heightWhenExpand {
-    CGFloat w = (self.frame.size.width - 70)*488/364;
-    return w;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == _indexSelected) return 75 + [self heightWhenExpand];
-    return 75;
+    return HeightRow;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -226,6 +371,7 @@
 
 
 - (void)handleEditMySticker {
+    [self resetSegmentIndex];
     [_headerView.tfSearch resignFirstResponder];
     if(!_isEditMode) {
         _isEditMode = YES;
@@ -258,8 +404,24 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self resetSegmentIndex];
+    [_headerView showfullTextFieldSearch:YES];
+}
+
+- (void)resetSegmentIndex {
+    _segmentSelected = indexSegmentAll;
+    _tagSectionSelected = -1;
+    [_headerView.segmentView.segmentedControl setSelectedSegmentIndex:indexSegmentAll];
+    [self.tableView reloadData];
+}
+
 -(void)textFieldDidChange:(id)sender {
     [self handleSearch];
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    [_headerView showfullTextFieldSearch:NO];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {

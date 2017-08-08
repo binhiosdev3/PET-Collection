@@ -28,7 +28,7 @@
 }
 
 - (void)showLoadingView:(BOOL)show {
-    self.imgBgView.backgroundColor = [UIColor darkGrayColor];
+    self.imgBgView.backgroundColor = [UIColor blackColor];
     float alpha = show ? 1.0 : 0.f;
     self.alertView.alpha = 0.f;
     _imgView.alpha = 0.0;
@@ -46,7 +46,7 @@
 }
 
 - (void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message {
-    self.imgBgView.backgroundColor = [UIColor darkGrayColor];
+    self.imgBgView.backgroundColor = [UIColor blackColor];
     self.loadingView.alpha = 0;
     self.lbAlertMessage.text = message;
     self.lbAlertTitle.text = title;

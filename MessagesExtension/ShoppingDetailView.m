@@ -105,14 +105,16 @@ static bool islefttoright;
     _lbTitle.text = [[self.dictSticker objectForKey:@"title"] capitalizedString];
     [_iconImgView sd_setImageWithURL:[NSURL URLWithString:str]];
     BlockWeakSelf weakSelf = self;
-    weakSelf.loadingImageIndicator.hidden = NO;
+    self.heightOfContentView.constant = self.frame.size.height;
+    [self updateConstraintsIfNeeded];
+    [self layoutIfNeeded];
     [_preViewImg sd_setImageWithURL:[NSURL URLWithString:[self.dictSticker objectForKey:@"img_pre"]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if(image) {
             da_main(^{
                 weakSelf.loadingImageIndicator.hidden = YES;
                 CGFloat w = image.size.width;
                 CGFloat h = image.size.height;
-                CGFloat height = h*self.frame.size.width/w + 250;
+                CGFloat height = h*self.frame.size.width/w + 270;
                 weakSelf.heightOfContentView.constant = height;
                 [weakSelf updateConstraintsIfNeeded];
                 [weakSelf layoutIfNeeded];

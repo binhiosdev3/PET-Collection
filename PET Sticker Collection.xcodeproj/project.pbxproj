@@ -65,6 +65,10 @@
 		5FDAB9F21F34718800F371FB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9F11F34718800F371FB /* Reachability.m */; };
 		5FFAA1E11F381E6400228D4A /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E01F381E6400228D4A /* OverlayView.m */; };
 		5FFAA1E31F381E7500228D4A /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E21F381E7500228D4A /* OverlayView.xib */; };
+		5FFAA1E71F39683500228D4A /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E61F39683500228D4A /* HMSegmentedControl.m */; };
+		5FFAA1EA1F39684D00228D4A /* SegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E91F39684D00228D4A /* SegmentView.m */; };
+		5FFAA1EC1F39685A00228D4A /* SegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FFAA1EB1F39685A00228D4A /* SegmentView.xib */; };
+		5FFAA1EF1F399A1000228D4A /* UIColor+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1EE1F399A1000228D4A /* UIColor+Ext.m */; };
 		721E92311F2DD0E00091A822 /* SRSubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */; };
 		728DE8751F3577E400957253 /* FooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 728DE8731F3577E400957253 /* FooterCollectionReusableView.m */; };
 		728DE8761F3577E400957253 /* FooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 728DE8741F3577E400957253 /* FooterCollectionReusableView.xib */; };
@@ -210,6 +214,13 @@
 		5FFAA1DF1F381E6400228D4A /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
 		5FFAA1E01F381E6400228D4A /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		5FFAA1E21F381E7500228D4A /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
+		5FFAA1E51F39683500228D4A /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		5FFAA1E61F39683500228D4A /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		5FFAA1E81F39684D00228D4A /* SegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentView.h; sourceTree = "<group>"; };
+		5FFAA1E91F39684D00228D4A /* SegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentView.m; sourceTree = "<group>"; };
+		5FFAA1EB1F39685A00228D4A /* SegmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentView.xib; sourceTree = "<group>"; };
+		5FFAA1ED1F399A1000228D4A /* UIColor+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Ext.h"; sourceTree = "<group>"; };
+		5FFAA1EE1F399A1000228D4A /* UIColor+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Ext.m"; sourceTree = "<group>"; };
 		721E922F1F2DD0E00091A822 /* SRSubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSubscriptionModel.h; sourceTree = "<group>"; };
 		721E92301F2DD0E00091A822 /* SRSubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSubscriptionModel.m; sourceTree = "<group>"; };
 		728DE8721F3577E400957253 /* FooterCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterCollectionReusableView.h; sourceTree = "<group>"; };
@@ -241,9 +252,12 @@
 		5F0133171F302CD700BCE9FC /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5FFAA1E41F39682400228D4A /* HMSegmentedControl */,
 				5FDAB9EC1F34715A00F371FB /* Reachability */,
 				5F84548A1F289F3C00E62DDE /* UIImage+Ext.h */,
 				5F84548B1F289F3C00E62DDE /* UIImage+Ext.m */,
+				5FFAA1ED1F399A1000228D4A /* UIColor+Ext.h */,
+				5FFAA1EE1F399A1000228D4A /* UIColor+Ext.m */,
 				5F87970F1F29EC110068179A /* KBRoundedButton */,
 				5F8796F81F2997EB0068179A /* ZipArchive */,
 				5F84547C1F27305E00E62DDE /* IAPHelper */,
@@ -271,6 +285,9 @@
 				5FFAA1DF1F381E6400228D4A /* OverlayView.h */,
 				5FFAA1E01F381E6400228D4A /* OverlayView.m */,
 				5FFAA1E21F381E7500228D4A /* OverlayView.xib */,
+				5FFAA1E81F39684D00228D4A /* SegmentView.h */,
+				5FFAA1E91F39684D00228D4A /* SegmentView.m */,
+				5FFAA1EB1F39685A00228D4A /* SegmentView.xib */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -488,6 +505,15 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
+		5FFAA1E41F39682400228D4A /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				5FFAA1E51F39683500228D4A /* HMSegmentedControl.h */,
+				5FFAA1E61F39683500228D4A /* HMSegmentedControl.m */,
+			);
+			name = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -590,6 +616,7 @@
 				728DE8761F3577E400957253 /* FooterCollectionReusableView.xib in Resources */,
 				5F0133331F318A3000BCE9FC /* ShoppingDetailView.xib in Resources */,
 				5F0133161F30295200BCE9FC /* ShoppingTableViewCell.xib in Resources */,
+				5FFAA1EC1F39685A00228D4A /* SegmentView.xib in Resources */,
 				5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,6 +643,7 @@
 				5F0133231F3037BE00BCE9FC /* UIView+ExtLayout.m in Sources */,
 				5FDAB9F21F34718800F371FB /* Reachability.m in Sources */,
 				5F0133311F318A2500BCE9FC /* ShoppingDetailView.m in Sources */,
+				5FFAA1E71F39683500228D4A /* HMSegmentedControl.m in Sources */,
 				5F8454641F27304B00E62DDE /* NSImage+WebCache.m in Sources */,
 				5F8454721F27304B00E62DDE /* UIImageView+WebCache.m in Sources */,
 				5F0133261F303B4D00BCE9FC /* StickerBrowserViewController.m in Sources */,
@@ -630,6 +658,7 @@
 				5F84546F1F27304B00E62DDE /* UIImage+MultiFormat.m in Sources */,
 				5F8454701F27304B00E62DDE /* UIImage+WebP.m in Sources */,
 				5F84546A1F27304B00E62DDE /* SDWebImageDownloaderOperation.m in Sources */,
+				5FFAA1EA1F39684D00228D4A /* SegmentView.m in Sources */,
 				5F8454691F27304B00E62DDE /* SDWebImageDownloader.m in Sources */,
 				5F84546E1F27304B00E62DDE /* UIImage+GIF.m in Sources */,
 				5FDAB9EF1F34717900F371FB /* ZPReachability.m in Sources */,
@@ -648,6 +677,7 @@
 				5F0133141F30281100BCE9FC /* BaseView.m in Sources */,
 				728DE87F1F35A21E00957253 /* IAPHelper.m in Sources */,
 				5F84546D1F27304B00E62DDE /* UIButton+WebCache.m in Sources */,
+				5FFAA1EF1F399A1000228D4A /* UIColor+Ext.m in Sources */,
 				5F8796F71F298B7C0068179A /* ShoppingTableViewCell.m in Sources */,
 				5F8454621F27304B00E62DDE /* MKAnnotationView+WebCache.m in Sources */,
 				5F0133201F30377900BCE9FC /* UIView+Ext.m in Sources */,
