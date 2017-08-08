@@ -157,7 +157,6 @@
 
 
 - (void)completedAddPackage {
-    
     BlockWeakSelf weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         if(weakSelf.isRestoring) {
@@ -166,7 +165,7 @@
                 [weakSelf reloadData];
             }
             else {
-                [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"%ld Sticker(s) package downloading ...",[StickerManager getInstance].arrDownloadingPack.count]];
+                [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",[StickerManager getInstance].arrDownloadingPack.count]];
             }
         }
         weakSelf.indexSelected = 0;
@@ -598,7 +597,7 @@
         [self reloadData];
     }
     else {
-        [self showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld sticker package...",[StickerManager getInstance].arrDownloadingPack.count]];
+        [self showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",[StickerManager getInstance].arrDownloadingPack.count]];
     }
 }
 
