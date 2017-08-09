@@ -47,8 +47,8 @@ static bool islefttoright;
     BlockWeakSelf weakSelf = self;
     da_main(^{
         NSDictionary* dict = notification.userInfo;
-        NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"id"]];
-        NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"id"]];
+        NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"product_id"]];
+        NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"product_id"]];
         if([strID isEqualToString:strID2]) {
             weakSelf.downloadIndicator.hidden = YES;
             [weakSelf.btnDownload setTitle:@"Downloaded" forState:UIControlStateDisabled];
@@ -124,7 +124,7 @@ static bool islefttoright;
     }];
     [self setDownloadingButtonStatus:NO];
     for(NSString* strId in [StickerManager getInstance].arrDownloadingPack) {
-        if([[_dictSticker objectForKey:@"id"] isEqualToString:strId]) {
+        if([[_dictSticker objectForKey:@"product_id"] isEqualToString:strId]) {
             [self setDownloadingButtonStatus:YES];
         }
     }

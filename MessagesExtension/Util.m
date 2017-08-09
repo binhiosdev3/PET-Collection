@@ -148,7 +148,7 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
         NSLog(@"Got the data!");
         //Save the data
         NSLog(@"Saving");
-        [[StickerManager getInstance].arrDownloadingPack removeObject:[dict objectForKey:@"id"]];
+        [[StickerManager getInstance].arrDownloadingPack removeObject:[dict objectForKey:@"product_id"]];
         [FileManager createStickerWithDictionary:dict andData:urlData];
     });
 }
