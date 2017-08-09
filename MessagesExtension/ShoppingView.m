@@ -363,8 +363,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary* dict;
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(!tableView.editing) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if(_segmentSelected == indexSegmentTag) {
             dict = [_arrItemsSelectedTag objectAtIndex:indexPath.row];
             
@@ -379,8 +379,13 @@
         [self.detailView loadDetail];
     }
     else {
-//        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-//        [cell setSelected:YES];
+        self.headerView.btnRestore.enabled = [_tableView indexPathsForSelectedRows].count > 0 ? YES : NO;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView.editing) {
+        self.headerView.btnRestore.enabled = [_tableView indexPathsForSelectedRows].count > 0 ? YES : NO;
     }
 }
 
@@ -403,6 +408,7 @@
     if(!_isEditMode) {
         _isEditMode = YES;
         _indicatorView.hidden = YES;
+        [_arrMySticker removeAllObjects];
         [_arrMySticker addObjectsFromArray:[StickerManager getInstance].arrPackages];
         [_headerView showMySticker:YES];
         _tableView.allowsMultipleSelectionDuringEditing = true;
@@ -414,17 +420,9 @@
         }
         _tableView.allowsMultipleSelectionDuringEditing = false;
         _tableView.allowsSelectionDuringEditing = NO;
-        //delete file
-        for(StickerPack* pack in _arrDeletePack) {
-            [FileManager deleteStickerPackage:pack];
-        }
-        [[StickerManager getInstance].arrPackages removeAllObjects];
-        [[StickerManager getInstance].arrPackages addObjectsFromArray:_arrMySticker];
-        [[StickerManager getInstance] saveArrPackage];
-        [_arrMySticker removeAllObjects];
-        [_arrDeletePack removeAllObjects];
         _isEditMode = NO;
         [_headerView showMySticker:NO];
+        [self saveEditMySticker];
         [[NSNotificationCenter defaultCenter] postNotificationName:notification_mysticker_did_endEditin object:nil];
     }
     self.tableView.editing = _isEditMode;
@@ -432,8 +430,30 @@
     [self bringSubviewToFront:self.tableView];
 }
 
+- (void)saveEditMySticker {
+    [[StickerManager getInstance].arrPackages removeAllObjects];
+    [[StickerManager getInstance].arrPackages addObjectsFromArray:_arrMySticker];
+    [[StickerManager getInstance] saveArrPackage];
+    [_arrDeletePack removeAllObjects];
+}
+
 - (void)handleRestoreClick {
-    [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
+    if(_tableView.isEditing) { //delete
+        for(NSIndexPath* indextPath in [_tableView indexPathsForSelectedRows]) {
+            [_arrDeletePack addObject:[_arrMySticker objectAtIndex:indextPath.row]];
+        }
+        //delete file
+        for(StickerPack* pack in _arrDeletePack) {
+            [FileManager deleteStickerPackage:pack];
+        }
+        [_arrMySticker removeObjectsInArray:_arrDeletePack];
+        [self saveEditMySticker];
+        [self.tableView reloadData];
+        self.headerView.btnRestore.enabled = NO;
+    }
+    else { //restore
+        [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -482,16 +502,6 @@
 //        return UITableViewCellEditingStyleDelete;
 //    }
     return UITableViewCellEditingStyleNone;
-}
-
-- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        [_arrDeletePack addObject:[_arrMySticker objectAtIndex:indexPath.row]];
-        [_arrMySticker removeObjectAtIndex:indexPath.row];
-        [self.tableView reloadData];
-    }
 }
 
 

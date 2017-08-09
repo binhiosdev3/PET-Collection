@@ -63,8 +63,8 @@
         _lbFreeDownload.text = @"  0.99$  ";
         _lbFreeTrial.hidden = NO;
     }
-    self.selectedBackgroundView = nil;
-
+//    self.selectedBackgroundView = nil;
+    self.selectionStyle = UITableViewCellSelectionStyleBlue;
 }
 
 - (void)loadCellWithPackage:(StickerPack*)pack {

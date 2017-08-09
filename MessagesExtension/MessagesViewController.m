@@ -619,14 +619,14 @@
 }
 
 - (void)handleEndEditMySticker {
-    BlockWeakSelf weakself = self;
-     dispatch_async(dispatch_get_main_queue(), ^{
-         weakself.indexSelected = 0;
-         [weakself.clIcon reloadData];
-         [weakself loadMSSticker];
-         [weakself scrollCollectionToTop:_clSticker];
-         [weakself.clSticker reloadData];
-     });
+//    BlockWeakSelf weakself = self;
+//     dispatch_async(dispatch_get_main_queue(), ^{
+         self.indexSelected = 0;
+         [self.clIcon reloadData];
+         [self loadMSSticker];
+         [self scrollCollectionToTop:_clSticker];
+         [self.clSticker reloadData];
+//     });
 }
 
 - (void)showAlertView:(NSNotification*)notification {
