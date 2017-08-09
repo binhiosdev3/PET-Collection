@@ -180,6 +180,7 @@
 
 - (void)filterDownloadedPackage {
     self.arrItemShow = [[NSMutableArray alloc] initWithArray:[self.jsonDataArray objectForKey:@"sticker"]];
+    /*
     NSMutableArray* arr = [NSMutableArray new];
     [[StickerManager getInstance].arrPackages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StickerPack* stiPack = obj;
@@ -192,7 +193,7 @@
     }];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
-    }
+    }*/
     [_arrFilterMySticker removeAllObjects];
     _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
 

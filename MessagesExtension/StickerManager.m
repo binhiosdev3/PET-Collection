@@ -78,4 +78,12 @@
     [userDefaults synchronize];
 }
 
+- (BOOL)isDownloadedPack:(NSDictionary*)dict {
+    for(StickerPack* pack in self.arrPackages) {
+        if([pack.productID isEqualToString:[dict objectForKey:@"product_id"]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 @end

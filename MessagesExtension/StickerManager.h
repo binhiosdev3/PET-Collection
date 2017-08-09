@@ -23,4 +23,5 @@
                   title:(NSString*)title
                   group:(NSString*)group;
 - (void)saveArrPackage;
+- (BOOL)isDownloadedPack:(NSDictionary*)dict;
 @end
