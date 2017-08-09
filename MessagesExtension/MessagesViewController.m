@@ -97,7 +97,7 @@
     if(!isProduction) {
         [Util getDataFromSerVer:CONFIG_URL completeBlock:^(NSString *responseObject) {
             NSDictionary* dictJson  =  [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-            BOOL pro = YES;// [[dictJson objectForKey:@"product"] boolValue];
+            BOOL pro =  [[dictJson objectForKey:@"product"] boolValue];
             NSString* jsonUrl = [dictJson objectForKey:@"json_url"];
             [userDefaults setObject:@(pro) forKey:IS_PRODUCTION];
             [userDefaults setObject:jsonUrl forKey:JSON_URL_KEY];
@@ -167,7 +167,7 @@
                 [weakSelf reloadData];
             }
             else {
-                [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",[StickerManager getInstance].arrDownloadingPack.count]];
+                [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",(unsigned long)[StickerManager getInstance].arrDownloadingPack.count]];
             }
         }
         weakSelf.noStickerView.hidden = YES;
@@ -604,7 +604,7 @@
         [self reloadData];
     }
     else {
-        [self showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",[StickerManager getInstance].arrDownloadingPack.count]];
+        [self showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",(unsigned long)[StickerManager getInstance].arrDownloadingPack.count]];
     }
 }
 

@@ -47,7 +47,7 @@ static bool islefttoright;
     BlockWeakSelf weakSelf = self;
     da_main(^{
         NSDictionary* dict = notification.userInfo;
-        NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"product_id"]];
+        NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"productID_sticker"]];
         NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"product_id"]];
         if([strID isEqualToString:strID2]) {
             weakSelf.downloadIndicator.hidden = YES;

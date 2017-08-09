@@ -58,11 +58,12 @@
                                                                    group:group];
     [self.arrPackages insertObject:stickerPackage atIndex:0];
     NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:[userDefaults objectForKey:StickerPackageArr_key]];
-    [arr insertObject:[stickerPackage toDictionary] atIndex:0];
+    NSDictionary* dict = [stickerPackage toDictionary];
+    [arr insertObject:dict atIndex:0];
     [userDefaults setObject:@(self.numberOfPackages) forKey:numberOfPackage_key];
     [userDefaults setObject:arr forKey:StickerPackageArr_key];
     [userDefaults synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:dict];
 }
 
 - (void)saveArrPackage {

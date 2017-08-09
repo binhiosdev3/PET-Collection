@@ -217,6 +217,10 @@
     
 }
 
+- (void)layoutSubviews {
+    [self bringSubviewToFront:self.tableView];
+}
+
 - (void)reloadData {
     BlockWeakSelf weakself = self;
     da_main(^{
@@ -407,6 +411,7 @@
     }
     self.tableView.editing = _isEditMode;
     [self.tableView reloadData];
+    [self bringSubviewToFront:self.tableView];
 }
 
 - (void)handleRestoreClick {
