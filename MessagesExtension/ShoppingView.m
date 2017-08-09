@@ -362,12 +362,26 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary* dict = [self.arrItemShow objectAtIndex:indexPath.row];
-    _cellSelected = [tableView cellForRowAtIndexPath:indexPath];
-    self.detailView.dictSticker = dict;
-    self.detailView.leadingShopingViewContraint = self.leadingDetailViewContraint;
-    [self showDetailView:YES];
-    [self.detailView loadDetail];
+    NSDictionary* dict;
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(!tableView.editing) {
+        if(_segmentSelected == indexSegmentTag) {
+            dict = [_arrItemsSelectedTag objectAtIndex:indexPath.row];
+            
+        }
+        else {
+            dict = [self.arrItemShow objectAtIndex:indexPath.row];
+        }
+        _cellSelected = [tableView cellForRowAtIndexPath:indexPath];
+        self.detailView.dictSticker = dict;
+        self.detailView.leadingShopingViewContraint = self.leadingDetailViewContraint;
+        [self showDetailView:YES];
+        [self.detailView loadDetail];
+    }
+    else {
+//        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+//        [cell setSelected:YES];
+    }
 }
 
 - (void)showDetailView:(BOOL)show {
@@ -391,11 +405,15 @@
         _indicatorView.hidden = YES;
         [_arrMySticker addObjectsFromArray:[StickerManager getInstance].arrPackages];
         [_headerView showMySticker:YES];
+        _tableView.allowsMultipleSelectionDuringEditing = true;
+        _tableView.allowsSelectionDuringEditing = YES;
     }
     else {
         if(self.isGetingJson) {
             _indicatorView.hidden = NO;
         }
+        _tableView.allowsMultipleSelectionDuringEditing = false;
+        _tableView.allowsSelectionDuringEditing = NO;
         //delete file
         for(StickerPack* pack in _arrDeletePack) {
             [FileManager deleteStickerPackage:pack];
@@ -460,9 +478,9 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Detemine if it's in editing mode
-    if (self.tableView.editing) {
-        return UITableViewCellEditingStyleDelete;
-    }
+//    if (self.tableView.editing) {
+//        return UITableViewCellEditingStyleDelete;
+//    }
     return UITableViewCellEditingStyleNone;
 }
 
