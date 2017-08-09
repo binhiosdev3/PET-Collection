@@ -161,7 +161,21 @@
             }
         }
     }];
-    
+    NSArray *sortedArray;
+    sortedArray = [_arrTags sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString*  str = [a objectForKey:@"tag"];
+        if([str isEqualToString:@"hot"]) {
+            return NO;
+        }
+        if([str isEqualToString:@"free"]) {
+            return NO;
+        }
+        NSNumber* num1 = (NSNumber*)[a objectForKey:@"num"];
+        NSNumber* num2 = (NSNumber*)[b objectForKey:@"num"];
+        return num1.integerValue < num2.integerValue;
+    }];
+    [_arrTags removeAllObjects];
+    [_arrTags addObjectsFromArray:sortedArray];
 }
 
 - (void)filterDownloadedPackage {

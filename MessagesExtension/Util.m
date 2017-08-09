@@ -139,7 +139,7 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
 }
 
 + (void)downloadPackage:(NSString*)stringURL andDict:(NSDictionary*)dict {
-    [[StickerManager getInstance].arrDownloadingPack addObject:[dict objectForKey:@"id"]];
+    [[StickerManager getInstance].arrDownloadingPack addObject:[dict objectForKey:@"product_id"]];
     dispatch_queue_t queue = dispatch_get_global_queue(0,0);
     dispatch_async(queue, ^{
         NSLog(@"Beginning download");

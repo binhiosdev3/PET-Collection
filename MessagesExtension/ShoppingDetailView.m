@@ -108,6 +108,7 @@ static bool islefttoright;
     self.heightOfContentView.constant = self.frame.size.height;
     [self updateConstraintsIfNeeded];
     [self layoutIfNeeded];
+    weakSelf.loadingImageIndicator.hidden = NO;
     [_preViewImg sd_setImageWithURL:[NSURL URLWithString:[self.dictSticker objectForKey:@"img_pre"]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if(image) {
             da_main(^{

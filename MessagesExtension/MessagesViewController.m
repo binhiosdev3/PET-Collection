@@ -25,6 +25,7 @@
 @property (nonatomic,weak) IBOutlet ShoppingView* shoppingView;
 @property (nonatomic,weak) IBOutlet OverlayView* overlayView;
 @property (nonatomic,weak) IBOutlet UIView* viewSticker;
+@property (nonatomic,weak) IBOutlet UIView* noStickerView;
 @property (nonatomic,strong) StickerBrowserViewController* browserStickerVC;
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic,weak) IBOutlet UIImageView* topLine;
@@ -96,7 +97,7 @@
     if(!isProduction) {
         [Util getDataFromSerVer:CONFIG_URL completeBlock:^(NSString *responseObject) {
             NSDictionary* dictJson  =  [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-            BOOL pro = [[dictJson objectForKey:@"product"] boolValue];
+            BOOL pro = NO;// [[dictJson objectForKey:@"product"] boolValue];
             NSString* jsonUrl = [dictJson objectForKey:@"json_url"];
             [userDefaults setObject:@(pro) forKey:IS_PRODUCTION];
             [userDefaults setObject:jsonUrl forKey:JSON_URL_KEY];
@@ -141,6 +142,8 @@
     self.topShoppingViewContraint.constant = [UIScreen mainScreen].bounds.size.height;
     _browserStickerVC = [[StickerBrowserViewController alloc] initWithStickerSize:MSStickerSizeSmall withPackInfo:nil];
     [self displayContentController:_browserStickerVC];
+    
+    _noStickerView.hidden = [StickerManager getInstance].arrPackages.count == 0 ? NO : YES;
 }
 
 - (void)addObserver {
@@ -167,6 +170,7 @@
                 [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",[StickerManager getInstance].arrDownloadingPack.count]];
             }
         }
+        weakSelf.noStickerView.hidden = YES;
         weakSelf.indexSelected = 0;
         [weakSelf.clIcon reloadData];
     });
@@ -189,13 +193,13 @@
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    if(collectionView == _clIcon) return CGSizeZero;
+    if(collectionView == _clIcon ||  [StickerManager getInstance].arrPackages.count == 0) return CGSizeZero;
     return CGSizeMake(_clSticker.frame.size.width, 75);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)theIndexPath
 {
-    if(collectionView == _clSticker) {
+    if(collectionView == _clSticker ) {
         
         if(kind == UICollectionElementKindSectionFooter)
         {
@@ -351,6 +355,9 @@
             [self animateShowShopingView:YES];
         }
     }
+    else {
+        _noStickerView.hidden = [StickerManager getInstance].arrPackages.count == 0 ? NO : YES;
+    }
     [_shoppingView show:show];
     _btnShopping.hidden = show;
     
@@ -446,6 +453,7 @@
 
 - (void)setIndexSelected:(NSInteger)indexSelected {
     _indexSelected = indexSelected;
+    if([StickerManager getInstance].arrPackages.count == 0) return;
     StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
     if([[IAPShare sharedHelper].iap.purchasedProducts containsObject:stickerPackage.productID]
        || [stickerPackage.productID isEqualToString:@"FREE"]){

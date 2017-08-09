@@ -20,6 +20,7 @@
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* leadingLbMyStickerBtnMySticker;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* traillingFullTfSearch;
 @property (nonatomic, weak) IBOutlet SegmentView* segmentView;
+@property (nonatomic, weak) IBOutlet FLAnimatedImageView* imgView;
 - (void)showMySticker:(BOOL)show;
 - (void)showfullTextFieldSearch:(BOOL)show;
 @end

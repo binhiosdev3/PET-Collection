@@ -78,8 +78,8 @@
         self.imgBgView.backgroundColor = [UIColor whiteColor];
         self.loadingView.alpha = 0;
         self.alertView.alpha = 0;
-        NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/thank.gif"];
-        NSURL    *imageURL = [NSURL fileURLWithPath:filePath];
+        NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/Gif/thank.gif"];
+        NSURL *imageURL = [NSURL fileURLWithPath:filePath];
         [_imgView sd_setImageWithURL:imageURL];
         BlockWeakSelf weakSelf = self;
         [UIView animateWithDuration:0.3 animations:^{

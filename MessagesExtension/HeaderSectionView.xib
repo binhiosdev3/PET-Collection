@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +16,7 @@
                 <outlet property="btnRestore" destination="Dkj-gX-ddd" id="iWg-44-TA9"/>
                 <outlet property="imgLine1" destination="AFa-Tt-P1u" id="81T-EP-a84"/>
                 <outlet property="imgLine2" destination="DJ5-bs-cig" id="aUW-S5-vJv"/>
+                <outlet property="imgView" destination="OEh-jp-TIx" id="b2u-IG-kqh"/>
                 <outlet property="lbMySticker" destination="jGe-eZ-9QL" id="BT4-9L-eAx"/>
                 <outlet property="leadingLbMyStickerBtnMySticker" destination="NO0-Mm-2MW" id="t50-kE-NI6"/>
                 <outlet property="leadingLbMyStickerToSupperView" destination="Vkw-oQ-zdT" id="gie-as-Kpg"/>
@@ -39,10 +41,10 @@
                     <state key="selected" title="Done"/>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECu-zh-Rvc">
-                    <rect key="frame" x="0.0" y="25" width="379" height="50"/>
+                    <rect key="frame" x="0.0" y="15" width="379" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iSticker Store" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCn-9Z-Jrm">
-                            <rect key="frame" x="15" y="9.5" width="176" height="35.5"/>
+                            <rect key="frame" x="15" y="19.5" width="176" height="35.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="176" id="6Wk-V2-JoY"/>
                                 <constraint firstAttribute="width" constant="176" id="YKi-F7-JgW"/>
@@ -51,11 +53,20 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OEh-jp-TIx" customClass="FLAnimatedImageView">
+                            <rect key="frame" x="181" y="12.5" width="52" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="52" id="S85-W2-IfI"/>
+                                <constraint firstAttribute="width" secondItem="OEh-jp-TIx" secondAttribute="height" multiplier="26:25" id="voB-NN-zFb"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="GKh-Ze-HvV"/>
+                        <constraint firstAttribute="height" constant="60" id="GKh-Ze-HvV"/>
+                        <constraint firstItem="OEh-jp-TIx" firstAttribute="centerY" secondItem="CCn-9Z-Jrm" secondAttribute="centerY" id="N1a-oD-LbQ"/>
                         <constraint firstAttribute="bottom" secondItem="CCn-9Z-Jrm" secondAttribute="bottom" constant="5" id="cde-Kv-WUj"/>
+                        <constraint firstItem="OEh-jp-TIx" firstAttribute="leading" secondItem="CCn-9Z-Jrm" secondAttribute="trailing" constant="-10" id="nhQ-FK-P50"/>
                         <constraint firstItem="CCn-9Z-Jrm" firstAttribute="leading" secondItem="ECu-zh-Rvc" secondAttribute="leading" constant="15" id="zHu-6l-jt6"/>
                     </constraints>
                 </view>

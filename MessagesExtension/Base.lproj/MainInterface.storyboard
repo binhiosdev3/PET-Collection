@@ -178,6 +178,55 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HS2-jI-0tX">
+                                <rect key="frame" x="48" y="224" width="272" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no sticker." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWw-71-WA5">
+                                        <rect key="frame" x="0.0" y="0.0" width="272" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpI-SV-BaL" customClass="KBRoundedButton">
+                                        <rect key="frame" x="86" y="24" width="100" height="35"/>
+                                        <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="ASe-MY-q7d"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="Xkv-tX-qo1"/>
+                                            <constraint firstAttribute="width" constant="100" id="tUv-KU-fWT"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="vXo-am-XEs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="Get Now!">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColorForStateNormal">
+                                                <color key="value" red="0.34501880410000002" green="0.6255429387" blue="0.32431024310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColorForStateDisabled">
+                                                <color key="value" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColorForStateNormal">
+                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="shadowEnabled" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handleShoppingButton:" destination="ObA-dk-sSI" eventType="touchUpInside" id="K75-tM-Hvl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="LpI-SV-BaL" firstAttribute="centerX" secondItem="HS2-jI-0tX" secondAttribute="centerX" id="4KM-nB-w2E"/>
+                                    <constraint firstItem="AWw-71-WA5" firstAttribute="leading" secondItem="HS2-jI-0tX" secondAttribute="leading" id="M76-9q-1Mr"/>
+                                    <constraint firstItem="AWw-71-WA5" firstAttribute="top" secondItem="HS2-jI-0tX" secondAttribute="top" id="iZ5-yd-yh1"/>
+                                    <constraint firstAttribute="trailing" secondItem="AWw-71-WA5" secondAttribute="trailing" id="pbf-Ot-u4C"/>
+                                    <constraint firstAttribute="height" constant="80" id="uyO-K4-lR3"/>
+                                    <constraint firstItem="LpI-SV-BaL" firstAttribute="top" secondItem="AWw-71-WA5" secondAttribute="bottom" constant="4" id="x3Z-99-YWK"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -187,11 +236,14 @@
                             <constraint firstItem="Gf9-eb-kW9" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="6qi-ED-4gc"/>
                             <constraint firstItem="st1-50-tFI" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="9o6-pK-CoZ"/>
                             <constraint firstItem="PBa-js-cTJ" firstAttribute="bottom" secondItem="Gf9-eb-kW9" secondAttribute="bottom" constant="-5" id="AN0-Bd-IhF"/>
+                            <constraint firstItem="HS2-jI-0tX" firstAttribute="centerY" secondItem="Gf9-eb-kW9" secondAttribute="centerY" id="BYo-gO-fnU"/>
                             <constraint firstAttribute="trailing" secondItem="F5D-mf-dbR" secondAttribute="trailing" id="H3g-tH-tCj"/>
                             <constraint firstItem="7AP-dd-RWg" firstAttribute="bottom" secondItem="1eL-VH-hnQ" secondAttribute="bottom" id="Jbc-RD-cjM"/>
+                            <constraint firstItem="HS2-jI-0tX" firstAttribute="width" secondItem="Gf9-eb-kW9" secondAttribute="width" id="Juv-iT-Mld"/>
                             <constraint firstItem="7AP-dd-RWg" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="PCQ-8o-ndo"/>
                             <constraint firstAttribute="trailing" secondItem="Gf9-eb-kW9" secondAttribute="trailing" id="Qpb-Oa-oV5"/>
                             <constraint firstItem="F5D-mf-dbR" firstAttribute="height" secondItem="Gf9-eb-kW9" secondAttribute="height" id="QqN-RA-HUo"/>
+                            <constraint firstItem="HS2-jI-0tX" firstAttribute="centerX" secondItem="Gf9-eb-kW9" secondAttribute="centerX" id="RIS-xd-UUu"/>
                             <constraint firstAttribute="trailing" secondItem="7AP-dd-RWg" secondAttribute="trailing" id="Ujk-Sn-yow"/>
                             <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="1eL-VH-hnQ" secondAttribute="bottom" id="YLW-lC-AKA"/>
                             <constraint firstItem="F5D-mf-dbR" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="Yt4-yX-F8U"/>
@@ -221,6 +273,7 @@
                         <outlet property="btnShopping" destination="PBa-js-cTJ" id="Tee-je-Gev"/>
                         <outlet property="clIcon" destination="1eL-VH-hnQ" id="w93-BR-AR0"/>
                         <outlet property="clSticker" destination="Gf9-eb-kW9" id="vHb-KB-631"/>
+                        <outlet property="noStickerView" destination="HS2-jI-0tX" id="2bS-h3-2VA"/>
                         <outlet property="overlayView" destination="7AP-dd-RWg" id="fWb-bb-2te"/>
                         <outlet property="shoppingView" destination="F5D-mf-dbR" id="CGO-rc-iaf"/>
                         <outlet property="topLine" destination="st1-50-tFI" id="9eR-eA-LSQ"/>
