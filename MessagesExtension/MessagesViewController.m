@@ -97,7 +97,7 @@
     if(!isProduction) {
         [Util getDataFromSerVer:CONFIG_URL completeBlock:^(NSString *responseObject) {
             NSDictionary* dictJson  =  [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-            BOOL pro = NO;// [[dictJson objectForKey:@"product"] boolValue];
+            BOOL pro = YES;// [[dictJson objectForKey:@"product"] boolValue];
             NSString* jsonUrl = [dictJson objectForKey:@"json_url"];
             [userDefaults setObject:@(pro) forKey:IS_PRODUCTION];
             [userDefaults setObject:jsonUrl forKey:JSON_URL_KEY];

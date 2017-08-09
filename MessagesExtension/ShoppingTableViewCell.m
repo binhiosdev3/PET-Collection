@@ -50,7 +50,7 @@
     _lbTitle.text = [[_packageDict objectForKey:@"title"] capitalizedString];
     [_iconView sd_setImageWithURL:[NSURL URLWithString:str]];
     for(NSString* strId in [StickerManager getInstance].arrDownloadingPack) {
-        if([[_packageDict objectForKey:@"id"] isEqualToString:strId]) {
+        if([[_packageDict objectForKey:@"product_id"] isEqualToString:strId]) {
             _btnDownload.enabled = NO;
             _btnDownload.working = YES;
         }
