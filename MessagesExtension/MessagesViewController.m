@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getConfigIfNeeded];
+    [Util getConfigIfNeededWithCompleteBlock:nil];
     [self setupIAPHelper];
     if(![[userDefaults objectForKey:PASS_FIRST_LOAD_KEY] boolValue]) {
         [FileManager copyDefaultStickerToResourceIfNeeded];
@@ -91,24 +91,6 @@
         [self.clSticker reloadData];
     }
 }
-
-- (void)getConfigIfNeeded {
-    BOOL isProduction = [[userDefaults objectForKey:IS_PRODUCTION] boolValue];
-    if(!isProduction) {
-        [Util getDataFromSerVer:CONFIG_URL completeBlock:^(NSString *responseObject) {
-            NSDictionary* dictJson  =  [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-            BOOL pro =  [[dictJson objectForKey:@"product"] boolValue];
-            NSString* jsonUrl = [dictJson objectForKey:@"json_url"];
-            [userDefaults setObject:@(pro) forKey:IS_PRODUCTION];
-            [userDefaults setObject:jsonUrl forKey:JSON_URL_KEY];
-            [userDefaults synchronize];
-            if(pro) {
-                [FileManager copyDefaultStickerToResourceIfNeeded];
-            }
-        }];
-    }
-}
-
 
 - (void)displayContentController: (UIViewController*) content;
 {
@@ -170,9 +152,11 @@
                 [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",(unsigned long)[StickerManager getInstance].arrDownloadingPack.count]];
             }
         }
-        weakSelf.noStickerView.hidden = YES;
-        weakSelf.indexSelected = 0;
-        [weakSelf.clIcon reloadData];
+        if ([StickerManager getInstance].arrPackages.count > 0) {
+            weakSelf.noStickerView.hidden = YES;
+            weakSelf.indexSelected = 0;
+            [weakSelf.clIcon reloadData];
+        }
     });
     
 }
@@ -640,8 +624,12 @@
 }
 
 - (void)showAlertViewWithText:(NSString*)text {
-    [self.view bringSubviewToFront:self.overlayView];
-    [self.overlayView showAlertWithTitle:@"" andMessage:text];
+    BlockWeakSelf weakself = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakself.view bringSubviewToFront:self.overlayView];
+        [weakself.overlayView showAlertWithTitle:@"" andMessage:text];
+    });
+   
 }
 
 @end

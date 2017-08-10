@@ -49,13 +49,15 @@
               isAnimated:(BOOL)isGif
                    title:(NSString*)title
                    group:(NSString*)group
+                    price:(NSString*)price
 {
     self.numberOfPackages += 1;
     StickerPack* stickerPackage = [[StickerPack alloc] initWithproductID:productID
                                                         numberOfStickers:numOfSticker
                                                               isAnimated:isGif
                                                                    title:title
-                                                                   group:group];
+                                                                   group:group
+                                                                   price:price];
     [self.arrPackages insertObject:stickerPackage atIndex:0];
     NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:[userDefaults objectForKey:StickerPackageArr_key]];
     NSDictionary* dict = [stickerPackage toDictionary];

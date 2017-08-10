@@ -46,13 +46,20 @@ static bool islefttoright;
     if(self.leadingShopingViewContraint.constant == self.frame.size.width) return;
     BlockWeakSelf weakSelf = self;
     da_main(^{
-        NSDictionary* dict = notification.userInfo;
-        NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"productID_sticker"]];
-        NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"product_id"]];
-        if([strID isEqualToString:strID2]) {
-            weakSelf.downloadIndicator.hidden = YES;
-            [weakSelf.btnDownload setTitle:@"Downloaded" forState:UIControlStateDisabled];
-        }
+    if(!notification.userInfo) {
+        [weakSelf.btnDownload setTitle:@"Free Download" forState:UIControlStateDisabled];
+        weakSelf.btnDownload.enabled = YES;
+        weakSelf.downloadIndicator.hidden = YES;
+        weakSelf.btnDownload.alpha = 1.0;
+    }
+    
+    NSDictionary* dict = notification.userInfo;
+    NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"productID_sticker"]];
+    NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"product_id"]];
+    if([strID isEqualToString:strID2]) {
+        weakSelf.downloadIndicator.hidden = YES;
+        [weakSelf.btnDownload setTitle:@"Downloaded" forState:UIControlStateDisabled];
+    }
     });
     
 }
@@ -94,13 +101,13 @@ static bool islefttoright;
 
 - (void)loadDetail{
     [self.scrllView setContentOffset:CGPointZero];
-    if([[self.dictSticker objectForKey:@"product_id"] isEqualToString:@"FREE"]) {
+    if([[self.dictSticker objectForKey:@"price"] isEqualToString:@"FREE"]) {
         _lbFreeDownload.text = @"  FREE  ";
     }
     else {
         _lbFreeDownload.text = @"  0.99$  ";
     }
-
+    _imgPlay.hidden = [[self.dictSticker objectForKey:@"isGif"] intValue] == 0 ? YES : NO;
     NSString* str = [self.dictSticker objectForKey:@"icon"];
     _lbTitle.text = [[self.dictSticker objectForKey:@"title"] capitalizedString];
     [_iconImgView sd_setImageWithURL:[NSURL URLWithString:str]];

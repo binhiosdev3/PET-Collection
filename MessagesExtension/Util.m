@@ -112,6 +112,24 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
 @end
 @implementation Util
 
++ (void)getConfigIfNeededWithCompleteBlock:(ResponseObjectCompleteBlock)completeBlock {
+    BOOL isProduction = [[userDefaults objectForKey:IS_PRODUCTION] boolValue];
+    if(!isProduction) {
+        [Util getDataFromSerVer:CONFIG_URL completeBlock:^(NSString *responseObject) {
+            NSDictionary* dictJson  =  [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+            BOOL pro =  [[dictJson objectForKey:@"product"] boolValue];
+            NSString* jsonUrl = [dictJson objectForKey:@"json_url"];
+            [userDefaults setObject:@(pro) forKey:IS_PRODUCTION];
+            [userDefaults setObject:jsonUrl forKey:JSON_URL_KEY];
+            [userDefaults synchronize];
+            if(pro) {
+                [FileManager copyDefaultStickerToResourceIfNeeded];
+            }
+            if(completeBlock) completeBlock(responseObject);
+        }];
+    }
+}
+
 + (void)getDataFromSerVer:(NSString *)url completeBlock:(ResponseObjectCompleteBlock)completeBlock {
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithURL:[NSURL URLWithString:url]
@@ -122,6 +140,9 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
                 if(data) {
                     NSString* responeStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     if(completeBlock) completeBlock(responeStr);
+                }
+                if(error){
+                    [Util showAlertWithTitle:@"Error" andMessage:@"Oopps! Can not connect to server. Please try again!"];
                 }
             }] resume];
 }
@@ -144,12 +165,19 @@ void dp_performBlockOnMainThreadAndWait(dispatch_block_t block, BOOL waitUntilDo
     dispatch_async(queue, ^{
         NSLog(@"Beginning download");
         NSURL  *url = [NSURL URLWithString:stringURL];
-        NSData *urlData = [NSData dataWithContentsOfURL:url];
-        NSLog(@"Got the data!");
-        //Save the data
-        NSLog(@"Saving");
+//        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        NSError* error = nil;
+        NSData* urlData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
         [[StickerManager getInstance].arrDownloadingPack removeObject:[dict objectForKey:@"product_id"]];
-        [FileManager createStickerWithDictionary:dict andData:urlData];
+        if (error) {
+            [Util showAlertWithTitle:@"Error" andMessage:@"Download error! Please check your connection and try again!"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:notification_add_package_download_complete object:nil userInfo:nil];
+        } else {
+            NSLog(@"Got the data!");
+            //Save the data
+            NSLog(@"Saving");
+            [FileManager createStickerWithDictionary:dict andData:urlData];
+        }
     });
 }
 

@@ -18,6 +18,7 @@
 @property (nonatomic,weak) IBOutlet UIImageView* imgViewArrow;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightPreviewImg;
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* previewImg;
+@property (nonatomic,weak) IBOutlet UIImageView* imgPlay;
 @property (nonatomic,assign) NSDictionary* packageDict;
 @end
 
@@ -55,7 +56,7 @@
             _btnDownload.working = YES;
         }
     }
-    if([[_packageDict objectForKey:@"product_id"] isEqualToString:@"FREE"]) {
+    if([[_packageDict objectForKey:@"price"] isEqualToString:@"FREE"]) {
         _lbFreeDownload.text = @"  FREE  ";
         _lbFreeTrial.hidden = YES;
     }
@@ -63,7 +64,7 @@
         _lbFreeDownload.text = @"  0.99$  ";
         _lbFreeTrial.hidden = NO;
     }
-//    self.selectedBackgroundView = nil;
+    _imgPlay.hidden = [[_packageDict objectForKey:@"isGif"] intValue] == 0 ? YES : NO;
     self.selectionStyle = UITableViewCellSelectionStyleBlue;
 }
 

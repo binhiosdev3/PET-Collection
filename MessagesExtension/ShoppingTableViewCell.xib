@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T0E-Ko-sET" id="2dX-4C-KIk">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mWc-p4-9X0" customClass="FLAnimatedImageView">
@@ -66,6 +66,13 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="ncb-iq-0Cr">
+                        <rect key="frame" x="48" y="47.5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="ncb-iq-0Cr" secondAttribute="height" multiplier="1:1" id="Mu1-GL-qMN"/>
+                            <constraint firstAttribute="width" constant="20" id="i6p-BN-S96"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -75,6 +82,8 @@
                     <constraint firstItem="jx4-Hh-IEg" firstAttribute="top" secondItem="aen-Dq-g5g" secondAttribute="bottom" constant="3" id="Cvc-3h-wnR"/>
                     <constraint firstItem="mWc-p4-9X0" firstAttribute="leading" secondItem="2dX-4C-KIk" secondAttribute="leading" constant="8" id="E9P-Wj-Va7"/>
                     <constraint firstItem="aen-Dq-g5g" firstAttribute="top" secondItem="mWc-p4-9X0" secondAttribute="top" id="Jb3-UJ-fmH"/>
+                    <constraint firstItem="ncb-iq-0Cr" firstAttribute="trailing" secondItem="mWc-p4-9X0" secondAttribute="trailing" id="MKr-RE-IfJ"/>
+                    <constraint firstItem="ncb-iq-0Cr" firstAttribute="bottom" secondItem="mWc-p4-9X0" secondAttribute="bottom" id="QXb-cW-3Y1"/>
                     <constraint firstItem="mWc-p4-9X0" firstAttribute="top" secondItem="2dX-4C-KIk" secondAttribute="topMargin" id="Rkx-JH-77h"/>
                     <constraint firstItem="VTd-9s-zkE" firstAttribute="top" secondItem="fuc-wd-cnD" secondAttribute="bottom" id="aKb-5j-ddj"/>
                     <constraint firstItem="fuc-wd-cnD" firstAttribute="leading" secondItem="aen-Dq-g5g" secondAttribute="trailing" id="jdh-fX-VMY"/>
@@ -86,6 +95,7 @@
             <connections>
                 <outlet property="btnDownload" destination="fuc-wd-cnD" id="5Be-du-zJK"/>
                 <outlet property="iconView" destination="mWc-p4-9X0" id="nci-fY-VYA"/>
+                <outlet property="imgPlay" destination="ncb-iq-0Cr" id="t5t-M9-AuB"/>
                 <outlet property="lbFreeDownload" destination="jx4-Hh-IEg" id="im6-lO-7Oa"/>
                 <outlet property="lbFreeTrial" destination="VTd-9s-zkE" id="9eW-VZ-N0K"/>
                 <outlet property="lbTitle" destination="aen-Dq-g5g" id="TlU-DW-Ske"/>
@@ -93,4 +103,7 @@
             <point key="canvasLocation" x="34.5" y="121.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="play" width="150" height="150"/>
+    </resources>
 </document>

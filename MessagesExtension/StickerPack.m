@@ -16,6 +16,7 @@
                         isAnimated:(BOOL)isGif
                             title:(NSString*)title
                             group:(NSString*)group
+                            price:(NSString *)price
 {
     self = [super init];
     if(self) {
@@ -31,6 +32,7 @@
         }
         self.title = title;
         self.group = group;
+        self.price = price;
     }
     return self;
 }
@@ -48,6 +50,7 @@
         [dict setObject:self.group forKey:group_key];
     }
     [dict setObject:self.productID forKey:productID_key];
+    [dict setObject:self.price forKey:price_key];
     return dict;
 }
 
@@ -61,6 +64,7 @@
         self.title = [dict objectForKey:title_key];
         self.group = [dict objectForKey:group_key];
         self.productID = [dict objectForKey:productID_key];
+        self.price = [dict objectForKey:price_key];
     }
     return self;
 }

@@ -16,13 +16,15 @@
 @property (nonatomic)        int numberOfStickers;
 @property (nonatomic,strong) NSMutableArray* arrStickerPath;
 @property (nonatomic,strong) NSString* iconPath;
+@property (nonatomic,strong) NSString* price;
 @property (nonatomic) BOOL isAnimated;
 
 - (instancetype)initWithproductID:(NSString*)productID
                  numberOfStickers:(int)numOfSticker
                        isAnimated:(BOOL)isGif
                             title:(NSString*)title
-                            group:(NSString*)group;
+                            group:(NSString*)group
+                            price:(NSString*)price;
 - (instancetype)initWithDictionary:(NSDictionary*)dict;
 - (NSDictionary*)toDictionary;
 @end

@@ -66,7 +66,7 @@
     _tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] init];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:notification_add_package_download_complete object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage)name:notification_add_package_download_complete object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedAddPackage:)name:notification_add_package_download_complete object:nil];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.detailView.delegate = self;
     self.overlayView.alpha = 0.0;
@@ -83,7 +83,62 @@
     [_tableView reloadData];
 }
 
-- (void)completedAddPackage {
+- (void)completedAddPackage:(NSNotification*)notification {
+    if(!notification.userInfo) {
+        [self reloadData];
+        return;
+    }
+    NSDictionary* dict = notification.userInfo;
+    NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"productID_sticker"]];
+    BlockWeakSelf weakSelf = self;
+    [_arrItemShow enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        @autoreleasepool {
+            NSDictionary*dict = obj;
+            if([strID isEqualToString:[dict objectForKey:@"product_id"]]) {
+                [weakSelf.arrItemShow removeObject:dict];
+                [weakSelf.arrFilterMySticker removeAllObjects];
+                weakSelf.arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
+                [weakSelf.arrTags enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSDictionary* dictTag = obj;
+                    NSString* tag = [dictTag objectForKey:@"tag"];
+                    NSArray* arrTag = [((NSString*)[dict objectForKey:@"tag"]) componentsSeparatedByString:@","];
+                    for(NSString* str in arrTag) {
+                        if([tag isEqualToString:str]) {
+                            NSNumber* num = [dictTag objectForKey:@"num"];
+                            num = [NSNumber numberWithInteger:num.integerValue-1];
+                            if(num.integerValue == 0) {
+                                [weakSelf.arrTags removeObject:obj];
+                                break;
+                            }
+                            else {
+                                NSMutableDictionary* dictNew = [[NSMutableDictionary alloc] initWithDictionary:dictTag];
+                                [dictNew setObject:num forKey:@"num"];
+                                [weakSelf.arrTags removeObjectAtIndex:idx];
+                                [weakSelf.arrTags insertObject:dictNew atIndex:idx];
+                                if(weakSelf.tagSectionSelected == idx+1) {
+                                    [weakSelf.arrItemsSelectedTag removeAllObjects];
+                                    [weakSelf.arrFilterMySticker enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                        @autoreleasepool {
+                                            NSDictionary*dict = obj;
+                                            NSString*  str = [dict objectForKey:@"tag"];
+                                            NSArray* arrTag = [str componentsSeparatedByString:@","];
+                                            for(str in arrTag) {
+                                                if( [str caseInsensitiveCompare:tag] == NSOrderedSame ) {
+                                                    [weakSelf.arrItemsSelectedTag addObject:dict];
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }];
+                                }
+                            }
+                        }
+                    }
+                }];
+                *stop = YES;
+            }
+        }
+    }];
     [self reloadData];
 }
 
@@ -102,30 +157,45 @@
 
 - (void)getJson {
     if(![Util isInternetActived]) {
-        _lbNoInternet.hidden = NO;
+        if(_arrItemShow.count == 0) {
+            _lbNoInternet.hidden = NO;
+        }
+        self.indicatorView.hidden = YES;
         return;
     }
+    self.tableView.hidden = NO;
     _lbNoInternet.hidden = YES;
     self.indicatorView.hidden = NO;
     BlockWeakSelf weakself = self;
     _isGetingJson = YES;
     NSString* strUrl = [userDefaults objectForKey:JSON_URL_KEY];
-    [Util getDataFromSerVer:strUrl completeBlock:^(NSString *responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakself.isGetingJson = NO;
-            weakself.jsonDataArray = [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-            [userDefaults setObject:weakself.jsonDataArray forKey:JSON_DATA_ARR];
-            [userDefaults synchronize];
-            [weakself filterDownloadedPackage];
-            weakself.indicatorView.hidden = YES;
-            [weakself.tableView reloadData];
-            [weakself generateTagsArray];
-        });
-    }];
+    if(strUrl.length == 0) {
+        [Util getConfigIfNeededWithCompleteBlock:^(NSString *responseObject) {
+            if(responseObject) {
+                [weakself getJson];
+            }
+        }];
+    }
+    else {
+        [Util getDataFromSerVer:strUrl completeBlock:^(NSString *responseObject) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakself.isGetingJson = NO;
+                weakself.jsonDataArray = [NSJSONSerialization JSONObjectWithData:[responseObject dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+                [userDefaults setObject:weakself.jsonDataArray forKey:JSON_DATA_ARR];
+                [userDefaults synchronize];
+                [weakself filterDownloadedPackage];
+                weakself.indicatorView.hidden = YES;
+                [weakself.tableView reloadData];
+                [weakself generateTagsArray];
+            });
+        }];
+    }
+    
 }
 
 - (void)generateTagsArray {
     [_arrTags removeAllObjects];
+    BlockWeakSelf weakSelf = self;
     [self.arrItemShow enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         @autoreleasepool {
             NSMutableDictionary* dictTag;
@@ -133,29 +203,29 @@
             NSString*  str = [dict objectForKey:@"tag"];
             NSArray* arrTag = [str componentsSeparatedByString:@","];
             for(str in arrTag) {
-                BOOL isCotain = NO;
+                BOOL isContain = NO;
                 for(dictTag in _arrTags) {
                     NSString* tag = [dictTag objectForKey:@"tag"];
                     if([tag isEqualToString:str]) {
                         NSNumber* num = (NSNumber*)[dictTag objectForKey:@"num"];
                         NSInteger i = num.integerValue + 1;
                         [dictTag setObject:[NSNumber numberWithInteger:i] forKey:@"num"];
-                        isCotain = YES;
+                        isContain = YES;
                         break;
                     }
                 }
-                if(!isCotain) {
+                if(!isContain) {
                     dictTag = [NSMutableDictionary new];
                     [dictTag setObject:str forKey:@"tag"];
                     [dictTag setObject:[NSNumber numberWithInteger:1]  forKey:@"num"];
                     if([str isEqualToString:@"hot"]) {
-                        [_arrTags insertObject:dictTag atIndex:0];
+                        [weakSelf.arrTags insertObject:dictTag atIndex:0];
                     }
                     else if([str isEqualToString:@"free"]) {
-                        [_arrTags insertObject:dictTag atIndex:1];
+                        [weakSelf.arrTags insertObject:dictTag atIndex:1];
                     }
                     else {
-                        [_arrTags addObject:dictTag];
+                        [weakSelf.arrTags addObject:dictTag];
                     }
                 }
             }
@@ -180,7 +250,6 @@
 
 - (void)filterDownloadedPackage {
     self.arrItemShow = [[NSMutableArray alloc] initWithArray:[self.jsonDataArray objectForKey:@"sticker"]];
-    /*
     NSMutableArray* arr = [NSMutableArray new];
     [[StickerManager getInstance].arrPackages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StickerPack* stiPack = obj;
@@ -193,7 +262,7 @@
     }];
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
-    }*/
+    }
     [_arrFilterMySticker removeAllObjects];
     _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
 
@@ -225,7 +294,6 @@
 - (void)reloadData {
     BlockWeakSelf weakself = self;
     da_main(^{
-        [weakself filterDownloadedPackage];
         [weakself.tableView reloadData];
     });
 }
@@ -264,6 +332,7 @@
         _tagSectionSelected = tap.view.tag;
         NSDictionary* dict = [_arrTags objectAtIndex:_tagSectionSelected-1];
         NSString* tagSelected = [dict objectForKey:@"tag"];
+        BlockWeakSelf weakSelf = self;
         [self.arrFilterMySticker enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             @autoreleasepool {
                 NSDictionary*dict = obj;
@@ -271,7 +340,7 @@
                 NSArray* arrTag = [str componentsSeparatedByString:@","];
                 for(str in arrTag) {
                     if( [str caseInsensitiveCompare:tagSelected] == NSOrderedSame ) {
-                        [_arrItemsSelectedTag addObject:dict];
+                        [weakSelf.arrItemsSelectedTag addObject:dict];
                         break;
                     }
                 }
@@ -279,7 +348,7 @@
         }];
     }
     [_tableView reloadData];
-    if(_tagSectionSelected >= 0) {
+    if(_tagSectionSelected >= 0 && _arrItemsSelectedTag.count > 0) {
         NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:_tagSectionSelected];
         [self.tableView scrollToRowAtIndexPath:ip
                               atScrollPosition:UITableViewScrollPositionTop
@@ -316,6 +385,7 @@
         }
         return headerView;
     }
+  
     return nil;
 }
 

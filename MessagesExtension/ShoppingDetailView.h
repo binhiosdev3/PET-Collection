@@ -21,5 +21,6 @@
 @property (nonatomic, weak) id<ShoppingDetailDelegate> delegate;
 @property (nonatomic,assign) NSDictionary* dictSticker;
 @property (nonatomic,assign) NSLayoutConstraint* leadingShopingViewContraint;
+@property (nonatomic,weak) IBOutlet UIImageView* imgPlay;
 - (void)loadDetail;
 @end

@@ -102,7 +102,8 @@ static NSString *_rootLibraryPath = nil;
                                               numOfSticker:numOfSticker
                                                 isAnimated:isGif
                                                      title:title
-                                                     group:@""];
+                                                     group:@""
+                                                    price:@"0.99"];
             
         }
     }
@@ -114,6 +115,7 @@ static NSString *_rootLibraryPath = nil;
     NSString* title = [dict objectForKey:@"title"];
     int numOfStickers = [[dict objectForKey:@"numOfStick"] intValue];
     BOOL isGif = [[dict objectForKey:@"isGif"] intValue] == 1 ? YES : NO;
+    NSString* price = [dict objectForKey:@"price"];
     NSURL *stickerURL = [[FileManager stickerFileURL] URLByAppendingPathComponent:productID];
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:stickerURL.path]) {
@@ -149,7 +151,8 @@ static NSString *_rootLibraryPath = nil;
                                               numOfSticker:numOfStickers
                                                 isAnimated:isGif
                                                      title:title
-                                                     group:group];
+                                                     group:group
+                                                    price:price];
             
         }
     }
