@@ -264,6 +264,10 @@
     if(arr.count > 0) {
         [self.arrItemShow removeObjectsInArray:arr];
     }
+    for (int x = 0; x < [self.arrItemShow count]; x++) {
+        int randInt = (arc4random() % ([self.arrItemShow count] - x)) + x;
+        [self.arrItemShow exchangeObjectAtIndex:x withObjectAtIndex:randInt];
+    }
     [_arrFilterMySticker removeAllObjects];
     _arrFilterMySticker = [[NSMutableArray alloc] initWithArray:self.arrItemShow];
 
