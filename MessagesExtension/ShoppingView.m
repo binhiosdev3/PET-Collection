@@ -76,7 +76,6 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     _segmentSelected = segmentedControl.selectedSegmentIndex;
     _headerView.tfSearch.text = @"";
     [_headerView.tfSearch resignFirstResponder];
@@ -433,6 +432,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [_headerView.tfSearch resignFirstResponder];
     NSDictionary* dict;
     if(!tableView.editing) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -509,6 +509,7 @@
 }
 
 - (void)handleRestoreClick {
+    [_headerView.tfSearch resignFirstResponder];
     if(_tableView.isEditing) { //delete
         for(NSIndexPath* indextPath in [_tableView indexPathsForSelectedRows]) {
             [_arrDeletePack addObject:[_arrMySticker objectAtIndex:indextPath.row]];
@@ -536,6 +537,7 @@
     _segmentSelected = indexSegmentAll;
     _tagSectionSelected = -1;
     [_headerView.segmentView.segmentedControl setSelectedSegmentIndex:indexSegmentAll];
+    [_tableView reloadData];
 }
 
 -(void)textFieldDidChange:(id)sender {
