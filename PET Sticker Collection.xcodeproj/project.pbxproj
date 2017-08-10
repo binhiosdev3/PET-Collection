@@ -24,7 +24,6 @@
 		5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F8454051F25EA3A00E62DDE /* MainInterface.storyboard */; };
 		5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8454081F25EA3A00E62DDE /* Assets.xcassets */; };
 		5F8454191F25F71D00E62DDE /* ShoppingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454181F25F71D00E62DDE /* ShoppingView.m */; };
-		5F84541E1F26F18900E62DDE /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = 5F84541D1F26F18900E62DDE /* Stickers */; };
 		5F8454211F26F34E00E62DDE /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454201F26F34E00E62DDE /* FileManager.m */; };
 		5F8454251F26F44900E62DDE /* StickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8454241F26F44900E62DDE /* StickerManager.m */; };
 		5F84542B1F27204B00E62DDE /* StickerPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F84542A1F27204B00E62DDE /* StickerPack.m */; };
@@ -63,6 +62,7 @@
 		5FDAB9EB1F344F3600F371FB /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9EA1F344F3600F371FB /* Util.m */; };
 		5FDAB9EF1F34717900F371FB /* ZPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9EE1F34717900F371FB /* ZPReachability.m */; };
 		5FDAB9F21F34718800F371FB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDAB9F11F34718800F371FB /* Reachability.m */; };
+		5FF26D661F3C4C770054BCA4 /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = 5FF26D651F3C4C770054BCA4 /* Stickers */; };
 		5FFAA1E11F381E6400228D4A /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E01F381E6400228D4A /* OverlayView.m */; };
 		5FFAA1E31F381E7500228D4A /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E21F381E7500228D4A /* OverlayView.xib */; };
 		5FFAA1E71F39683500228D4A /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFAA1E61F39683500228D4A /* HMSegmentedControl.m */; };
@@ -132,7 +132,6 @@
 		5F84540A1F25EA3A00E62DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F8454171F25F71D00E62DDE /* ShoppingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingView.h; sourceTree = "<group>"; };
 		5F8454181F25F71D00E62DDE /* ShoppingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingView.m; sourceTree = "<group>"; };
-		5F84541D1F26F18900E62DDE /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stickers; sourceTree = "<group>"; };
 		5F84541F1F26F34E00E62DDE /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 		5F8454201F26F34E00E62DDE /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
 		5F8454221F26F3D000E62DDE /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
@@ -211,6 +210,7 @@
 		5FDAB9EE1F34717900F371FB /* ZPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPReachability.m; sourceTree = "<group>"; };
 		5FDAB9F01F34718800F371FB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5FDAB9F11F34718800F371FB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		5FF26D651F3C4C770054BCA4 /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stickers; sourceTree = "<group>"; };
 		5FFAA1DF1F381E6400228D4A /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
 		5FFAA1E01F381E6400228D4A /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		5FFAA1E21F381E7500228D4A /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
@@ -354,7 +354,6 @@
 				5F0133191F302D0B00BCE9FC /* Manager */,
 				5F0133171F302CD700BCE9FC /* Library */,
 				5F0133181F302CE800BCE9FC /* Shopping */,
-				5F84541D1F26F18900E62DDE /* Stickers */,
 				5F8454021F25EA3A00E62DDE /* MessagesViewController.h */,
 				5F8454031F25EA3A00E62DDE /* MessagesViewController.m */,
 				728DE8721F3577E400957253 /* FooterCollectionReusableView.h */,
@@ -365,6 +364,7 @@
 				5F8454051F25EA3A00E62DDE /* MainInterface.storyboard */,
 				5F8454081F25EA3A00E62DDE /* Assets.xcassets */,
 				5F84540A1F25EA3A00E62DDE /* Info.plist */,
+				5FF26D651F3C4C770054BCA4 /* Stickers */,
 				5F8454221F26F3D000E62DDE /* Constant.h */,
 				5F01330F1F2F1CA900BCE9FC /* PrefixHeader.pch */,
 				5F01331D1F302E8000BCE9FC /* CollectionViewCell.h */,
@@ -608,10 +608,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF26D661F3C4C770054BCA4 /* Stickers in Resources */,
 				5F0133111F30274400BCE9FC /* ShoppingView.xib in Resources */,
 				5FFAA1E31F381E7500228D4A /* OverlayView.xib in Resources */,
 				5F8454091F25EA3A00E62DDE /* Assets.xcassets in Resources */,
-				5F84541E1F26F18900E62DDE /* Stickers in Resources */,
 				5F01332B1F306F8700BCE9FC /* HeaderSectionView.xib in Resources */,
 				728DE8761F3577E400957253 /* FooterCollectionReusableView.xib in Resources */,
 				5F0133331F318A3000BCE9FC /* ShoppingDetailView.xib in Resources */,

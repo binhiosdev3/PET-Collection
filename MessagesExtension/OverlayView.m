@@ -93,7 +93,7 @@
 
 - (void)showThankView {
     self.isThankYou = YES;
-    [self showAlertWithTitle:@"" andMessage:@"Purchase Completed!"];
+    [self showAlertWithTitle:@"" andMessage:@"Purchase Completed. Amaze your friends now!"];
 }
 
 @end

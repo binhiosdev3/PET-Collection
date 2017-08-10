@@ -164,7 +164,9 @@
     }
     self.tableView.hidden = NO;
     _lbNoInternet.hidden = YES;
-    self.indicatorView.hidden = NO;
+    if(_arrItemShow.count == 0) {
+        self.indicatorView.hidden = NO;
+    }
     BlockWeakSelf weakself = self;
     _isGetingJson = YES;
     NSString* strUrl = [userDefaults objectForKey:JSON_URL_KEY];
@@ -534,10 +536,14 @@
 }
 
 - (void)resetSegmentIndex {
-    _segmentSelected = indexSegmentAll;
-    _tagSectionSelected = -1;
-    [_headerView.segmentView.segmentedControl setSelectedSegmentIndex:indexSegmentAll];
-    [_tableView reloadData];
+    if(_segmentSelected == indexSegmentTag) {
+        _segmentSelected = indexSegmentAll;
+        _tagSectionSelected = -1;
+        [_headerView.segmentView.segmentedControl setSelectedSegmentIndex:indexSegmentAll];
+        [self performSelectorWithBlock:^{
+            [_tableView reloadData];
+        } afterDelay:0.5];
+    }
 }
 
 -(void)textFieldDidChange:(id)sender {
@@ -551,6 +557,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
      [_headerView.tfSearch resignFirstResponder];
 }
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
