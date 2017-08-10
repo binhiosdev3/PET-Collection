@@ -440,7 +440,7 @@
     if([StickerManager getInstance].arrPackages.count == 0) return;
     StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
     if([[IAPShare sharedHelper].iap.purchasedProducts containsObject:stickerPackage.productID]
-       || [stickerPackage.productID isEqualToString:@"FREE"]){
+       || [stickerPackage.price isEqualToString:@"FREE"]){
         self.isPurchase = YES;
     }
     else {
