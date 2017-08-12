@@ -12,7 +12,6 @@
 
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* iconView;
 @property (nonatomic,weak) IBOutlet UILabel* lbTitle;
-@property (nonatomic,weak) IBOutlet UILabel* lbFreeTrial;
 @property (nonatomic,weak) IBOutlet UILabel* lbFreeDownload;
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
 @property (nonatomic,weak) IBOutlet UIImageView* imgViewArrow;
@@ -58,11 +57,9 @@
     }
     if([[_packageDict objectForKey:@"price"] isEqualToString:@"FREE"]) {
         _lbFreeDownload.text = @"  FREE  ";
-        _lbFreeTrial.hidden = YES;
     }
     else {
         _lbFreeDownload.text = @"  0.99$  ";
-        _lbFreeTrial.hidden = NO;
     }
     _imgPlay.hidden = [[_packageDict objectForKey:@"isGif"] intValue] == 0 ? YES : NO;
     self.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -74,7 +71,6 @@
     _lbTitle.text = [pack.title capitalizedString];
     NSURL* iconUrl =  [[FileManager stickerFileURL] URLByAppendingPathComponent:pack.iconPath];
     [_iconView sd_setImageWithURL:iconUrl];
-    _lbFreeTrial.hidden = YES;
 }
 
 -(void)prepareForReuse {
