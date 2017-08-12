@@ -275,27 +275,13 @@
 		5F0133181F302CE800BCE9FC /* Shopping */ = {
 			isa = PBXGroup;
 			children = (
+				72CD9DE61F3F58C400B12710 /* Segment */,
+				72CD9DE51F3F58AF00B12710 /* Detail */,
+				72CD9DE41F3F589C00B12710 /* Header */,
+				72CD9DE31F3F589100B12710 /* Cell */,
 				5F8454171F25F71D00E62DDE /* ShoppingView.h */,
 				5F8454181F25F71D00E62DDE /* ShoppingView.m */,
 				5F0133101F30274400BCE9FC /* ShoppingView.xib */,
-				5F8796F51F298B7C0068179A /* ShoppingTableViewCell.h */,
-				5F8796F61F298B7C0068179A /* ShoppingTableViewCell.m */,
-				5F0133151F30295200BCE9FC /* ShoppingTableViewCell.xib */,
-				5F0133271F306F7700BCE9FC /* HeaderSectionView.h */,
-				5F0133281F306F7700BCE9FC /* HeaderSectionView.m */,
-				5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */,
-				5F01332F1F318A2500BCE9FC /* ShoppingDetailView.h */,
-				5F0133301F318A2500BCE9FC /* ShoppingDetailView.m */,
-				5F0133321F318A3000BCE9FC /* ShoppingDetailView.xib */,
-				5FFAA1DF1F381E6400228D4A /* OverlayView.h */,
-				5FFAA1E01F381E6400228D4A /* OverlayView.m */,
-				5FFAA1E21F381E7500228D4A /* OverlayView.xib */,
-				5FFAA1E81F39684D00228D4A /* SegmentView.h */,
-				5FFAA1E91F39684D00228D4A /* SegmentView.m */,
-				5FFAA1EB1F39685A00228D4A /* SegmentView.xib */,
-				72CD9DDC1F3F219200B12710 /* HeaderSectionViewTop.h */,
-				72CD9DDD1F3F219200B12710 /* HeaderSectionViewTop.m */,
-				72CD9DDF1F3F219E00B12710 /* HeaderSectionViewTop.xib */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -358,15 +344,14 @@
 		5F8454011F25EA3A00E62DDE /* MessagesExtension */ = {
 			isa = PBXGroup;
 			children = (
+				72CD9DE71F3F591000B12710 /* FooterCollection */,
+				72CD9DE21F3F587300B12710 /* Overlay */,
 				5F01331A1F302D4E00BCE9FC /* Base */,
 				5F0133191F302D0B00BCE9FC /* Manager */,
 				5F0133171F302CD700BCE9FC /* Library */,
 				5F0133181F302CE800BCE9FC /* Shopping */,
 				5F8454021F25EA3A00E62DDE /* MessagesViewController.h */,
 				5F8454031F25EA3A00E62DDE /* MessagesViewController.m */,
-				728DE8721F3577E400957253 /* FooterCollectionReusableView.h */,
-				728DE8731F3577E400957253 /* FooterCollectionReusableView.m */,
-				728DE8741F3577E400957253 /* FooterCollectionReusableView.xib */,
 				5F0133241F303B4D00BCE9FC /* StickerBrowserViewController.h */,
 				5F0133251F303B4D00BCE9FC /* StickerBrowserViewController.m */,
 				5F8454051F25EA3A00E62DDE /* MainInterface.storyboard */,
@@ -520,6 +505,69 @@
 				5FFAA1E61F39683500228D4A /* HMSegmentedControl.m */,
 			);
 			name = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		72CD9DE21F3F587300B12710 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				5FFAA1DF1F381E6400228D4A /* OverlayView.h */,
+				5FFAA1E01F381E6400228D4A /* OverlayView.m */,
+				5FFAA1E21F381E7500228D4A /* OverlayView.xib */,
+			);
+			name = Overlay;
+			sourceTree = "<group>";
+		};
+		72CD9DE31F3F589100B12710 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5F8796F51F298B7C0068179A /* ShoppingTableViewCell.h */,
+				5F8796F61F298B7C0068179A /* ShoppingTableViewCell.m */,
+				5F0133151F30295200BCE9FC /* ShoppingTableViewCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		72CD9DE41F3F589C00B12710 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				72CD9DDC1F3F219200B12710 /* HeaderSectionViewTop.h */,
+				72CD9DDD1F3F219200B12710 /* HeaderSectionViewTop.m */,
+				72CD9DDF1F3F219E00B12710 /* HeaderSectionViewTop.xib */,
+				5F0133271F306F7700BCE9FC /* HeaderSectionView.h */,
+				5F0133281F306F7700BCE9FC /* HeaderSectionView.m */,
+				5F01332A1F306F8700BCE9FC /* HeaderSectionView.xib */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		72CD9DE51F3F58AF00B12710 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				5F01332F1F318A2500BCE9FC /* ShoppingDetailView.h */,
+				5F0133301F318A2500BCE9FC /* ShoppingDetailView.m */,
+				5F0133321F318A3000BCE9FC /* ShoppingDetailView.xib */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		72CD9DE61F3F58C400B12710 /* Segment */ = {
+			isa = PBXGroup;
+			children = (
+				5FFAA1E81F39684D00228D4A /* SegmentView.h */,
+				5FFAA1E91F39684D00228D4A /* SegmentView.m */,
+				5FFAA1EB1F39685A00228D4A /* SegmentView.xib */,
+			);
+			name = Segment;
+			sourceTree = "<group>";
+		};
+		72CD9DE71F3F591000B12710 /* FooterCollection */ = {
+			isa = PBXGroup;
+			children = (
+				728DE8721F3577E400957253 /* FooterCollectionReusableView.h */,
+				728DE8731F3577E400957253 /* FooterCollectionReusableView.m */,
+				728DE8741F3577E400957253 /* FooterCollectionReusableView.xib */,
+			);
+			name = FooterCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

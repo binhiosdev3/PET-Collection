@@ -29,6 +29,7 @@
 @property (nonatomic,strong) StickerBrowserViewController* browserStickerVC;
 @property (nonatomic,weak) IBOutlet UIButton* btnShopping;
 @property (nonatomic,weak) IBOutlet UIImageView* topLine;
+@property (nonatomic,weak) IBOutlet FLAnimatedImageView* noStickerImg;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* topShoppingViewContraint;
 @property (nonatomic) NSInteger indexSelected;
 @property (nonatomic) BOOL isPurchase;

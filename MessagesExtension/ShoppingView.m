@@ -83,6 +83,7 @@
     _segmentSelected = segmentedControl.selectedSegmentIndex;
     _headerView.tfSearch.text = @"";
     [_headerView.tfSearch resignFirstResponder];
+    [self showMore:NO];
     _tagSectionSelected = -1;
     [_tableView setContentOffset:CGPointZero animated:NO];
     [_tableView reloadData];
@@ -171,6 +172,7 @@
         return;
     }
     self.tableView.hidden = NO;
+    self.headerView.segmentView.hidden = YES;
     _lbNoInternet.hidden = YES;
     if(_arrItemShow.count == 0) {
         self.indicatorView.hidden = NO;
@@ -196,6 +198,7 @@
                 weakself.indicatorView.hidden = YES;
                 [weakself.tableView reloadData];
                 [weakself generateTagsArray];
+                weakself.headerView.segmentView.hidden = NO;
             });
         }];
     }
@@ -343,7 +346,7 @@
     }
     else {
         _tagSectionSelected = tap.view.tag;
-        NSDictionary* dict = [_arrTags objectAtIndex:_tagSectionSelected-1];
+        NSDictionary* dict = [_arrTags objectAtIndex:_tagSectionSelected-2];
         NSString* tagSelected = [dict objectForKey:@"tag"];
         BlockWeakSelf weakSelf = self;
         [self.arrFilterMySticker enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -371,7 +374,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if(_segmentSelected == indexSegmentTag) {
-        return _arrTags.count + 1;
+        return _arrTags.count + 2;
     }
     return 2;
 }
@@ -389,7 +392,7 @@
             headerView = [self createHeaderTitle];
         }
         UILabel* titleLabel = (UILabel *)[headerView viewWithTag:999];
-        NSDictionary* dict = [_arrTags objectAtIndex:section-1];
+        NSDictionary* dict = [_arrTags objectAtIndex:section-2];
         titleLabel.text = [NSString stringWithFormat:@"#%@ (%@)",[[dict objectForKey:@"tag" ] capitalizedString],[dict objectForKey:@"num"]];
         headerView.tag = section;
         UIImageView* imgArrow = (UIImageView *)[headerView viewWithTag:888];
@@ -451,6 +454,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [_headerView.tfSearch resignFirstResponder];
+    if(!_isEditMode) {
+        [self showMore:NO];
+    }
+    
     NSDictionary* dict;
     if(!tableView.editing) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

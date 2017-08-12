@@ -167,7 +167,7 @@
                                     <action selector="handleShoppingButton:" destination="ObA-dk-sSI" eventType="touchUpInside" id="qdT-X9-rrv"/>
                                 </connections>
                             </button>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7AP-dd-RWg" customClass="OverlayView">
+                            <view alpha="0.0" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="7AP-dd-RWg" customClass="OverlayView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -208,10 +208,19 @@
                                             <action selector="handleShoppingButton:" destination="ObA-dk-sSI" eventType="touchUpInside" id="K75-tM-Hvl"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbI-vO-xDJ" customClass="FLAnimatedImageView">
+                                        <rect key="frame" x="98" y="-45" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="3qt-kX-d9W"/>
+                                            <constraint firstAttribute="width" secondItem="dbI-vO-xDJ" secondAttribute="height" multiplier="1:1" id="hzZ-ht-FHD"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="LpI-SV-BaL" firstAttribute="centerX" secondItem="HS2-jI-0tX" secondAttribute="centerX" id="4KM-nB-w2E"/>
+                                    <constraint firstItem="dbI-vO-xDJ" firstAttribute="bottom" secondItem="AWw-71-WA5" secondAttribute="top" id="6SW-ss-bRr"/>
+                                    <constraint firstItem="dbI-vO-xDJ" firstAttribute="centerX" secondItem="HS2-jI-0tX" secondAttribute="centerX" id="EwY-07-tF4"/>
                                     <constraint firstItem="AWw-71-WA5" firstAttribute="centerY" secondItem="HS2-jI-0tX" secondAttribute="centerY" id="LGR-Tp-h6p"/>
                                     <constraint firstItem="AWw-71-WA5" firstAttribute="leading" secondItem="HS2-jI-0tX" secondAttribute="leading" id="M76-9q-1Mr"/>
                                     <constraint firstAttribute="trailing" secondItem="AWw-71-WA5" secondAttribute="trailing" id="pbf-Ot-u4C"/>
@@ -263,6 +272,7 @@
                         <outlet property="btnShopping" destination="PBa-js-cTJ" id="Tee-je-Gev"/>
                         <outlet property="clIcon" destination="1eL-VH-hnQ" id="w93-BR-AR0"/>
                         <outlet property="clSticker" destination="Gf9-eb-kW9" id="vHb-KB-631"/>
+                        <outlet property="noStickerImg" destination="dbI-vO-xDJ" id="hrz-e7-moK"/>
                         <outlet property="noStickerView" destination="HS2-jI-0tX" id="2bS-h3-2VA"/>
                         <outlet property="overlayView" destination="7AP-dd-RWg" id="fWb-bb-2te"/>
                         <outlet property="shoppingView" destination="F5D-mf-dbR" id="CGO-rc-iaf"/>
