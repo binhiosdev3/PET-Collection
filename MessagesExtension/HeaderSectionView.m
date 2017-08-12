@@ -12,9 +12,6 @@
 
 
 - (void)showMySticker:(BOOL)show{
-    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/Gif/heo.gif"];
-    NSURL *imageURL = [NSURL fileURLWithPath:filePath];
-    [_imgView sd_setImageWithURL:imageURL];
     float alpha1;
     float alpha2;
     [self.btnRestore setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
@@ -64,7 +61,6 @@
         [weakSelf layoutIfNeeded];
     }];
 }
-
 
 
 @end

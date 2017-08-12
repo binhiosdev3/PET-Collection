@@ -76,7 +76,6 @@
 }
 
 - (void)checkPackagePurchase:(NSString*)productID {
-    
     if([[IAPShare sharedHelper].iap.purchasedProducts containsObject:productID]) {
         self.isPurchase = YES;
         self.viewSticker.hidden = NO;
@@ -438,6 +437,7 @@
 
 - (void)setIndexSelected:(NSInteger)indexSelected {
     _indexSelected = indexSelected;
+    self.isPurchase = NO;
     if([StickerManager getInstance].arrPackages.count == 0) return;
     StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
     if([[IAPShare sharedHelper].iap.purchasedProducts containsObject:stickerPackage.productID]

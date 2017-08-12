@@ -11,6 +11,7 @@
 #import "ShoppingDetailView.h"
 #import "ShoppingTableViewCell.h"
 #import "OverlayView.h"
+#import "HeaderSectionViewTop.h"
 
 @interface ShoppingView : BaseView
 @property (nonatomic,strong) NSMutableArray *arrItemShow;

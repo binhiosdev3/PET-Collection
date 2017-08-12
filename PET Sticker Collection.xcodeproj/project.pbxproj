@@ -76,6 +76,8 @@
 		728DE8801F35A21E00957253 /* IAPShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 728DE87A1F35A21E00957253 /* IAPShare.m */; };
 		728DE8811F35A21E00957253 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 728DE87C1F35A21E00957253 /* NSString+Base64.m */; };
 		728DE8821F35A21E00957253 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 728DE87E1F35A21E00957253 /* SFHFKeychainUtils.m */; };
+		72CD9DDE1F3F219200B12710 /* HeaderSectionViewTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CD9DDD1F3F219200B12710 /* HeaderSectionViewTop.m */; };
+		72CD9DE01F3F219E00B12710 /* HeaderSectionViewTop.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72CD9DDF1F3F219E00B12710 /* HeaderSectionViewTop.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +236,9 @@
 		728DE87C1F35A21E00957253 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		728DE87D1F35A21E00957253 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		728DE87E1F35A21E00957253 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		72CD9DDC1F3F219200B12710 /* HeaderSectionViewTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSectionViewTop.h; sourceTree = "<group>"; };
+		72CD9DDD1F3F219200B12710 /* HeaderSectionViewTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSectionViewTop.m; sourceTree = "<group>"; };
+		72CD9DDF1F3F219E00B12710 /* HeaderSectionViewTop.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSectionViewTop.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +293,9 @@
 				5FFAA1E81F39684D00228D4A /* SegmentView.h */,
 				5FFAA1E91F39684D00228D4A /* SegmentView.m */,
 				5FFAA1EB1F39685A00228D4A /* SegmentView.xib */,
+				72CD9DDC1F3F219200B12710 /* HeaderSectionViewTop.h */,
+				72CD9DDD1F3F219200B12710 /* HeaderSectionViewTop.m */,
+				72CD9DDF1F3F219E00B12710 /* HeaderSectionViewTop.xib */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -617,6 +625,7 @@
 				5F0133331F318A3000BCE9FC /* ShoppingDetailView.xib in Resources */,
 				5F0133161F30295200BCE9FC /* ShoppingTableViewCell.xib in Resources */,
 				5FFAA1EC1F39685A00228D4A /* SegmentView.xib in Resources */,
+				72CD9DE01F3F219E00B12710 /* HeaderSectionViewTop.xib in Resources */,
 				5F8454071F25EA3A00E62DDE /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -668,6 +677,7 @@
 				5F8797061F2997EB0068179A /* mztools.c in Sources */,
 				5F8454251F26F44900E62DDE /* StickerManager.m in Sources */,
 				5F8454651F27304B00E62DDE /* SDImageCache.m in Sources */,
+				72CD9DDE1F3F219200B12710 /* HeaderSectionViewTop.m in Sources */,
 				5F84542B1F27204B00E62DDE /* StickerPack.m in Sources */,
 				5F8454711F27304B00E62DDE /* UIImageView+HighlightedWebCache.m in Sources */,
 				5F8454211F26F34E00E62DDE /* FileManager.m in Sources */,

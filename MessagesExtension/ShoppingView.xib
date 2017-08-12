@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,19 +24,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2lE-nt-cEO">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
-                    <color key="backgroundColor" red="0.20599979162216187" green="0.71633285284042358" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="15" id="KKU-5g-j3H"/>
-                    </constraints>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="165621" translatesAutoresizingMaskIntoConstraints="NO" id="oe0-S8-5xj">
-                    <rect key="frame" x="0.0" y="-50" width="375" height="131"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="131" id="DtA-6K-fVG"/>
-                    </constraints>
-                </imageView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8lK-ni-qkc">
                     <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                 </activityIndicatorView>
@@ -66,7 +53,6 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hUq-Sq-DKb" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" constant="600" id="07o-e7-McP"/>
-                <constraint firstAttribute="trailing" secondItem="2lE-nt-cEO" secondAttribute="trailing" id="3eW-6t-IZ1"/>
                 <constraint firstItem="wRB-re-8Df" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" id="4Tg-fG-CVr"/>
                 <constraint firstAttribute="bottom" secondItem="hUq-Sq-DKb" secondAttribute="bottom" id="6zF-dm-sYb"/>
                 <constraint firstItem="tDK-tk-Uab" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" id="9WD-NX-NXP"/>
@@ -74,19 +60,14 @@
                 <constraint firstAttribute="bottom" secondItem="tDK-tk-Uab" secondAttribute="bottom" id="DJ1-Ke-m04"/>
                 <constraint firstAttribute="trailing" secondItem="wRB-re-8Df" secondAttribute="trailing" id="DTi-YQ-onv"/>
                 <constraint firstAttribute="bottom" secondItem="wRB-re-8Df" secondAttribute="bottom" id="EBa-CO-LOn"/>
-                <constraint firstItem="2lE-nt-cEO" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" id="Fwn-to-FwE"/>
                 <constraint firstItem="8lK-ni-qkc" firstAttribute="centerY" secondItem="CFq-is-Yw8" secondAttribute="centerY" id="Gpe-EX-Pg9"/>
-                <constraint firstItem="2lE-nt-cEO" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" id="LT0-eN-3hJ"/>
                 <constraint firstAttribute="trailing" secondItem="tDK-tk-Uab" secondAttribute="trailing" id="Nyt-FK-KQQ"/>
                 <constraint firstItem="hUq-Sq-DKb" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" id="PNC-gQ-gTV"/>
-                <constraint firstAttribute="trailing" secondItem="oe0-S8-5xj" secondAttribute="trailing" id="QB5-Mh-eqh"/>
                 <constraint firstItem="tDK-tk-Uab" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" id="V0C-bh-oNz"/>
-                <constraint firstItem="oe0-S8-5xj" firstAttribute="top" secondItem="CFq-is-Yw8" secondAttribute="top" constant="-50" id="ckV-3g-km9"/>
                 <constraint firstItem="wRB-re-8Df" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" id="cnZ-A8-vme"/>
                 <constraint firstItem="CGB-ek-foR" firstAttribute="centerY" secondItem="CFq-is-Yw8" secondAttribute="centerY" id="jsR-5N-MHl"/>
                 <constraint firstItem="CGB-ek-foR" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" constant="16" id="nDq-vg-kpo"/>
                 <constraint firstItem="8lK-ni-qkc" firstAttribute="centerX" secondItem="CFq-is-Yw8" secondAttribute="centerX" id="rWt-i3-Yai"/>
-                <constraint firstItem="oe0-S8-5xj" firstAttribute="leading" secondItem="CFq-is-Yw8" secondAttribute="leading" id="t7d-2N-kAS"/>
                 <constraint firstAttribute="trailing" secondItem="CGB-ek-foR" secondAttribute="trailing" constant="16" id="uk9-yz-LHs"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -95,7 +76,4 @@
             <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="165621" width="1920" height="986"/>
-    </resources>
 </document>

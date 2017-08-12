@@ -10,7 +10,7 @@
 #import "UIColor+Ext.h"
 
 #define HeightRow 75.f
-#define HeightHeader 140.f
+#define HeightHeader 68.f
 #define HeightHeaderTitle 40.f
 #define indexSegmentAll 0
 #define indexSegmentTag 1
@@ -25,6 +25,7 @@
 @property (nonatomic,strong) NSMutableArray *arrFilterMySticker;
 @property (nonatomic,strong) NSMutableArray *arrMySticker;
 @property (nonatomic, strong) HeaderSectionView* headerView;
+@property (nonatomic, strong) HeaderSectionViewTop* headerViewTop;
 @property (nonatomic, weak) IBOutlet ShoppingDetailView* detailView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint* leadingDetailViewContraint;
 @property (nonatomic, weak) IBOutlet UILabel* lbNoInternet;
@@ -37,6 +38,7 @@
 @property (nonatomic) BOOL isGetingJson;
 @property (nonatomic) NSInteger segmentSelected;
 @property (nonatomic) NSInteger tagSectionSelected;
+@property (nonatomic) BOOL isShowMore;
 @end
 
 @implementation ShoppingView
@@ -48,9 +50,11 @@
     _isGetingJson = NO;
     _arrMySticker = [NSMutableArray new];
     _arrDeletePack = [NSMutableArray new];
+    _headerViewTop = [[HeaderSectionViewTop alloc] init];
     _headerView = [[HeaderSectionView alloc] init];
     [_headerView.btnMySticker addTarget:self action:@selector(handleEditMySticker) forControlEvents:UIControlEventTouchUpInside];
     [_headerView.btnRestore addTarget:self action:@selector(handleRestoreClick) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView.btnMore addTarget:self action:@selector(handleMoreButton) forControlEvents:UIControlEventTouchUpInside];
     _headerView.tfSearch.delegate = self;
     [_headerView.tfSearch addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _headerView.tfSearch.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -79,7 +83,10 @@
     _segmentSelected = segmentedControl.selectedSegmentIndex;
     _headerView.tfSearch.text = @"";
     [_headerView.tfSearch resignFirstResponder];
+    _tagSectionSelected = -1;
+    [_tableView setContentOffset:CGPointZero animated:NO];
     [_tableView reloadData];
+    
 }
 
 - (void)completedAddPackage:(NSNotification*)notification {
@@ -145,6 +152,7 @@
     if(show) {
         self.alpha = 1.0;
         [self getJson];
+        [self showMore:NO];
     }
     else {
         self.alpha = 0.0;
@@ -370,6 +378,9 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if(section == 0) {
+        return _headerViewTop;
+    }
+    else if(section == 1) {
         return _headerView;
     }
     if(_segmentSelected == indexSegmentTag) {
@@ -395,7 +406,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if(section == 0) return HeightHeader;
+    if (section == 0) return 65;
+    if(section == 1) return HeightHeader;
     if(_segmentSelected == indexSegmentTag) return HeightHeaderTitle;
     return 0.f;
 }
@@ -483,6 +495,8 @@
     [self resetSegmentIndex];
     [_headerView.tfSearch resignFirstResponder];
     if(!_isEditMode) {
+        _headerView.traillingBtnMySticker.constant = 8.f;
+        _headerView.btnMore.hidden = YES;
         _isEditMode = YES;
         _indicatorView.hidden = YES;
         [_arrMySticker removeAllObjects];
@@ -490,8 +504,11 @@
         [_headerView showMySticker:YES];
         _tableView.allowsMultipleSelectionDuringEditing = true;
         _tableView.allowsSelectionDuringEditing = YES;
+        [_tableView setContentOffset:CGPointZero animated:NO];
     }
     else {
+        _headerView.btnMore.hidden = NO;
+        [self showMore:NO];
         if(self.isGetingJson) {
             _indicatorView.hidden = NO;
         }
@@ -507,6 +524,32 @@
     [self bringSubviewToFront:self.tableView];
 }
 
+
+- (void)handleMoreButton {
+    [_headerView.tfSearch resignFirstResponder];
+    [self showMore:!_isShowMore];
+}
+
+- (void)showMore:(BOOL)show {
+    if(show) {
+        _isShowMore = YES;
+        [_headerView.btnMore setImage:[[UIImage imageNamed:@"more"] imageMaskedWithColor:_headerView.btnMySticker.currentTitleColor] forState:UIControlStateNormal];
+        _headerView.traillingFullTfSearch.constant = 190;
+        _headerView.traillingBtnMySticker.constant = 50.f;
+    }
+    else {
+        _isShowMore = NO;
+        [_headerView.btnMore setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+        _headerView.traillingFullTfSearch.constant = 50;
+        _headerView.traillingBtnMySticker.constant = -150;
+    }
+    BlockWeakSelf weakSelf = self;
+    [UIView animateWithDuration:0.3 animations:^{
+        [weakSelf.headerView updateFocusIfNeeded];
+        [weakSelf.headerView layoutIfNeeded];
+    }];
+}
+
 - (void)saveEditMySticker {
     [[StickerManager getInstance].arrPackages removeAllObjects];
     [[StickerManager getInstance].arrPackages addObjectsFromArray:_arrMySticker];
@@ -515,6 +558,7 @@
 }
 
 - (void)handleRestoreClick {
+    
     [_headerView.tfSearch resignFirstResponder];
     if(_tableView.isEditing) { //delete
         for(NSIndexPath* indextPath in [_tableView indexPathsForSelectedRows]) {
@@ -530,13 +574,14 @@
         self.headerView.btnRestore.enabled = NO;
     }
     else { //restore
+        [self showMore:NO];
         [[NSNotificationCenter defaultCenter] postNotificationName:notification_click_restore object:nil];
     }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self showMore:NO];
     [self resetSegmentIndex];
-    [_headerView showfullTextFieldSearch:YES];
 }
 
 - (void)resetSegmentIndex {
@@ -555,11 +600,14 @@
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
-    [_headerView showfullTextFieldSearch:NO];
+
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
      [_headerView.tfSearch resignFirstResponder];
+    if(!_isEditMode) {
+        [self showMore:NO];
+    }
 }
 
 

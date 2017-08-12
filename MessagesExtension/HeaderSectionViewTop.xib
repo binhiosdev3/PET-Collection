@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderSectionViewTop"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="444" height="45"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wCT-Hu-6hp">
+                    <rect key="frame" x="0.0" y="-252" width="444" height="250"/>
+                    <color key="backgroundColor" red="0.20599979160000001" green="0.71633285280000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="ktW-rZ-Rve"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="165621" translatesAutoresizingMaskIntoConstraints="NO" id="upR-e4-qui">
+                    <rect key="frame" x="0.0" y="-84" width="444" height="131"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="131" id="8qg-zx-b7J"/>
+                    </constraints>
+                </imageView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRP-CR-2KU">
+                    <rect key="frame" x="0.0" y="0.0" width="444" height="45"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iSticker Store" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dX-Sh-wBp">
+                            <rect key="frame" x="15" y="9.5" width="176" height="35.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="176" id="Tgk-cQ-gmz"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="176" id="mRi-bx-zO4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="30"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="5dX-Sh-wBp" firstAttribute="leading" secondItem="QRP-CR-2KU" secondAttribute="leading" constant="15" id="Xnh-um-ZaS"/>
+                        <constraint firstAttribute="bottom" secondItem="5dX-Sh-wBp" secondAttribute="bottom" id="pAx-c6-f4O"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="upR-e4-qui" secondAttribute="trailing" id="68B-tJ-gr3"/>
+                <constraint firstItem="wCT-Hu-6hp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="B4f-pv-tGF"/>
+                <constraint firstItem="upR-e4-qui" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="CmJ-7G-BeR"/>
+                <constraint firstItem="QRP-CR-2KU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EA5-OE-0xO"/>
+                <constraint firstAttribute="bottom" secondItem="QRP-CR-2KU" secondAttribute="bottom" id="HZf-Gf-0VK"/>
+                <constraint firstAttribute="trailing" secondItem="QRP-CR-2KU" secondAttribute="trailing" id="LOi-97-sQH"/>
+                <constraint firstItem="QRP-CR-2KU" firstAttribute="top" secondItem="wCT-Hu-6hp" secondAttribute="bottom" constant="2" id="f3K-NN-Jgo"/>
+                <constraint firstAttribute="trailing" secondItem="wCT-Hu-6hp" secondAttribute="trailing" id="gWK-7s-V65"/>
+                <constraint firstAttribute="bottom" secondItem="upR-e4-qui" secondAttribute="bottom" constant="-2" id="lm9-Hx-WJJ"/>
+                <constraint firstItem="QRP-CR-2KU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qWz-bf-Mbc"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-11" y="-217.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="165621" width="1920" height="986"/>
+    </resources>
+</document>
