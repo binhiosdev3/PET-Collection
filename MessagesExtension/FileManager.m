@@ -118,6 +118,9 @@ static NSString *_rootLibraryPath = nil;
     NSString* price = [dict objectForKey:@"price"];
     NSURL *stickerURL = [[FileManager stickerFileURL] URLByAppendingPathComponent:productID];
     NSFileManager *fm = [NSFileManager defaultManager];
+    if([fm fileExistsAtPath:stickerURL.path]) {
+        [fm removeItemAtPath:stickerURL.path error:nil];
+    }
     if (![fm fileExistsAtPath:stickerURL.path]) {
         //write and unzip data
         NSString* pathZipFile = [[FileManager stickerFileURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip",productID]].path;
