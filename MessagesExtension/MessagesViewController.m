@@ -147,6 +147,7 @@
             if([StickerManager getInstance].arrDownloadingPack.count == 0){
                 [weakSelf showAlertViewWithText:@"Restore completed!"];
                 [weakSelf reloadData];
+                weakSelf.isRestoring = NO;
             }
             else {
                 [weakSelf showLoadingViewWithText:[NSString stringWithFormat:@"Downloading %ld package(s)...",(unsigned long)[StickerManager getInstance].arrDownloadingPack.count]];
