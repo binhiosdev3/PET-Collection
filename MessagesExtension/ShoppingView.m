@@ -161,6 +161,10 @@
         [self resetSegmentIndex];
         _headerView.tfSearch.text = @"";
         [_headerView.tfSearch resignFirstResponder];
+        if(self.isEditMode) {
+           [self handleEditMySticker];
+        }
+        
     }
 }
 
