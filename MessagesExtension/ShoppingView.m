@@ -77,6 +77,7 @@
     self.leadingDetailViewContraint.constant = self.frame.size.width;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 50, 0)];
     _lbNoInternet.hidden = YES;
+    [_headerView.btnMore setImage:[[UIImage imageNamed:@"more"] imageMaskedWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
@@ -546,7 +547,7 @@
     }
     else {
         _isShowMore = NO;
-        [_headerView.btnMore setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+        [_headerView.btnMore setImage:[[UIImage imageNamed:@"more"] imageMaskedWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
         _headerView.traillingFullTfSearch.constant = 50;
         _headerView.traillingBtnMySticker.constant = -150;
     }

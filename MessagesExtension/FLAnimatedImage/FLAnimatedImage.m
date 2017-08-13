@@ -192,6 +192,7 @@ int accept_optimal_cache (int image_mem)
     
     /* Stats in bytes */
     uintptr_t mem_free = vm_stat.free_count * pagesize;
+    if(image_mem == 0) return 0;
     int remain = (int)mem_free/(image_mem*MEGABYTE);
     if (remain <= 2)
         return 0;
