@@ -82,13 +82,23 @@
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     _segmentSelected = segmentedControl.selectedSegmentIndex;
-    _headerView.tfSearch.text = @"";
+    [self resetSearchText];
     [_headerView.tfSearch resignFirstResponder];
     [self showMore:NO];
     _tagSectionSelected = -1;
     [_tableView setContentOffset:CGPointZero animated:NO];
     [_tableView reloadData];
     
+}
+
+- (void)resetSearchText {
+    if(_headerView.tfSearch.text.length > 0) {
+        _headerView.tfSearch.text = @"";
+        [self handleSearch];
+    }
+    else {
+        _headerView.tfSearch.text = @"";
+    }
 }
 
 - (void)completedAddPackage:(NSNotification*)notification {
@@ -160,7 +170,7 @@
     else {
         self.alpha = 0.0;
         [self resetSegmentIndex];
-        _headerView.tfSearch.text = @"";
+        [self resetSearchText];
         [_headerView.tfSearch resignFirstResponder];
         if(self.isEditMode) {
            [self handleEditMySticker];

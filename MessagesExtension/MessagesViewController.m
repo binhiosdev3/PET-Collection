@@ -53,20 +53,18 @@
 }
 
 - (void)setupIAPHelper {
-    if(![IAPShare sharedHelper].iap) {
-        NSSet* dataSet;
-        NSDictionary* dict = [userDefaults objectForKey:JSON_DATA_ARR];
-        if(dict) {
-            NSArray* jsonSticker = [[NSMutableArray alloc] initWithArray:[dict objectForKey:@"sticker"]];
-            NSMutableArray* arrProductId = [NSMutableArray new];
-            for(NSDictionary*dict in jsonSticker) {
-                [arrProductId addObject:[dict objectForKey:@"product_id"]];
-            }
-            [arrProductId addObjectsFromArray:DEFAULT_STICKER_PACKAGE_PRODUCTID];
-            dataSet = [[NSSet alloc] initWithArray:arrProductId];
-            [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
-            [IAPShare sharedHelper].iap.production = APP_STORE ? YES : NO;
+    NSSet* dataSet;
+    NSDictionary* dict = [userDefaults objectForKey:JSON_DATA_ARR];
+    if(dict) {
+        NSArray* jsonSticker = [[NSMutableArray alloc] initWithArray:[dict objectForKey:@"sticker"]];
+        NSMutableArray* arrProductId = [NSMutableArray new];
+        for(NSDictionary*dict in jsonSticker) {
+            [arrProductId addObject:[dict objectForKey:@"product_id"]];
         }
+        [arrProductId addObjectsFromArray:DEFAULT_STICKER_PACKAGE_PRODUCTID];
+        dataSet = [[NSSet alloc] initWithArray:arrProductId];
+        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+        [IAPShare sharedHelper].iap.production = APP_STORE ? YES : NO;
     }
 }
 
