@@ -32,7 +32,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="371" height="45"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yGO-UE-1sn" customClass="imgTitle">
-                            <rect key="frame" x="15" y="0.0" width="212" height="45"/>
+                            <rect key="frame" x="15" y="5" width="212" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="1gM-R8-F46"/>
                                 <constraint firstAttribute="width" constant="212" id="jBu-c3-QEm"/>
@@ -41,7 +41,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="yGO-UE-1sn" secondAttribute="bottom" id="McJ-kE-xxP"/>
+                        <constraint firstAttribute="bottom" secondItem="yGO-UE-1sn" secondAttribute="bottom" constant="-5" id="McJ-kE-xxP"/>
                         <constraint firstItem="yGO-UE-1sn" firstAttribute="leading" secondItem="QRP-CR-2KU" secondAttribute="leading" constant="15" id="WC7-Im-zGw"/>
                     </constraints>
                 </view>
