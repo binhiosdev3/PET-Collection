@@ -65,15 +65,9 @@
             [arrProductId addObjectsFromArray:DEFAULT_STICKER_PACKAGE_PRODUCTID];
             dataSet = [[NSSet alloc] initWithArray:arrProductId];
             [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
-            
+            [IAPShare sharedHelper].iap.production = APP_STORE ? YES : NO;
         }
-        else {
-            dataSet = [[NSSet alloc] initWithArray:DEFAULT_STICKER_PACKAGE_PRODUCTID];
-        }
-        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
-        
     }
-    [IAPShare sharedHelper].iap.production = APP_STORE ? YES : NO;
 }
 
 - (void)checkPackagePurchase:(NSString*)productID {
@@ -126,6 +120,9 @@
     [self displayContentController:_browserStickerVC];
     
     _noStickerView.hidden = [StickerManager getInstance].arrPackages.count == 0 ? NO : YES;
+    NSString *filePath = [[NSBundle mainBundle].resourcePath stringByAppendingFormat:@"/Stickers/Gif/meo.gif"];
+    NSURL*imageURL = [NSURL fileURLWithPath:filePath];
+    [_noStickerImg sd_setImageWithURL:imageURL];
 }
 
 - (void)addObserver {
@@ -472,9 +469,16 @@
 
 -(IBAction)handlePurchase {
     [self showLoadingViewWithText:@"Purchasing..."];
+    [self setupIAPHelper];
     BlockWeakSelf weakSelf = self;
     StickerPack* stickerPackage = [[StickerManager getInstance].arrPackages objectAtIndex:_indexSelected];
-    if([IAPShare sharedHelper].iap.products.count == 0) {
+    SKProduct* product;
+    for(product in [IAPShare sharedHelper].iap.products) {
+        if([product.productIdentifier isEqualToString:stickerPackage.productID]) {
+            break;
+        }
+    }
+    if(!product) {
         [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response)
          {
              if(response > 0 ) {
@@ -489,18 +493,17 @@
          }];
     }
     else {
-        SKProduct* product;
-        for(product in [IAPShare sharedHelper].iap.products) {
-            if([product.productIdentifier isEqualToString:stickerPackage.productID]) {
-                break;
-            }
-        }
         [self buyProduct:product];
     }
     
 }
 
+
 - (void)buyProduct:(SKProduct*)product {
+    if(!product) {
+        [self handlePurchase];
+        return;
+    }
     NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]);
     NSLog(@"Title: %@",product.localizedTitle);
     BlockWeakSelf weakSelf = self;

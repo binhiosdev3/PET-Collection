@@ -155,6 +155,7 @@
         self.alpha = 1.0;
         [self getJson];
         [self showMore:NO];
+        [_tableView setContentOffset:CGPointZero animated:NO];
     }
     else {
         self.alpha = 0.0;
