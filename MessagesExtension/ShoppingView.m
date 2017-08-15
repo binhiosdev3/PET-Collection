@@ -182,7 +182,7 @@
 - (void)getJson {
     if(![Util isInternetActived]) {
         if(_arrItemShow.count == 0) {
-            _lbNoInternet.hidden = NO;
+            [Util showAlertWithTitle:@"" andMessage:@"No internet connection!"];
         }
         self.indicatorView.hidden = YES;
         return;
