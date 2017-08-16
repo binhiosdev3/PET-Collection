@@ -52,7 +52,7 @@ static bool islefttoright;
         weakSelf.downloadIndicator.hidden = YES;
         weakSelf.btnDownload.alpha = 1.0;
     }
-    
+    if(!weakSelf.dictSticker) return;
     NSDictionary* dict = notification.userInfo;
     NSString* strID =  [NSString stringWithFormat:@"%@",[dict objectForKey:@"productID_sticker"]];
     NSString* strID2 =  [NSString stringWithFormat:@"%@",[weakSelf.dictSticker objectForKey:@"product_id"]];

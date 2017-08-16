@@ -14,6 +14,7 @@
 @property (nonatomic,weak) IBOutlet UILabel* lbTitle;
 @property (nonatomic,weak) IBOutlet UILabel* lbFreeDownload;
 @property (nonatomic,weak) IBOutlet KBRoundedButton* btnDownload;
+@property (nonatomic,weak) IBOutlet UIButton* btnDownloadBack;
 @property (nonatomic,weak) IBOutlet UIImageView* imgViewArrow;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint* heightPreviewImg;
 @property (nonatomic,weak) IBOutlet FLAnimatedImageView* previewImg;
@@ -46,6 +47,7 @@
     _packageDict = dict;
     _btnDownload.hidden = NO;
     _lbFreeDownload.hidden = NO;
+    _btnDownloadBack.hidden = NO;
     NSString* str = [_packageDict objectForKey:@"icon"];
     _lbTitle.text = [[_packageDict objectForKey:@"title"] capitalizedString];
     [_iconView sd_setImageWithURL:[NSURL URLWithString:str]];
@@ -68,6 +70,7 @@
 - (void)loadCellWithPackage:(StickerPack*)pack {
     _btnDownload.hidden = YES;
     _lbFreeDownload.hidden = YES;
+    _btnDownloadBack.hidden = YES;
     _lbTitle.text = [pack.title capitalizedString];
     NSURL* iconUrl =  [[FileManager stickerFileURL] URLByAppendingPathComponent:pack.iconPath];
     [_iconView sd_setImageWithURL:iconUrl];

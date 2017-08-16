@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T0E-Ko-sET" id="2dX-4C-KIk">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mWc-p4-9X0" customClass="FLAnimatedImageView">
@@ -95,6 +95,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="btnDownload" destination="fuc-wd-cnD" id="5Be-du-zJK"/>
+                <outlet property="btnDownloadBack" destination="xls-rc-JiF" id="s0V-uf-2R4"/>
                 <outlet property="iconView" destination="mWc-p4-9X0" id="nci-fY-VYA"/>
                 <outlet property="imgPlay" destination="ncb-iq-0Cr" id="t5t-M9-AuB"/>
                 <outlet property="lbFreeDownload" destination="jx4-Hh-IEg" id="im6-lO-7Oa"/>
