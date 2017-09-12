@@ -182,7 +182,7 @@
 - (void)getJson {
     if(![Util isInternetActived]) {
         if(_arrItemShow.count == 0) {
-            [Util showAlertWithTitle:@"" andMessage:@"No internet connection!"];
+            _lbNoInternet.hidden = NO;
         }
         self.indicatorView.hidden = YES;
         return;
@@ -195,7 +195,7 @@
     }
     BlockWeakSelf weakself = self;
     _isGetingJson = YES;
-    NSString* strUrl = [userDefaults objectForKey:JSON_URL_KEY];
+    NSString* strUrl = [userDefaults objectForKey:JSON_URL_KEY];//Waiting_sticker;
     if(strUrl.length == 0) {
         [Util getConfigIfNeededWithCompleteBlock:^(NSString *responseObject) {
             if(responseObject) {
@@ -515,6 +515,7 @@
 
 
 - (void)handleEditMySticker {
+    _lbNoInternet.hidden = YES;
     [self resetSegmentIndex];
     [_headerView.tfSearch resignFirstResponder];
     if(!_isEditMode) {

@@ -61,7 +61,7 @@
         _lbFreeDownload.text = @"  FREE  ";
     }
     else {
-        _lbFreeDownload.text = @"  0.99$  ";
+        _lbFreeDownload.text = [NSString stringWithFormat:@"  %@  ",[_packageDict objectForKey:@"price"]];
     }
     _imgPlay.hidden = [[_packageDict objectForKey:@"isGif"] intValue] == 0 ? YES : NO;
     self.selectionStyle = UITableViewCellSelectionStyleBlue;
